@@ -1,8 +1,12 @@
 
 // Dependensies
-const http    = require('http');
-const express = require('express');
-const logger  = require('morgan');
+const http       = require('http');
+const express    = require('express');
+const logger     = require('morgan');
+const bodyparser = require('body-parser');
+
+require('./models/db');
+require('./controllers/passport');
 
 // ------------------------------------------------------------------
 
@@ -14,7 +18,8 @@ const server  = http.createServer(app);
 // ------------------------------------------------------------------
 
 //Routes
-const routes   = require('./routes/index');
+const auth   = require('./routes/auth');
+const view   = require('./routes/view');
 
 // ------------------------------------------------------------------
 
@@ -26,12 +31,15 @@ app.set('views', __dirname + '/views');
 
 // Middleware for every path
 app.use(logger('dev'));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
 // ------------------------------------------------------------------
 
 // Middleware for specific path
-app.use(routes);
+app.use(auth);
+app.use(view);
 
 // ------------------------------------------------------------------
 
@@ -64,9 +72,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// ----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 
 // Server listener
 server.listen(port, function() {
-  console.log( 'http://localhost:' + port + ' : server has been launched' );
+  console.log( 'http://localhost:' + port 
+    + ' : server has been launched' );
 });
