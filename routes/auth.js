@@ -3,14 +3,14 @@
 const express = require('express');
 const router  = express.Router();
 
+const signup  = require('../controllers/auth.signup');
 const signin  = require('../controllers/auth.signin');
-const login   = require('../controllers/auth.login');
 
 // ------------------------------------------------------------------
 
 // Authentication
+router.post('/signup', signup);
 router.post('/signin', signin);
-router.post('/login', login);
 
 // ------------------------------------------------------------------
 

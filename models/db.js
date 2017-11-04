@@ -21,3 +21,4 @@ mongoose.connection.on('disconnected', function() {
 require('./user');
 require('./topic');
 require('./rule');
+require('./group');

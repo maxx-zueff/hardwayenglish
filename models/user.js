@@ -45,6 +45,10 @@ const userSchema = new Schema({
 		required: true
 	},
 	hash: String,
+	group: {
+		type: Schema.Types.ObjectId,
+		ref: 'Group'
+	},
 	topic: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Topic'

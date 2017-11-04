@@ -4,6 +4,7 @@ const http       = require('http');
 const express    = require('express');
 const logger     = require('morgan');
 const bodyparser = require('body-parser');
+const jwt        = require('jsonwebtoken'); 
 
 require('./models/db');
 require('./controllers/passport');
@@ -20,6 +21,7 @@ const server  = http.createServer(app);
 //Routes
 const auth   = require('./routes/auth');
 const view   = require('./routes/view');
+const admin  = require('./routes/admin');
 
 // ------------------------------------------------------------------
 
@@ -29,28 +31,35 @@ app.set('views', __dirname + '/views');
 
 // ------------------------------------------------------------------
 
+// Middleware function handles
+var check_token = function (req, res, next) {
+  if (req.body && req.body.token) {
+      req.user = jwt.verify(req.body.token, 'LOVE');
+      return next();
+  }
+
+  return next();
+};
+
+// ------------------------------------------------------------------
+
 // Middleware for every path
 app.use(logger('dev'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
+app.use(check_token);
 
 // ------------------------------------------------------------------
 
 // Middleware for specific path
 app.use(auth);
 app.use(view);
+app.use(admin);
 
 // ------------------------------------------------------------------
 
 // Error handlers
-
-// Catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
 
 // Development error handler will print stacktrace
 if (app.get('env') === 'development') {

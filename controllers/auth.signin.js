@@ -1,42 +1,32 @@
 
 // Dependencies
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const passport = require('passport');
+
+const User     = mongoose.model('User');
 
 // ------------------------------------------------------------------
 
-let sendJSONresponse = function(res, status, content) {
-    res.status(status);
-    res.json(content);
-};
+module.exports = function(req, res) {
 
-module.exports = function (req, res, next) {
+    let auth = passport.authenticate('local', function (err, user, info) {
 
-    if (!req.body.username || !req.body.password) {
-        return sendJSONresponse(res, 400, {
-            "message": "All fields required",
-            username : req.body.username,
-            password : req.body.password
-        });
-    }
-
-    let user = new User({
-        name: req.body.username
+        // If Passport throws/catches an error
+        if (err) {
+            res.status(404).json(err);
+            return;
+        }
+        // If a user is found
+        if (user) {
+            var token = user.generate_jwt();
+            res.status(200);
+            res.json(token);
+        }
+        else {
+            // If user is not found
+            res.status(401).json(info);
+        }
     });
 
-    // Add the salt and the hash to the instance
-    user.set_password(req.body.password);
-
-    // Save the instance as a record to the database
-    user.save(function(err) {
-
-        if (err) console.log(err);
-
-        // Generate a JWT
-        let token = user.generate_jwt();
-
-        // Send the JWT inside the JSON response
-        res.status(200);
-        res.json(token);
-    });
+    auth(req, res);
 };
