@@ -1,3 +1,7 @@
+# Type English
+
+Type. Wait. Type. Wait. Type. Wait. Ty...
+
 # Description
 
 **Type English** is a collection of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. There are groups of rule in specific topics. At the start of learning allowed only one topic with rules belong to group (Present Simple for example). To unlock more topics you should make an effort and be patient. You should work hard in order to learn what English is!
