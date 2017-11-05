@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const async    = require('async');
 
-const User = mongoose.model('User');
 const Topic = mongoose.model('Topic');
 
 // ------------------------------------------------------------------
@@ -10,20 +9,6 @@ const Topic = mongoose.model('Topic');
 module.exports = function(req, res) {
 
 	async.waterfall([
-
-		// Check permission
-		function(callback) {
-
-			User.findById(req.user._id).populate('group')
-			.exec(function (err, user) {
-				if (err) res.send(err);
-				if (user.group.name !== "admin") {
-					res.send('No Permission');
-				}
-
-				callback(null);
-			});
-		},
 
 		// Create new topic
 		function(callback) {
