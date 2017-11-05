@@ -12,6 +12,10 @@ When you complete each rule in topic you should wait eight hours and then you'll
 
 And after ten days of passing topic, you need to pass the exam. At this point every opened topics gets locked and you must type examples from you old topic you pass ten day ago without mistakes! After complete it, opened topics by you come back.
 
+## DataBase Structure
+
+![Schema](./readme_fig/db.png)
+
 ## Conclusion
 
 I can't see any easy way of learning english. Every sweet Victory requires hard patience and experience. You should repeat rules and work pretty hard out. If you don't like my idea, you can leave my website alone.
