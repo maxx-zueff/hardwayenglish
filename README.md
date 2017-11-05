@@ -16,6 +16,10 @@ And after ten days of passing topic, you need to pass the exam. At this point ev
 
 ![Schema](./readme_fig/db.png)
 
+## Routes
+
+See [routes section](./ROUTES.md) to learn more about how they work.
+
 ## Conclusion
 
 I can't see any easy way of learning english. Every sweet Victory requires hard patience and experience. You should repeat rules and work pretty hard out. If you don't like my idea, you can leave my website alone.

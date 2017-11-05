@@ -5,15 +5,15 @@ const jwt       = require('jsonwebtoken');
 const router    = express.Router();
 
 
-const permission = require('../controllers/admin.permission');
-const add_topic  = require('../controllers/topic.add');
-const del_topic  = require('../controllers/topic.remove');
+const permission = require('../controllers/permission');
+const topic      = require('../controllers/topic');
 
 // ------------------------------------------------------------------
 
-// Add / remove topic
-router.post('/add-topic', permission, add_topic);
-router.post('/del-topic', permission, del_topic);
+// add / update / remove topic
+router.post('/add-topic', permission, topic.add);
+router.post('/up-topic', permission, topic.update);
+router.post('/del-topic', permission, topic.remove);
 
 // ------------------------------------------------------------------
 
