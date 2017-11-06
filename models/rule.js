@@ -8,7 +8,7 @@ const ruleSchema = new Schema({
 	example: [String],
 	topic: {
 		type: Schema.Types.ObjectId,
-		ref: 'Topic'
+		ref: 'Rule'
 	}
 });
 

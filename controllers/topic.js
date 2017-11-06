@@ -28,7 +28,7 @@ module.exports.add = function(req, res) {
 
 	// Save new topic	
 	], function (err, topic) {
-		if (err) console.log(err);
+		if (err) return res.send(err);
 
 		topic.save(function(err, topic){
 			if (err) res.send(err);
@@ -43,9 +43,22 @@ module.exports.add = function(req, res) {
 // ------------------------------------------------------------------
 
 module.exports.update = function(req, res) {
-
+	
+	Topic.findOneAndUpdate(
+		
+		{ name: req.body.old_name },
+		{ $set: { name: req.body.new_name} },
+		{ new: true },
+		
+		function(err, topic) {
+			if (err) return res.send(err);
+			res.json({ 
+				name : topic.name,
+				order : topic.order
+			});
+		}
+	);
 };
-
 
 // ------------------------------------------------------------------
 
@@ -53,10 +66,9 @@ module.exports.remove = function(req, res) {
 	
 	Topic.findOneAndRemove({name: req.body.topic})
 	.exec(function (err, topic) {
-		if (err) return res.send(err);
-		if (!topic) return res.send("No topics found\n");
+		if (err) return res.json({status: err });
+		if (!topic) return res.json({ status: "No topics found" });
 		
-		res.send(req.body.topic + " has removed\n");
+		res.json({ status: true });
 	});
-
 };
