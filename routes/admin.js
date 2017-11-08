@@ -19,7 +19,8 @@ router.post('/del-topic', permission, topic.remove);
 
 // add / update / remove topic
 router.post('/add-rule', permission, rule.add);
-
+router.post('/up-rule', permission, rule.update);
+router.post('/del-rule', permission, rule.remove);
 
 // ------------------------------------------------------------------
 

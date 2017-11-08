@@ -99,7 +99,40 @@ POST /add-rule
 ```json
 {
   "name" : "New Rule",
-  "order" : 1
+  "content" : "md",
+  "example" : ["md1", "md2"...],
+  "order" : 1,
+  "topic" : "Topic Name"
 }
 ```
 
+### Update rule (for admins)
+
+```http
+POST /del-rule
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",           // REQUIRED!
+  "name" : "New Rule",                 // REQUIRED!
+  "topic" : "Topic Name",              // REQUIRED!
+  "order" : 3,
+  "content" : "md",
+  "example" : "md"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "name" : "New Rule",
+  "content" : "md",
+  "example" : ["md1", "md2"...],
+  "order" : 1,
+  "topic" : "Topic Name"
+}
+```

@@ -82,9 +82,109 @@ module.exports.add = function(req, res) {
 					name: rule.name,
 					content: rule.content,
 					example: rule.example,
-					order : rule.order
+					order : rule.order,
+					topic: topic.name
 				});
 			}
 		);
+	});
+};
+
+// ------------------------------------------------------------------
+
+module.exports.update = function(req, res) {
+
+	async.waterfall([
+
+		// Find topic
+		function(callback) {
+
+			Topic.findOne({name: req.body.topic})
+			.exec(function(err, topic) {
+
+				if (err) return res.json({status: err });
+				callback(null, topic);
+			});
+		},
+
+		// Set flex params
+		function(topic, callback) {
+
+			let body = req.body;
+			let update = {};
+
+			for (var par in body) {
+
+				if (par == 'name'
+				   || par == 'content'
+				   || par == 'example'
+				   || par == 'order') {
+
+					update[par] = body[par];
+				}
+			}
+
+			callback(null, topic, update);
+
+		}
+
+	// Find and update rule
+	], function(err, topic, update) {
+
+		Rule.findOneAndUpdate(
+			
+			{ name: req.body.name, topic: topic._id },
+			{ $set: update },
+			{ new: true },
+
+			function(err, rule) {
+				if (err) return res.send(err);
+				if (rule == null) return res.send('Not found!');
+
+				res.json({ 
+					name: rule.name,
+					content: rule.content,
+					example: rule.example,
+					order : rule.order,
+					topic: topic.name
+				});
+			}
+		);
+	});
+
+};
+
+// ------------------------------------------------------------------
+
+module.exports.remove = function(req, res) {
+
+	async.waterfall([
+
+		// Find topic
+		function(callback) {
+
+			Topic.findOne({name: req.body.topic})
+			.exec(function(err, topic) {
+
+				if (err) return res.json({status: err });
+				callback(null, topic);
+			});
+		}
+
+	// Find and remove rule
+	], function(err, topic) {
+
+		if (err) return res.json({status: err });
+
+		Rule.findOneAndRemove({name: req.body.name, topic: topic._id})
+		.exec(function(err, rule) {
+			
+			if (err) return res.json({status: err });
+			if (!topic) {
+				return res.json({ status: "No topics found" });
+			}
+	
+			res.json({ status: true });
+		});
 	});
 };
