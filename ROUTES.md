@@ -74,6 +74,34 @@ POST /del-topic
 }
 ```
 
+
+### Get allowed topics
+
+```http
+POST /get-topics
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+}
+```
+
+*Successful Response*
+
+```json
+[{
+  "name" : "Topic Name",
+  "allowed" : true
+},
+{
+ "name" : "Another Topic",
+ "allowed" : false
+}]
+```
+
 ## Rules management
 
 ### Add rule (for admins)
@@ -89,7 +117,7 @@ POST /add-rule
   "token" : "Esf24#rsaf...",
   "name" : "New Rule",
   "content" : "md",
-  "example" : ["md1", "md2"...],
+  "example" : ["md1", "md2"],
   "topic" : "Topic Name"
 }
 ```
@@ -100,7 +128,7 @@ POST /add-rule
 {
   "name" : "New Rule",
   "content" : "md",
-  "example" : ["md1", "md2"...],
+  "example" : ["md1", "md2"],
   "order" : 1,
   "topic" : "Topic Name"
 }
@@ -121,7 +149,7 @@ POST /del-rule
   "topic" : "Topic Name",              // REQUIRED!
   "order" : 3,
   "content" : "md",
-  "example" : "md"
+  "example" : ["md1", "md2"]
 }
 ```
 
@@ -131,8 +159,33 @@ POST /del-rule
 {
   "name" : "New Rule",
   "content" : "md",
-  "example" : ["md1", "md2"...],
+  "example" : ["md1", "md2"],
   "order" : 1,
   "topic" : "Topic Name"
 }
 ```
+
+### Remove rule (for admins)
+
+```http
+POST /up-rule
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...", 
+  "topic" : "Topic Name",
+  "rule"  : "Rule Name"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "status" : true
+}
+```
+

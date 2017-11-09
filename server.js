@@ -19,7 +19,7 @@ const server  = http.createServer(app);
 // ------------------------------------------------------------------
 
 //Routes
-const auth   = require('./routes/auth');
+const users  = require('./routes/users');
 const view   = require('./routes/view');
 const admin  = require('./routes/admin');
 
@@ -53,7 +53,7 @@ app.use(check_token);
 // ------------------------------------------------------------------
 
 // Middleware for specific path
-app.use(auth);
+app.use(users);
 app.use(view);
 app.use(admin);
 
