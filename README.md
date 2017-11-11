@@ -1,10 +1,10 @@
 # Type English
 
-Type. Wait. Type. Wait. Type. Wait. Ty...
+Type. Wait. Repeat.
 
 ## Description
 
-**Type English** is a collection of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. There are groups of rule in specific topics. At the start of learning allowed only one topic with rules (Present Simple for example). To unlock more topics you should make an effort and be patient. You should work hard in order to learn what English is!
+**Type English** is a collection of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. There are groups of rule in specific topics. At the beginning of learning allowed only one topic with rules (Present Simple for example). To unlock more topics you should make an effort and be patient. You should work hard in order to learn what English is!
 
 Every rule has few examples with construction of following rule. You should type this examples to pass next rule. The application counts a typing speed and amount of mistakes while you are typing. If you have many mistakes or very slow speed the application doesn’t allow you to next rule.
 

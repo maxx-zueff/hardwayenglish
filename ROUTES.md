@@ -189,3 +189,42 @@ POST /up-rule
 }
 ```
 
+### Get allowed rules
+
+```http
+POST /get-rule
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+  "topic" : "Topic Name"
+}
+```
+
+
+*Successful Response*
+
+```json
+{
+  "mistake" 5,
+  "rules" : [
+    {
+      "name" : "First Rule",
+      "content" : "md",
+      "example" : ["md1", "md2"],
+      "order" : 1,
+      "topic" : "Topic Name"
+    },
+    {
+      "name" : "Second Rule",
+      "content" : "md",
+      "example" : ["md1", "md2"],
+      "order" : 2,
+      "topic" : "Topic Name"
+    }
+  ]
+}
+```
