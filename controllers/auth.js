@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const async    = require('async');
 const passport = require('passport');
 
-const User = mongoose.model('User');
+const User  = mongoose.model('User');
 const Group = mongoose.model('Group');
+const Topic = mongoose.model('Topic');
+const Stage = mongoose.model('Stage');
 
 // ------------------------------------------------------------------
 
@@ -26,36 +28,48 @@ module.exports.signup = function (req, res, next) {
         });
     }
 
-    async.waterfall([
+    async.parallel({
 
-        function(callback) {
+        group : function(callback) {
             Group.findOne({"name":"member"}, function(err, group) {
                 if (err) return handleError(err);
                 callback(null, group);
             });
         },
 
-        function(group, callback) {
-
-            let user = new User({
-                name: req.body.username,
-                group: group._id
+        topic : function(callback) {
+            Topic.findOne({ order : 1 }, function(err, topic) {
+                if (err) return handleError(err);
+                callback(null, topic);
             });
+        },
 
-            // Add the salt and the hash to the instance
-            user.set_password(req.body.password);
-
-            callback(null, user);
+        stage : function(callback) {
+            Stage.findOne({ stage : 1 }, function(err, stage) {
+                if (err) return handleError(err);
+                callback(null, stage);
+            });
         }
 
-    ], function (err, user) {
-        
-        if (err) console.log(err);
+    }, function(err, result) {
+        if (err) return res.send(err);
 
+        let user = new User({
+            name: req.body.username,
+            group: result.group._id,
+            topic: [{
+               name: [result.topic._id],
+               stage: result.stage._id 
+            }]
+        });
+
+        // Add the salt and the hash to the instance
+        user.set_password(req.body.password);
+        
         // Save the instance as a record to the database
         user.save(function(err) {
 
-            if (err) console.log(err);
+            if (err) return res.send(err);
 
             // Generate a JWT
             let token = user.generate_jwt();
@@ -72,24 +86,26 @@ module.exports.signup = function (req, res, next) {
 
 module.exports.signin = function(req, res) {
 
-    let auth = passport.authenticate('local', function (err, user, info) {
+    let auth = passport.authenticate('local', 
+        function (err, user, info) {
 
-        // If Passport throws/catches an error
-        if (err) {
-            res.status(404).json(err);
-            return;
+            // If Passport throws/catches an error
+            if (err) {
+                res.status(404).json(err);
+                return;
+            }
+            // If a user is found
+            if (user) {
+                var token = user.generate_jwt();
+                res.status(200);
+                res.json(token);
+            }
+            else {
+                // If user is not found
+                res.status(401).json(info);
+            }
         }
-        // If a user is found
-        if (user) {
-            var token = user.generate_jwt();
-            res.status(200);
-            res.json(token);
-        }
-        else {
-            // If user is not found
-            res.status(401).json(info);
-        }
-    });
+    );
 
     auth(req, res);
 };

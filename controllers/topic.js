@@ -4,6 +4,7 @@ const async    = require('async');
 
 const Topic = mongoose.model('Topic');
 const User  = mongoose.model('User');
+const Stage = mongoose.model('Stage');
 
 // ------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ module.exports.add = function(req, res) {
 		if (err) return res.send(err);
 
 		topic.save(function(err, topic){
-			if (err) res.send(err);
+			if (err) return res.send(err);
 			res.json({ 
 				name : topic.name,
 				order : topic.order
@@ -96,7 +97,7 @@ module.exports.get = function(req, res) {
 			User.findById(req.user._id).populate('topic')
 			.exec(function(err, user) {
 				if (err) return res.json({status: err });
-				callback(null, user.topic);
+				callback(null, user.topic.name);
 			});
 
 		}

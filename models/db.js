@@ -22,3 +22,4 @@ require('./user');
 require('./topic');
 require('./rule');
 require('./group');
+require('./stage');

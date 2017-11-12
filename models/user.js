@@ -10,6 +10,17 @@ const Schema   = mongoose.Schema;
 // ------------------------------------------------------------------
 
 // Init embedded Schemas
+const allowedSchema = new Schema({
+	name: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Topic'
+	}],
+	stage: {
+		type: Schema.Types.ObjectId,
+		ref: 'Stage'
+	}
+});
+
 const trackerSchema = new Schema({
 	rule: {
 		type: Schema.Types.ObjectId,
@@ -49,10 +60,7 @@ const userSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Group'
 	},
-	topic: [{
-		type: Schema.Types.ObjectId,
-		ref: 'Topic'
-	}],
+	topic: [allowedSchema],
 	tracker: [trackerSchema],
 	waiter: [waiterSchema],
 	exam: [examSchema]
@@ -72,7 +80,7 @@ userSchema.methods.valid_password = function (password) {
 
 // Generate JSON Web Token
 userSchema.methods.generate_jwt = function () {
-	var exp = Math.floor(Date.now() / 1000) + (60*60*24);
+	var exp = Math.floor(Date.now() / 1000) + (60*60*24*31);
     return {
         value : jwt.sign({
 			_id   : this._id,

@@ -209,8 +209,9 @@ POST /get-rule
 
 ```json
 {
-  "mistake" 5,
-  "rules" : [
+  "stage" : 1,
+  "mistake" : 5,
+  "list" : [
     {
       "name" : "First Rule",
       "content" : "md",
