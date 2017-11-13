@@ -137,7 +137,7 @@ POST /add-rule
 ### Update rule (for admins)
 
 ```http
-POST /del-rule
+POST /up-rule
 ```
 
 *Request*
@@ -168,7 +168,7 @@ POST /del-rule
 ### Remove rule (for admins)
 
 ```http
-POST /up-rule
+POST /del-rule
 ```
 
 *Request*

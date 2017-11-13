@@ -20,7 +20,7 @@ module.exports.add = function(req, res) {
 			});
 
 			Topic.findOne().sort('-order').exec(function(err, topic){
-				if (err) return res.send(err);
+				if (err) return callback(err, null);
 				if (topic == null) new_topic.order = 1;
 				else new_topic.order = topic.order + 1;
 
@@ -30,10 +30,10 @@ module.exports.add = function(req, res) {
 
 	// Save new topic	
 	], function (err, topic) {
-		if (err) return res.send(err);
+		if (err) return res.json({error: err });
 
 		topic.save(function(err, topic){
-			if (err) return res.send(err);
+			if (err) return res.json({error: err });
 			res.json({ 
 				name : topic.name,
 				order : topic.order
@@ -53,7 +53,7 @@ module.exports.update = function(req, res) {
 		{ new: true },
 		
 		function(err, topic) {
-			if (err) return res.send(err);
+			if (err) return res.json({error: err });
 			res.json({ 
 				name : topic.name,
 				order : topic.order
@@ -68,8 +68,8 @@ module.exports.remove = function(req, res) {
 	
 	Topic.findOneAndRemove({name: req.body.topic})
 	.exec(function (err, topic) {
-		if (err) return res.json({status: err });
-		if (!topic) return res.json({ status: "No topics found" });
+		if (err) return res.json({error: err });
+		if (!topic) if (err) return res.json({error: 'Not Found!' });
 		
 		res.json({ status: true });
 	});
@@ -85,7 +85,7 @@ module.exports.get = function(req, res) {
 		all: function(callback) {
 
 			Topic.find().exec(function(err, all){
-				if (err) return res.json({status: err });
+				if (err) return callback(err, null);
 				callback(null, all);
 			});
 
@@ -96,7 +96,7 @@ module.exports.get = function(req, res) {
 
 			User.findById(req.user._id).populate('topic')
 			.exec(function(err, user) {
-				if (err) return res.json({status: err });
+				if (err) return callback(err, null);
 				callback(null, user.topic.name);
 			});
 
@@ -104,6 +104,7 @@ module.exports.get = function(req, res) {
 
 	}, function(err, result) {
 
+		if (err) return res.json({error: err });		
 		let topics = [];
 
 		result.all.forEach(function(topic) {

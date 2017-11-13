@@ -5,11 +5,7 @@ const ruleSchema = new Schema({
 	name: String,
 	order: Number,
 	content: String,
-	example: [String],
-	topic: {
-		type: Schema.Types.ObjectId,
-		ref: 'Rule'
-	}
+	example: [String]
 });
 
 module.exports = mongoose.model('Rule', ruleSchema);

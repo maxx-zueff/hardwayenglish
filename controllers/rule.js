@@ -23,53 +23,49 @@ module.exports.add = function(req, res) {
 			});
 
 			Rule.findOne().sort('-order').exec(function(err, rule) {
-				if (err) return res.send(err);
+
+				if (err) return callback(err, null);
 				if (rule == null) new_rule.order = 1;
 				else new_rule.order = rule.order + 1;
 
+				callback(null, new_rule);
 			});
-
-			Topic.findOne({name: req.body.topic})
-			.exec(function(err, topic){
-
-				if (err) return res.send(err);
-				new_rule.topic = topic._id;
-
-				callback(null, topic, new_rule);
-			});
-
 		},
 
-
-		// Check name of rule
-		function(topic, rule, callback){
-
-			Rule.findOne(
-				{name: rule.name, topic: topic._id},
-
-				function(err, result){
-					
-					if (result !== null) {
-						return res.send('Taken name');
-					}
-
-					if (result == null) callback(null, rule);
-				}
-			);
-		},
-
-		// Save new rule
+		// Check name of rule and save it
 		function(rule, callback) {
 
-			rule.save(function(err, rule){
-				if (err) res.send(err);
-				callback(null, rule);
+			Topic.findOne({name: req.body.topic}).populate('rule')
+			.exec(function(err, topic) {
+
+				if (err) return callback(err, null);
+				let taken = false;
+
+				// List rules inside topic
+				topic.rule.forEach(function(item) {
+					if (item.name == req.body.name) {
+						taken = true;
+
+						// Calling the callback function doesn't
+						// break the execution
+						return callback('Taken name', null);
+					}
+				});
+
+				
+				if (!taken) {
+					rule.save(function(err, rule) {
+						if (err) return callback(err, null);
+						callback(null, rule);
+					});
+				}
 			});
-		}	
+		}
 
 	// Update topic
 	], function(err, rule){
-		if (err) return res.send(err);
+
+		if (err) return res.json({error:err});
 
 		Topic.findOneAndUpdate(
 
@@ -77,7 +73,7 @@ module.exports.add = function(req, res) {
 			{ $addToSet: { rule: rule._id } },
 
 			function(err, topic) {
-				if (err) return res.send(err);
+				if (err) return res.json({error:err});
 
 				res.json({ 
 					name: rule.name,
@@ -100,47 +96,55 @@ module.exports.update = function(req, res) {
 		// Find topic
 		function(callback) {
 
-			Topic.findOne({name: req.body.topic})
+			Topic.findOne({name: req.body.topic}).populate('rule')
 			.exec(function(err, topic) {
 
-				if (err) return res.json({status: err });
-				callback(null, topic);
+				if (err) return callback(err, null);
+				let found = false;
+
+				topic.rule.forEach(function(rule) {
+					if (rule.name == req.body.name) {
+						found = true;
+						return callback(null, rule, topic);
+					}
+				});
+
+				if (!found) callback('Not Found!', null);
+
 			});
-		},
-
-		// Set flex params
-		function(topic, callback) {
-
-			let body = req.body;
-			let update = {};
-
-			for (var par in body) {
-
-				if (par == 'name'
-				   || par == 'content'
-				   || par == 'example'
-				   || par == 'order') {
-
-					update[par] = body[par];
-				}
-			}
-
-			callback(null, topic, update);
-
 		}
 
 	// Find and update rule
-	], function(err, topic, update) {
+	], function(err, rule, topic) {
+
+		if (err) return res.json({error:err});
+
+		let body = req.body;
+		let update = {};
+
+		// Set flex params
+		for (var par in body) {
+
+			if (par == 'name'
+			   || par == 'content'
+			   || par == 'example'
+			   || par == 'order') {
+
+				update[par] = body[par];
+			}
+		}
 
 		Rule.findOneAndUpdate(
 			
-			{ name: req.body.name, topic: topic._id },
+			{ _id: rule._id },
 			{ $set: update },
 			{ new: true },
 
 			function(err, rule) {
-				if (err) return res.send(err);
-				if (rule == null) return res.send('Not found!');
+				if (err) return res.json({error:err});
+				if (rule == null) if (err) return res.json({
+					error : 'Not Found!'
+				});
 
 				res.json({ 
 					name: rule.name,
@@ -164,27 +168,32 @@ module.exports.remove = function(req, res) {
 		// Find topic
 		function(callback) {
 
-			Topic.findOne({name: req.body.topic})
+			Topic.findOne({name: req.body.topic}).populate('rule')
 			.exec(function(err, topic) {
 
-				if (err) return res.json({status: err });
-				callback(null, topic);
+				if (err) return callback(err, null);
+				let found = false;
+
+				topic.rule.forEach(function(rule) {
+					if (rule.name == req.body.name) {
+						found = true;
+						return callback(null, rule);
+					}
+				});
+
+				if (!found) callback('Not Found!', null);
+
 			});
 		}
 
 	// Find and remove rule
-	], function(err, topic) {
+	], function(err, rule) {
 
-		if (err) return res.json({status: err });
+		if (err) return res.json({error: err });
 
-		Rule.findOneAndRemove({name:req.body.name, topic:topic._id})
+		Rule.findOneAndRemove({_id:rule._id})
 		.exec(function(err, rule) {
-			
-			if (err) return res.json({status: err });
-			if (!topic) {
-				return res.json({ status: "No topics found" });
-			}
-	
+			if (err) return res.json({error: err });
 			res.json({ status: true });
 		});
 	});
@@ -203,10 +212,7 @@ module.exports.get = function(req, res) {
 			.populate('topic.name').populate('topic.stage')
 			.exec(function(err, user) {
 				
-				if (err) return res.json(err);
-
-				let stage;
-				let mistake;
+				if (err) return callback(err, null);
 				let allowed = false;
 
 				user.topic.forEach(function(topic_group) {
@@ -215,21 +221,23 @@ module.exports.get = function(req, res) {
 						if (req.body.topic == topic.name) {
 							allowed = true;		
 							
-							stage = topic_group.stage.stage;
-							mistake = topic_group.stage.mistake;
-							return callback(null, stage, mistake);
+							return callback(null, 
+								topic_group.stage.stage,
+								topic_group.stage.mistake
+							);
 						}
 					});
 				});
 
-				if (!allowed) {
-					return res.send('This topic not allowed');
-				}
+				if (!allowed) callback('Topic not allowed!', null);
 
 			});
 		}
 
+	// Get rule list
 	], function(err, stage, mistake) {
+
+		if (err) return res.json({error: err });
 
 		let rules = {
 			stage: stage,
@@ -239,6 +247,8 @@ module.exports.get = function(req, res) {
 
 		Topic.findOne({name:req.body.topic}).populate('rule')
 		.exec(function(err, topic) {
+
+			if (err) return res.json({error: err});			
 
 			topic.rule.forEach(function(rule) {
 				rules.list.push({
@@ -254,5 +264,4 @@ module.exports.get = function(req, res) {
 
 		});
 	});
-
 };

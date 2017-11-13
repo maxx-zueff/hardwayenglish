@@ -46,7 +46,7 @@ var check_token = function (req, res, next) {
 // Middleware for every path
 app.use(logger('dev'));
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(check_token);
 
