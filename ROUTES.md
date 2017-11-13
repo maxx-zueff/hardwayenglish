@@ -78,7 +78,7 @@ POST /del-topic
 ### Get allowed topics
 
 ```http
-POST /get-topics
+POST /get-topic
 ```
 
 *Request*
