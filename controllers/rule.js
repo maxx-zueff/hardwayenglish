@@ -2,9 +2,10 @@
 const mongoose = require('mongoose');
 const async    = require('async');
 
+// Models
 const Topic = mongoose.model('Topic');
-const Rule = mongoose.model('Rule');
-const User = mongoose.model('User');
+const Rule  = mongoose.model('Rule');
+const User  = mongoose.model('User');
 
 // ------------------------------------------------------------------
 
@@ -51,7 +52,6 @@ module.exports.add = function(req, res) {
 						return callback('Taken name', null);
 					}
 				});
-
 				
 				if (!taken) {
 					rule.save(function(err, rule) {
@@ -63,7 +63,7 @@ module.exports.add = function(req, res) {
 		}
 
 	// Update topic
-	], function(err, rule){
+	], function(err, rule) {
 
 		if (err) return res.json({error:err});
 
@@ -196,6 +196,9 @@ module.exports.remove = function(req, res) {
 			if (err) return res.json({error: err });
 			res.json({ status: true });
 		});
+
+		// REMOVE FROM TOPIC!!!
+		
 	});
 };
 

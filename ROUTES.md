@@ -204,7 +204,6 @@ POST /get-rule
 }
 ```
 
-
 *Successful Response*
 
 ```json
@@ -225,6 +224,157 @@ POST /get-rule
       "example" : ["md1", "md2"],
       "order" : 2,
       "topic" : "Topic Name"
+    }
+  ]
+}
+```
+
+## Tests management
+
+### Add test (for admins)
+
+```http
+POST /add-test
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+  "topic" : "Topic Name",
+  "rule" : "Rule Name",
+  "question" : "String",
+  "example" : "String",
+  "correct" : "String",
+  "wrong" : ["String", "String", "String"]
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "question" : "String",
+  "example" : "String",
+  "correct" : "String",
+  "wrong" : ["String", "String", "String"],
+  "topic" : "Topic Name",
+  "rule" : {
+    "name" : "String",
+    "content" : "String",
+    "example" : ["String", "String", "String"]
+  }
+}
+```
+
+### Update test (for admins)
+
+```http
+POST /up-test
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",           // REQUIRED!
+  "question" : "Test Name",            // REQUIRED!
+  "topic" : "Topic Name",              // REQUIRED!
+  "rule" : "Rule Name",
+  "question" : "String",
+  "example" : "String",
+  "correct" : "String",
+  "wrong" : ["String", "String", "String"]
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "question" : "String",
+  "example" : "String",
+  "correct" : "String",
+  "wrong" : ["String", "String", "String"],
+  "topic" : "Topic Name",
+  "rule" : {
+    "name" : "String",
+    "content" : "String",
+    "example" : ["String", "String", "String"]
+  }
+}
+```
+
+### Remove test (for admins)
+
+```http
+POST /del-test
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...", 
+  "topic" : "Topic Name",
+  "question"  : "Test Name"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "status" : true
+}
+```
+
+### Get allowed tests
+
+```http
+POST /get-test
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+  "topic" : "Topic Name"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "stage" : 1,
+  "mistake" : 5,
+  "list" : [
+    {
+      "question" : "String",
+      "example" : "String",
+      "correct" : "String",
+      "wrong" : ["String", "String", "String"],
+      "topic" : "Topic Name",
+      "rule" : {
+        "name" : "String",
+        "content" : "String",
+        "example" : ["String", "String", "String"]
+      }
+    },
+    {
+      "question" : "String",
+      "example" : "String",
+      "correct" : "String",
+      "wrong" : ["String", "String", "String"],
+      "topic" : "Topic Name",
+      "rule" : {
+        "name" : "String",
+        "content" : "String",
+        "example" : ["String", "String", "String"]
+      }
     }
   ]
 }
