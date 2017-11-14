@@ -19,7 +19,8 @@ mongoose.connection.on('disconnected', function() {
 
 // BRING IN MODELS
 require('./user');
-require('./topic');
-require('./rule');
 require('./group');
+require('./topic');
 require('./stage');
+require('./rule');
+require('./test');

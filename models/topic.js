@@ -11,6 +11,10 @@ const topicSchema = Schema({
 	rule: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Rule'
+	}],
+	test : [{
+		type: Schema.Types.ObjectId,
+		ref: 'Test'
 	}]
 });
 
