@@ -163,43 +163,55 @@ module.exports.update = function(req, res) {
 
 module.exports.remove = function(req, res) {
 
-	async.waterfall([
+	function remove(rule) {
+		async.parallel([
 
-		// Find topic
-		function(callback) {
+			// REMOVE ALL LINKS
+			function(callback) {
+				Topic.findOneAndUpdate(
 
-			Topic.findOne({name: req.body.topic}).populate('rule')
-			.exec(function(err, topic) {
+					{ name: req.body.topic },
+					{ $pull: {rule:rule._id} }
 
-				if (err) return callback(err, null);
-				let found = false;
-
-				topic.rule.forEach(function(rule) {
-					if (rule.name == req.body.name) {
-						found = true;
-						return callback(null, rule);
-					}
+				).exec(function(err, topic) {
+					if (err) return callback(err, null);
+					callback(null);
 				});
+			},
 
-				if (!found) callback('Not Found!', null);
+			// REMOVE ITSELF
+			function(callback){
+				Rule.findOneAndRemove({_id:rule._id})
+				.exec(function(err, rule) {
+					if (err) return callback(err, null);
+					callback(null);
+				});
+			}
 
-			});
-		}
-
-	// Find and remove rule
-	], function(err, rule) {
-
-		if (err) return res.json({error: err });
-
-		Rule.findOneAndRemove({_id:rule._id})
-		.exec(function(err, rule) {
+		// Send responce 	
+		], function(err, result) {
 			if (err) return res.json({error: err });
 			res.json({ status: true });
 		});
+	}
 
-		// REMOVE FROM TOPIC!!!
-		
+	// Find rule ID
+	Topic.findOne({name: req.body.topic}).populate('rule')
+	.exec(function(err, topic) {
+
+		if (err) return res.json({error:err});
+		let found = false;
+
+		topic.rule.forEach(function(rule) {
+			if (rule.name == req.body.name) {
+				found = true;
+				return remove(rule);
+			}
+		});
+
+		if (!found) res.json({error:'Not Found!'});
 	});
+
 };
 
 // ------------------------------------------------------------------

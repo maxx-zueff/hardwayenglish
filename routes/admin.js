@@ -27,6 +27,8 @@ router.post('/del-rule', permission, rule.remove);
 
 // add / update / remove TEST
 router.post('/add-test', permission, test.add);
+router.post('/up-test', permission, test.update);
+router.post('/del-test', permission, test.remove);
 
 // ------------------------------------------------------------------
 

@@ -177,7 +177,7 @@ POST /del-rule
 {
   "token" : "Esf24#rsaf...", 
   "topic" : "Topic Name",
-  "rule"  : "Rule Name"
+  "name"  : "Rule Name"
 }
 ```
 
@@ -279,10 +279,9 @@ POST /up-test
 ```json
 {
   "token" : "Esf24#rsaf...",           // REQUIRED!
-  "question" : "Test Name",            // REQUIRED!
   "topic" : "Topic Name",              // REQUIRED!
+  "question" : "Test Name",            // REQUIRED!
   "rule" : "Rule Name",
-  "question" : "String",
   "example" : "String",
   "correct" : "String",
   "wrong" : ["String", "String", "String"]
@@ -318,7 +317,7 @@ POST /del-test
 {
   "token" : "Esf24#rsaf...", 
   "topic" : "Topic Name",
-  "question"  : "Test Name"
+  "name"  : "Test Name"
 }
 ```
 
