@@ -8,7 +8,8 @@ const Schema   = mongoose.Schema;
 // Init Schema
 const stageSchema = new Schema({
 	stage: Number,
-	mistake: Number
+	mistake_type: Number,
+	mistake_test: Number
 });
 
 // ------------------------------------------------------------------

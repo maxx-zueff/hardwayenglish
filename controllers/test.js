@@ -219,5 +219,99 @@ module.exports.remove = function(req, res) {
 
 		if (!found) res.json({error:'Not Found!'});
 	});
+};
+
+module.exports.get = function(req, res) {
+
+	async.parallel({
+
+		// get stage [mistakes]
+		permission: function(callback) {
+			User.findById(req.user._id).populate('group')
+			.populate('topic.name').populate('topic.stage')
+			.exec(function(err, user) {
+				
+				if (err) return callback(err, null);
+				let allowed = false;
+
+				user.topic.forEach(function(topic_group) {
+					topic_group.name.forEach(function(topic) {
+
+						if (req.body.topic == topic.name) {
+							allowed = true;	
+
+							return callback(null,{
+								stage:topic_group.stage.stage,
+								mistake:topic_group.stage.mistake_test,
+								group: user.group.name
+							});
+						}
+					});
+				});
+
+				if (!allowed) callback('Topic not allowed!', null);
+
+			});
+		},
+
+		// Get test list
+		test: function(callback) {
+			Topic.findOne({name:req.body.topic}).populate('test')
+			.populate('test.rule').exec(function(err, topic) {
+
+				if (err) return callback(err, null);
+
+				let list = [];
+				topic.test.forEach(function(test) {
+					list.push({
+						question: test.question,
+						example: test.example,
+						correct: test.correct,
+						wrong: test.wrong,
+						topic: topic.name,
+						rule: null
+					});
+
+					if (test.rule != null) {
+						list.rule.push({
+							name: test.rule.name,
+							content: test.rule.content,
+							example: test.rule.example
+						});
+					}
+				});
+
+				return callback(null, list);
+
+			});
+		}
+
+	}, function(err, result) {
+
+		if (err) return res.json({error: err});
+
+		let admin = result.test;
+		let member = [];
+
+		result.test.forEach(function(test) {
+			if (test.rule) {
+				member.push(test);
+			}
+		});
+
+		let tests = {
+			stage: result.permission.stage,
+			mistake: result.permission.mistake,
+			list: member
+		};
+
+		if (result.permission.group == "admin") {
+			tests.list = admin;
+			return res.json(tests);
+		}
+
+		res.json(tests);
+
+	});
 
 };

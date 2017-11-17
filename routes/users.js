@@ -6,6 +6,7 @@ const router  = express.Router();
 const auth    = require('../controllers/auth');
 const topic   = require('../controllers/topic');
 const rule    = require('../controllers/rule');
+const test    = require('../controllers/test');
 
 // ------------------------------------------------------------------
 
@@ -15,9 +16,10 @@ router.post('/signin', auth.signin);
 
 // ------------------------------------------------------------------
 
-// Get topics / rules
+// Get topics/rules/tests
 router.post('/get-topic', topic.get);
 router.post('/get-rule', rule.get);
+router.post('/get-test', test.get);
 
 // Export module
 module.exports = router;

@@ -6,6 +6,7 @@ const async    = require('async');
 const Topic = mongoose.model('Topic');
 const Rule  = mongoose.model('Rule');
 const User  = mongoose.model('User');
+const Test  = mongoose.model('Test');
 
 // ------------------------------------------------------------------
 
@@ -179,6 +180,18 @@ module.exports.remove = function(req, res) {
 				});
 			},
 
+			function(callback) {
+				Test.findOneAndUpdate(
+
+					{ rule: rule._id },
+					{ $set: { rule: null } }
+
+				).exec(function(err, test) {
+					if (err) return callback(err, null);
+					callback(null);
+				});
+			},
+
 			// REMOVE ITSELF
 			function(callback){
 				Rule.findOneAndRemove({_id:rule._id})
@@ -238,7 +251,7 @@ module.exports.get = function(req, res) {
 							
 							return callback(null, 
 								topic_group.stage.stage,
-								topic_group.stage.mistake
+								topic_group.stage.mistake_type
 							);
 						}
 					});
@@ -263,7 +276,7 @@ module.exports.get = function(req, res) {
 		Topic.findOne({name:req.body.topic}).populate('rule')
 		.exec(function(err, topic) {
 
-			if (err) return res.json({error: err});			
+			if (err) return res.json({error: err});
 
 			topic.rule.forEach(function(rule) {
 				rules.list.push({
