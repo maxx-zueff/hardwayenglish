@@ -21,5 +21,8 @@ router.post('/get-topic', topic.get);
 router.post('/get-rule', rule.get);
 router.post('/get-test', test.get);
 
+// Send statistic
+router.post('/stat-rule', rule.stat);
+
 // Export module
 module.exports = router;

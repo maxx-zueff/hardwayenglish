@@ -293,3 +293,121 @@ module.exports.get = function(req, res) {
 		});
 	});
 };
+
+// ------------------------------------------------------------------
+
+module.exports.stat = function(req, res) {
+
+	async.parallel({
+
+		rule : function(callback) {
+			// Find rule
+			Topic.findOne({name:req.body.topic}).populate('rule')
+			.exec(function(err, topic) {
+
+				if (err) return callback(err, null);
+
+				let found = false;
+				topic.rule.forEach(function(rule) {
+					if (rule.name == req.body.rule) {
+						found = true;
+						return callback(null, rule);
+					}
+				});
+
+				if (!found) callback('Rule not found!', null);
+			});
+		},
+
+		user: function(callback) {
+
+			User.findById(req.user._id).populate('topic.name')
+			.populate('topic.stage').exec(function(err, user) {
+
+				if (err) return callback(err, null);
+				let allowed = false;
+
+				user.topic.forEach(function(topic_group) {
+					topic_group.name.forEach(function(topic) {
+						
+						// Find allowed topic
+						if (req.body.topic == topic.name) {
+							allowed = true;	
+							
+							// Compare get mistakes between
+							// allowed mistakes
+							if (topic_group.stage.mistake_type
+								>= req.body.mistakes) {
+								
+								return callback(null, {
+									mistakes: req.body.mistakes,
+									stage: topic_group.stage.stage
+								});
+							}
+
+							else {
+								return callback('Many mistakes!', null);
+							}
+						}
+					});
+				});
+
+				if (!allowed) callback('Topic not allowed!', null);
+
+			});
+		}
+
+	}, function(err, result) {
+		
+		if (err) return res.json({error: err });
+
+		let new_track = {
+			rule: result.rule._id,
+			mistake: result.user.mistakes,
+			stage: result.user.stage
+		};
+
+		console.log(new_track);
+
+		async.series([
+
+			function(callback) {
+				
+				// Checking existent tracks
+				User.findById(req.user._id, function(err, user) {
+					user.tracker.forEach(function(track) {
+						
+						if (track.rule == new_track.rule
+							&& track.stage == new_track.stage) {
+
+							return callback(
+								'You passed this rule!', null
+							);
+						}
+					});
+
+					callback(null);
+				});
+			},
+
+			function(callback) {
+				
+				User.findByIdAndUpdate(
+					req.user._id,
+					{$push : {tracker: new_track} },
+					function(err, tracker) {
+						if (err) return callback(err, null);
+						callback(null);
+					}
+				);
+			}
+
+		], function(err, result) {
+			if (err) return res.json({error: err });
+			res.json({
+				status: true
+			});
+		});
+
+	});
+};

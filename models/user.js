@@ -26,7 +26,6 @@ const trackerSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Rule',
 	},
-	time: Number, // seconds
 	mistake: Number,
 	stage: Number
 });

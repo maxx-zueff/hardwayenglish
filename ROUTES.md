@@ -1,5 +1,55 @@
 # Routes
 
+## Authorization
+
+### Sign Up
+
+```http
+POST /signup
+```
+
+![Signup](./readme_fig/signup.png)
+
+*Request*
+
+```json
+{
+  "username" : "Ivan",
+  "password" : "123456Seven"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "token" : "Esf24#rsaf..."
+}
+```
+
+### Sign In
+
+```http
+POST /signin
+```
+
+*Request*
+
+```json
+{
+  "username" : "UserName",
+  "password" : "123456Seven"
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "token" : "Esf24#rsaf..."
+}
+```
+
 ## Topics management
 
 ### Add topic (for admins)
@@ -229,6 +279,34 @@ POST /get-rule
 }
 ```
 
+### Send statistic
+
+```http
+POST /stat-rule
+```
+
+![Static](./readme_fig/static.png)
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+  "topic" : "Topic Name",
+  "name"  : "Rule Name",
+  "mistakes" : 2
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "status": true
+}
+```
+
+
 ## Tests management
 
 ### Add test (for admins)
@@ -378,3 +456,4 @@ POST /get-test
   ]
 }
 ```
+
