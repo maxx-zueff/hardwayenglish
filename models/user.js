@@ -11,14 +11,15 @@ const Schema   = mongoose.Schema;
 
 // Init embedded Schemas
 const allowedSchema = new Schema({
-	name: [{
+	name: {
 		type: Schema.Types.ObjectId,
 		ref: 'Topic'
-	}],
+	},
 	stage: {
 		type: Schema.Types.ObjectId,
 		ref: 'Stage'
-	}
+	},
+	complete: Boolean
 });
 
 const trackerSchema = new Schema({
@@ -31,7 +32,7 @@ const trackerSchema = new Schema({
 });
 
 const waiterSchema = new Schema({
-	rule: {
+	topic: {
 		type: Schema.Types.ObjectId,
 		ref: 'Rule',
 	},

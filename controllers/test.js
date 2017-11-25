@@ -7,6 +7,7 @@ const Test  = mongoose.model('Test');
 const Topic = mongoose.model('Topic');
 const Rule  = mongoose.model('Rule');
 const User  = mongoose.model('User');
+const Stage = mongoose.model('Stage');
 
 // ------------------------------------------------------------------
 
@@ -90,6 +91,8 @@ module.exports.add = function(req, res) {
 	});
 };
 
+// ------------------------------------------------------------------
+
 module.exports.update = function(req, res) {
 
 	async.waterfall([
@@ -170,6 +173,8 @@ module.exports.update = function(req, res) {
 	});
 };
 
+// ------------------------------------------------------------------
+
 module.exports.remove = function(req, res) {
 
 	function remove(test) {
@@ -220,6 +225,8 @@ module.exports.remove = function(req, res) {
 		if (!found) res.json({error:'Not Found!'});
 	});
 };
+
+// ------------------------------------------------------------------
 
 module.exports.get = function(req, res) {
 
@@ -313,5 +320,247 @@ module.exports.get = function(req, res) {
 		res.json(tests);
 
 	});
+};
 
+// ------------------------------------------------------------------
+
+module.exports.check = function(req, res) {
+
+	async.parallel({
+
+		user_db: function(callback) {
+
+			User.findById(req.user._id)
+			.populate('topic.name').populate('topic.stage')
+			.populate('waiter.topic').exec(function(err, user) {
+				if (err) callback(err, null);
+
+				let wait = true;
+				user.waiter.forEach(function(waiter) {
+					if (waiter.topic == req.body.topic) {
+						if (Date.now() > waiter.end) {
+							wait = false;
+							return;			
+						}
+					}
+				});
+
+				if (user.waiter.length == 0) wait = false;
+				if (wait) return callback('You should wait!', null);
+
+				let found = false;
+				user.topic.forEach(function(topic_group) {
+					if (req.body.topic == topic_group.name.name) {
+						found = true;
+						callback(null, {
+							topic: topic_group.name,
+							complete: topic_group.complete,
+							stage: topic_group.stage
+						});
+					}
+				});
+
+				if (!found) return callback('Topic not found!', null);
+			});
+		},
+
+		user_client: function(callback) {
+
+			let mistakes = 0;
+			Topic.findOne({name:req.body.topic}).populate('test')
+			.exec(function(err, topic) {
+				if(err) callback('Topic not found!', null);
+				topic.test.forEach(function(test) {
+					let found = false;
+					req.body.test.forEach(function(user_test) {
+						if (test.question == user_test.question) {
+							found = true;
+							if (test.correct != user_test.answer) {
+								mistakes = mistakes +1;
+							}
+						}
+					});
+					if (!found) callback(
+						'You must send all questions!', null
+					);
+				});
+				callback(null, {
+					mistakes: mistakes,
+					count: topic.test.length
+				});
+			});
+		}
+
+	}, function(err, result) {
+
+		if (err) return res.json({error: err});
+
+		let user = result.user_client;
+		let user_db = result.user_db;
+		let allowed_mistakes = user_db.stage.mistake_test * user.count;
+
+		// Test was not passed
+		if (user.mistakes > allowed_mistakes) {
+
+			User.findOneAndUpdate({
+				"_id": req.user._id,
+				"topic.name": user_db.topic._id
+			},{
+				$set : { "topic.$.complete": true }
+			}, function(err, user) {
+				if (err) return res.json({error: err});
+				return res.json({
+					status : "You must repeat this test!"
+				});
+			});
+		}
+
+		// Test was passed 
+		else if (user.mistakes <= allowed_mistakes) {
+			
+			let new_order = user_db.topic.order + 1;
+			let user_stage = user_db.stage.stage;
+
+			async.parallel({
+				stages: function(callback) {
+					Stage.find().exec(function(err, stages) {
+						if (err) return callback(err, null);
+						callback(null, stages);
+					});
+				},
+				topic: function(callback) {
+					Topic.findOne({
+						order: new_order
+					}, function(err, topic) {
+						if (err) return callback(err, null);
+						callback(null, topic);
+					});
+				}
+			}, function(err, result) {
+
+				if (err) return res.json({error: err});
+
+				if (user_stage == null) return res.json({
+					error: "This topic already passed!"
+				});
+
+				// Add new topic for user
+				if (user.mistakes == 0 && !user_db.complete || user_stage == 3) {
+					
+					let first_stage
+					result.stages.forEach(function(doc) {
+						if (doc.stage == 1) {
+							first_stage = doc;
+							return;
+						}
+					});
+
+					let exam = {
+						topic: user_db.topic._id,
+						start: Date.now() + (60*60*24*10),
+						complete: false
+					};
+
+					let new_topic = {
+						name: result.topic._id,
+						stage: first_stage._id,
+						complete: false
+					};
+
+					async.series([
+
+						// Update current topic
+						function(callback) {
+							User.findOneAndUpdate({
+								"_id": req.user._id,
+								"topic.name": user_db.topic._id
+							},{
+								$set : {
+									"topic.$.complete": true,
+									"topic.$.stage": null
+								}
+							}, function(err, user) {
+								if (err) return callback(err, null);
+								callback(null);
+							});
+						},
+
+						// Set new topic
+						function(callback) {
+							User.findByIdAndUpdate(req.user._id, {
+								$push : {
+									topic: new_topic,
+									exam: exam
+								}
+							}, function(err, user) {
+								if (err) return callback(err, null);
+								callback(null);
+							});
+						}
+
+					], function(err, result) {
+
+						if (err) return res.json({error: err});
+						return res.json([{
+							topic: user_db.topic.name,
+							stage: 0,
+							exam: exam.start
+						},{
+							topic: result.topic.name,
+							stage: 1
+						}]);
+					});
+				}
+
+				// Add new stage for user
+				async.series({
+
+					// Change stage / add waiter 
+					data: function(callback) {
+
+						let new_stage;
+						result.stages.forEach(function(doc) {
+							if (doc.stage == user_stage +1) {
+								new_stage = doc;
+								return;
+							}
+						});
+						
+						let waiter = {
+							topic: user_db.topic,
+							end: Date.now() + (60*60*8)
+						};
+
+						User.findOneAndUpdate({
+							"_id": req.user._id,
+							"topic.name": user_db.topic._id
+						},{
+							$set : {
+								"topic.$.complete": false,
+								"topic.$.stage": new_stage._id
+							},
+							$push : {
+								waiter: waiter
+							}
+						}, function(err, user) {
+							if (err) return callback(err, null);
+							callback(null, {
+								stage: new_stage.stage,
+								waiter: waiter.end
+							});
+						});
+					}
+
+				}, function(err, result) {
+
+					if (err) return res.json({error: err});
+					return res.json({
+						topic: user_db.topic.name,
+						stage: result.data.stage,
+						waiter: result.data.waiter
+					});
+				});
+			});
+		}		
+	});
 };

@@ -457,3 +457,42 @@ POST /get-test
 }
 ```
 
+### Check Test
+
+```http
+POST /check-test
+```
+
+*Request*
+
+```json
+{
+  "token" : "Esf24#rsaf...",
+  "topic" : "Topic Name",
+  "test" : [{
+    "question" : "String",
+    "answer" : "String"
+  }]
+}
+```
+
+*Successful Response*
+
+```json
+{
+  "topic" : "Topic Name",
+  "stage" : 2,
+  "waiter" : "Date"
+}
+```
+
+```json
+[{
+  "topic" : "Old Topic",
+  "stage" : 0,
+  "exam" : 112312414
+},{
+  "topic" : "New Topic",
+  "stage" : 1
+}]
+```

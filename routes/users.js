@@ -24,5 +24,8 @@ router.post('/get-test', test.get);
 // Send statistic
 router.post('/stat-rule', rule.stat);
 
+// Check test
+router.post('/check-test', test.check);
+
 // Export module
 module.exports = router;
