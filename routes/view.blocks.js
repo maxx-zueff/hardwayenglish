@@ -1,12 +1,16 @@
-
 // Dependencies
 const express = require('express');
 const router  = express.Router();
 
 // ------------------------------------------------------------------
+// Blocks
 
-router.get('/', function(req, res) {
-	res.render('index');
+router.post('/a', function(req, res) {
+	res.send('AAAAA');
+});
+
+router.post('/', function(req, res) {
+	res.send('intro');
 });
 
 // ------------------------------------------------------------------

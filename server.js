@@ -1,10 +1,11 @@
 
 // Dependensies
-const http       = require('http');
-const express    = require('express');
-const logger     = require('morgan');
-const bodyparser = require('body-parser');
-const jwt        = require('jsonwebtoken'); 
+const http         = require('http');
+const express      = require('express');
+const logger       = require('morgan');
+const bodyparser   = require('body-parser');
+const jwt          = require('jsonwebtoken'); 
+const cookieparser = require('cookie-parser');
 
 require('./models/db');
 require('./controllers/passport');
@@ -20,7 +21,8 @@ const server  = http.createServer(app);
 
 //Routes
 const users  = require('./routes/users');
-const view   = require('./routes/view');
+const layout = require('./routes/view.layout');
+const blocks = require('./routes/view.blocks');
 const admin  = require('./routes/admin');
 
 // ------------------------------------------------------------------
@@ -38,6 +40,11 @@ var check_token = function (req, res, next) {
       return next();
   }
 
+  if (req.cookies && req.cookies.token) {
+      req.user = jwt.verify(req.cookies.token, 'LOVE');
+      return next();
+  }
+
   return next();
 };
 
@@ -47,6 +54,7 @@ var check_token = function (req, res, next) {
 app.use(logger('dev'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cookieparser());
 app.use(express.static(__dirname + '/public'));
 app.use(check_token);
 
@@ -54,8 +62,9 @@ app.use(check_token);
 
 // Middleware for specific path
 app.use(users);
-app.use(view);
 app.use(admin);
+app.use(layout);
+app.use('/block', blocks);
 
 // ------------------------------------------------------------------
 

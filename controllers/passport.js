@@ -12,7 +12,8 @@ passport.use(new LocalStrategy(
     },
 
     function(username, password, done) {
-        User.findOne({ name: username }, function (err, user) {
+        User.findOne({ name: username }).populate('group')
+        .exec(function (err, user) {
             
             if (err) {
                 return done(err);
