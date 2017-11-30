@@ -17,7 +17,6 @@ const request = {
 			if (req.status == 404) return callback(null); 
 			callback(this.response);
 		};
-
 	},
 
 	data: function(url, data) {

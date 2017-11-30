@@ -50,7 +50,7 @@ module.exports.add = function(req, res) {
 
 						// Calling the callback function doesn't
 						// break the execution
-						return callback('Taken name', null);
+						return callback({err:'Taken name'}, null);
 					}
 				});
 				
@@ -66,7 +66,9 @@ module.exports.add = function(req, res) {
 	// Update topic
 	], function(err, rule) {
 
-		if (err) return res.json({error:err});
+		if (err) return next({
+            message: err.err
+        });
 
 		Topic.findOneAndUpdate(
 
@@ -74,7 +76,9 @@ module.exports.add = function(req, res) {
 			{ $addToSet: { rule: rule._id } },
 
 			function(err, topic) {
-				if (err) return res.json({error:err});
+				if (err) return next({
+		            message: err.err
+		        });
 
 				res.json({ 
 					name: rule.name,
@@ -110,7 +114,7 @@ module.exports.update = function(req, res) {
 					}
 				});
 
-				if (!found) callback('Not Found!', null);
+				if (!found) callback({err:'Not Found!'}, null);
 
 			});
 		}
@@ -118,7 +122,9 @@ module.exports.update = function(req, res) {
 	// Find and update rule
 	], function(err, rule, topic) {
 
-		if (err) return res.json({error:err});
+		if (err) return next({
+            message: err.err
+        });
 
 		let body = req.body;
 		let update = {};
@@ -142,10 +148,13 @@ module.exports.update = function(req, res) {
 			{ new: true },
 
 			function(err, rule) {
-				if (err) return res.json({error:err});
-				if (rule == null) if (err) return res.json({
-					error : 'Not Found!'
-				});
+				if (err) return next({
+		            message: err.err
+		        });
+
+				if (rule == null) if (err) next({
+		            message: 'Not Found!'
+		        });
 
 				res.json({ 
 					name: rule.name,
@@ -165,6 +174,7 @@ module.exports.update = function(req, res) {
 module.exports.remove = function(req, res) {
 
 	function remove(rule) {
+		
 		async.parallel([
 
 			// REMOVE ALL LINKS
@@ -203,7 +213,9 @@ module.exports.remove = function(req, res) {
 
 		// Send responce 	
 		], function(err, result) {
-			if (err) return res.json({error: err });
+			if (err) return next({
+	            message: err.err
+	        });
 			res.json({ status: true });
 		});
 	}
@@ -212,9 +224,11 @@ module.exports.remove = function(req, res) {
 	Topic.findOne({name: req.body.topic}).populate('rule')
 	.exec(function(err, topic) {
 
-		if (err) return res.json({error:err});
-		let found = false;
+		if (err) return next({
+            message: err.err
+        });
 
+		let found = false;
 		topic.rule.forEach(function(rule) {
 			if (rule.name == req.body.name) {
 				found = true;
@@ -222,7 +236,9 @@ module.exports.remove = function(req, res) {
 			}
 		});
 
-		if (!found) res.json({error:'Not Found!'});
+		if (!found) next({
+            message: 'Not Found!'
+        });
 	});
 
 };
@@ -257,7 +273,7 @@ module.exports.get = function(req, res) {
 					});
 				});
 
-				if (!allowed) callback('Topic not allowed!', null);
+				if (!allowed) callback({err:'Topic not allowed!'}, null);
 
 			});
 		}
@@ -265,7 +281,9 @@ module.exports.get = function(req, res) {
 	// Get rule list
 	], function(err, stage, mistake) {
 
-		if (err) return res.json({error: err });
+		if (err) return next({
+            message: err.err
+        });
 
 		let rules = {
 			stage: stage,
@@ -276,7 +294,9 @@ module.exports.get = function(req, res) {
 		Topic.findOne({name:req.body.topic}).populate('rule')
 		.exec(function(err, topic) {
 
-			if (err) return res.json({error: err});
+			if (err) return next({
+	            message: err.err
+	        });
 
 			topic.rule.forEach(function(rule) {
 				rules.list.push({
@@ -315,7 +335,7 @@ module.exports.stat = function(req, res) {
 					}
 				});
 
-				if (!found) callback('Rule not found!', null);
+				if (!found) callback({err: 'Rule not found!'}, null);
 			});
 		},
 
@@ -346,28 +366,28 @@ module.exports.stat = function(req, res) {
 							}
 
 							else {
-								return callback('Many mistakes!', null);
+								return callback({err:'Many mistakes!'}, null);
 							}
 						}
 					});
 				});
 
-				if (!allowed) callback('Topic not allowed!', null);
+				if (!allowed) callback({err:'Topic not allowed!'}, null);
 
 			});
 		}
 
 	}, function(err, result) {
 		
-		if (err) return res.json({error: err });
+		if (err) return next({
+            message: err.err
+        });
 
 		let new_track = {
 			rule: result.rule._id,
 			mistake: result.user.mistakes,
 			stage: result.user.stage
 		};
-
-		console.log(new_track);
 
 		async.series([
 
@@ -381,7 +401,7 @@ module.exports.stat = function(req, res) {
 							&& track.stage == new_track.stage) {
 
 							return callback(
-								'You passed this rule!', null
+								{err: 'You passed this rule!'}, null
 							);
 						}
 					});
@@ -403,7 +423,9 @@ module.exports.stat = function(req, res) {
 			}
 
 		], function(err, result) {
-			if (err) return res.json({error: err });
+			if (err) return next({
+	            message: err.err
+	        });
 			res.json({
 				status: true
 			});

@@ -32,27 +32,29 @@ module.exports.signup = function (req, res, next) {
 
         group : function(callback) {
             Group.findOne({"name":"member"}, function(err, group) {
-                if (err) return handleError(err);
+                if (err) return callback(err, null);
                 callback(null, group);
             });
         },
 
         topic : function(callback) {
             Topic.findOne({ order : 1 }, function(err, topic) {
-                if (err) return handleError(err);
+                if (err) return callback(err, null);
                 callback(null, topic);
             });
         },
 
         stage : function(callback) {
             Stage.findOne({ stage : 1 }, function(err, stage) {
-                if (err) return handleError(err);
+                if (err) return callback(err, null);
                 callback(null, stage);
             });
         }
 
     }, function(err, result) {
-        if (err) return res.send(err);
+        if (err) return next({
+            message: err.err
+        });
 
         let user = new User({
             name: req.body.username,
@@ -69,7 +71,9 @@ module.exports.signup = function (req, res, next) {
         // Save the instance as a record to the database
         user.save(function(err) {
 
-            if (err) return res.send(err);
+            if (err) return next({
+                message: err.err
+            });
 
             // Generate a JWT
             let token = user.generate_jwt();
@@ -91,8 +95,10 @@ module.exports.signin = function(req, res) {
 
             // If Passport throws/catches an error
             if (err) {
-                res.status(404).json(err);
-                return;
+                return next({
+                    status: 404,
+                    message: err.message
+                });
             }
             // If a user is found
             if (user) {
@@ -102,7 +108,10 @@ module.exports.signin = function(req, res) {
             }
             else {
                 // If user is not found
-                res.status(401).json(info);
+                return next({
+                    status: 401,
+                    message: err.message
+                });
             }
         }
     );

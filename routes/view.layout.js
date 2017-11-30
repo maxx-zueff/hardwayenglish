@@ -7,7 +7,7 @@ const blocks  = require('./view.blocks');
 // ------------------------------------------------------------------
 // Main Layout
 
-router.get('/*', function(req, res) {
+router.get('/*', function(req, res, next) {
 
 	// IF THE REQ.URL NOT FOUND INTO POST ROUTES
 	// >> RENDER ERROR.PUG
@@ -22,7 +22,10 @@ router.get('/*', function(req, res) {
 	});
 
 	if (!found) {
-		return res.render('error');
+		return next({
+			status: 404,
+			message: '404: Not Found'
+		});
 	}
 
 	// Select layout for different user groups 
