@@ -1,5 +1,3 @@
-const section = require('../views/section');
-
 const request = {
 
 	// made private method!!
@@ -23,7 +21,7 @@ const request = {
 
 	},
 
-	block: function(path) {
+	block: function(path, callback) {
 
 		let url = `/block${path}`;
 		request.open(url, function(data) {
@@ -31,8 +29,8 @@ const request = {
 			// REDIRECT TO ERROR PAGE (IF GETED ERROR)
 			if (!data) return window.location.replace("/sorry");
 
-			// Visual data throuth /section
-			section(data);
+			// return HTML document
+			callback(data);
 		});
 	}
 };

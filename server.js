@@ -1,7 +1,6 @@
 
 // Dependensies
 const http         = require('http');
-const url          = require('url');
 const express      = require('express');
 const logger       = require('morgan');
 const bodyparser   = require('body-parser');

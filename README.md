@@ -4,7 +4,7 @@ Type. Wait. Repeat.
 
 ## Description
 
-**Type English** is a collection of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. There are groups of rule in specific topics. At the beginning of learning allowed only one topic with rules (Present Simple for example). To unlock more topics you should make an effort and be patient. You should work hard in order to learn what English is!
+**Type English** is the collections of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. At the beginning of learning allowed only one collection with rules (Present Simple for example). To unlock more collections you should make an effort and be patient. You should work hard in order to learn what English is!
 
 Every rule has few examples with construction of following rule. You should type this examples to pass next rule. The application counts an amount of mistakes while you are typing. If you have many mistakes the application doesn’t allow you to next rule.
 
@@ -22,5 +22,5 @@ See [routes section](./ROUTES.md) to learn more about how they work.
 
 ## Conclusion
 
-I can't see any easy way of learning english. Every sweet Victory requires hard patience and experience. You should repeat rules and work pretty hard out. If you don't like my idea, you can leave my website alone.
+Every sweet Victory requires hard patience and experience. I can't see any easy way of learning english. You should repeat rules and work pretty hard out. If you don't like my idea, you can leave my website alone.
 

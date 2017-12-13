@@ -1,4 +1,5 @@
 /node_modules
 /curl
 /public
+/design
 schema.xml
