@@ -15,6 +15,7 @@ POST /signup
 ```json
 {
   "username" : "Ivan",
+  "email"    : "name@domain.com",
   "password" : "123456Seven"
 }
 ```
@@ -38,6 +39,7 @@ POST /signin
 ```json
 {
   "username" : "UserName",
+  "email"    : "name@domain.com",
   "password" : "123456Seven"
 }
 ```

@@ -1,0 +1,406 @@
+.guest {
+
+
+	// ----------------------------------------------------
+	// TOGGLE
+
+	.toggle-bar-1 {
+		transform: scaleX(0);
+	}
+
+	.toggle-bar-2 {
+		transform: rotate(45deg);
+	}
+
+	.toggle-bar-3 {
+		transform: rotate(-45deg);
+	}
+
+	.toggle-bar-4 {
+		transform: scaleX(0);
+	}
+
+	// ----------------------------------------------------
+	// MENU
+
+	.menu {
+		
+		bottom: 0;
+		padding-top: 100px;
+
+	}
+
+	// ----------------------------------------------------
+	// HEADER
+
+	header {
+		background: #202020;
+	}
+
+	// ----------------------------------------------------
+	// TYPOGRAPHY
+
+	.title, .sub-title {
+		color: #fff;
+	}
+
+	.menu-btn {
+		bottom: 0;
+	}
+}
+
+.menu[type="signup"] {
+
+	.menu-nav__item[type="signup"] {
+		color: #fff;
+		position: relative;
+
+		&:after {
+			width: 100%;
+			background: #fff;
+		}
+	}
+
+	.menu-form[type="signup"] {
+		left: 0;
+	}
+
+}
+
+.menu[type="signin"] {
+
+	.menu-nav__item[type="signin"] {
+		color: #fff;
+		position: relative;
+
+		&:after {
+			width: 100%;
+			background: #fff;
+		}
+	}
+
+	.menu-form[type="signin"] {
+		left: 0;
+	}
+
+}
+
+.menu[type="forget"] {
+
+	.menu-form[type="forget"] {
+		left: 0;
+	}
+
+}
+
+.menu {
+	position: fixed;
+	background: #202020;
+    top: 0;
+    left: 0;
+    bottom: 100%;
+    width: 100%;
+    z-index: 900;
+    padding-top: 0px;
+    box-sizing: border-box;
+    transition: all .5s ease;
+}
+
+.menu[status="error"] {
+	
+	.menu-btn {
+		animation: shake .65s cubic-bezier(.36,.07,.19,.97) both;
+		transform: translate3d(0, 0, 0);
+
+	}
+
+	.menu-btn::selection {
+		background-color: none;
+	}
+}
+
+.menu-nav {
+
+	// margin-top: 100px;
+
+	.menu-nav__item {
+		color: #717171;
+		position: relative;
+		transition: all .25s ease;
+		cursor: pointer;
+
+		&:after {
+			position: absolute;
+			content: '';
+			height: 3px;
+			background: #717171;
+			margin: auto;
+			bottom: -10px;
+			left: 0;
+			right: 0;
+			width: 0%;
+			transition: all .25s ease;
+		}
+
+		&:hover {
+			color: #cacaca;
+		}
+	}
+}
+
+.menu-form__item[type="selected"] {
+	.menu-form__input:after {
+		width: 100% !important;
+	}
+
+	.menu-form__placeholder {
+		bottom: -1.2em;
+	}
+}
+
+.menu-form__item[type="complete"] {
+	.menu-form__placeholder {
+		bottom: -1.2em;
+	}
+
+}
+
+.menu-form__item[status="error"] {
+	.menu-form__input:after {
+		width: 100% !important;
+		background: #ff6161;
+	}
+
+	.menu-form__tip {
+		left: 10px;
+		color: #ff6161;
+	}
+}
+
+.menu-form__item[status="note"] {
+	.menu-form__input:after {
+		width: 100% !important;
+		background: #fff;
+	}
+
+	.menu-form__tip {
+		left: 10px;
+	}
+}
+
+.menu-form[type="signup"] {
+	left: -150%;
+}
+
+.menu-form[type="signin"] {
+	left: 150%;
+}
+
+.menu-form[type="forget"] {
+	left: -150%;
+}
+
+.menu-form {
+
+	position: absolute;
+	top: 100px;
+	transition: all .25s ease;
+
+	.menu-form__item {
+		position: relative;
+		width: 100%;
+		height: 40px;
+		margin-bottom: 40px; 
+	}
+
+	.menu-form__input {
+		position: relative;
+		width: 100%;
+		height: 40px;
+		overflow: hidden;
+
+		&:before {
+			// z-index: 9;
+			position: absolute;
+			content: '';
+			height: 2px;
+			background: #717171;
+			bottom: 0px;
+			left: 0;
+			right: 0;
+			width: 100%;
+			transition: all .5s ease;
+		}
+
+		&:after {
+			// z-index: 10;
+			position: absolute;
+			content: '';
+			height: 2px;
+			background: #fff;
+			bottom: 0px;
+			left: 0;
+			right: 0;
+			width: 0%;
+			transition: all .5s ease;
+		}
+	}
+
+	.menu-form__field {
+		position: absolute;
+		z-index: 100;
+		top: 0;
+		display: block;
+		height: 30px;
+		width: 100%;
+		text-indent: 10px;
+		background: none;
+		border: none;
+
+		font-family: 'Comfortaa';
+		color: #fff;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.menu-form__placeholder {
+		color: #717171;
+		z-index: 90;
+		position: absolute;
+		left: 10px;
+		bottom: 15px;
+		transition: all .25s ease;
+	}
+
+	.menu-form__tip {
+		z-index: 90;
+		width: 100%;
+		position: absolute;
+		color: #fff;
+		font-size: 13px;
+		bottom: -35px;
+		height: 28px;
+		vertical-align: top;
+		left: -250%;
+		transition: all .5s ease;
+	}
+
+	.menu-form__btn {
+		position: relative;
+		color: #fff;
+		cursor: pointer;
+		margin: auto;
+		margin-top: 20px;
+
+		&:after {
+			position: absolute;
+			content: '';
+			height: 1px;
+			background: #fff;
+			margin: auto;
+			bottom: -10px;
+			left: 0;
+			right: 0;
+			width: 0%;
+			transition: all .25s ease;
+		}
+
+		&:hover:after {
+			width: 100%;
+		}
+
+
+	}
+}
+
+.face:hover {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+	10%, 90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+
+	20%, 80% {
+		transform: translate3d(2px, 0, 0);
+	}
+
+	30%, 50%, 70% {
+		transform: translate3d(-3px, 0, 0);
+	}
+
+	40%, 60% {
+		transform: translate3d(3px, 0, 0);
+	}
+}
+
+@keyframes big-normal {
+	from {
+		width: 140%;
+		height: 140%;
+		opacity: 0.2;
+	}
+	to {
+		opacity: 0.3;
+		width: 130%;
+		height: 130%;
+	}
+}
+
+.menu-btn {
+	bottom: -200%;
+	position: relative;
+	width: 75px;
+	height: 75px;
+	background: #fff;
+	color: #202020;
+	margin-bottom: 50px;
+	border-radius: 100%;
+
+	transition: all .75s ease;
+	cursor: pointer;
+
+	&__border {
+		z-index: 9;
+		position: absolute;
+		background: #fff;
+		width: 100px;
+		height: 100px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0.2;
+		border-radius: 100%;
+		animation: big-normal .75s infinite alternate;
+	}
+
+	&__title {
+		font-size: 14px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+		position: absolute;
+		color: #202020;
+	}
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-text-fill-color: #fff;
+	-webkit-box-shadow: 0 0 0px 1000px #202020 inset;
+}

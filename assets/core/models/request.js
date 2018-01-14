@@ -7,9 +7,9 @@ const request = {
 		data = typeof data == 'function' ? null : data;
 
 		let req = new XMLHttpRequest();
-		req.open('post', url);
-
-		req.send(data);
+		req.open("POST", url, true);
+		req.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+		req.send(JSON.stringify(data));
 		
 		req.onload = function() {
 			if (req.status == 404) return callback(null); 
@@ -17,13 +17,15 @@ const request = {
 		};
 	},
 
-	data: function(url, data) {
-
+	data: function(url, data, callback) {
+		request.open(url, data, function(res) {
+			callback(JSON.parse(res));
+		});
 	},
 
 	block: function(path, callback) {
 
-		let url = `/block${path}`;
+		let url = `/blocks${path}`;
 		request.open(url, function(data) {
 
 			// REDIRECT TO ERROR PAGE (IF GETED ERROR)

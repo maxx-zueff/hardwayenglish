@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="isolation:isolate" width="30" height="30" viewBox="0 0 30 30">
+<!--   <clipPath id="a">
+    <path fill="#FFF" d="M0 0h30v30H0z"/>
+  </clipPath> -->
+  <!-- <g clip-path="url(#a)" fill="#fff"> -->
+  <g class="toggle-group">
+    <path class="toggle-bars toggle-bar-1" d="M1.5 21.5h27a1.5 1.5 0 0 1 0 3h-27a1.5 1.5 0 0 1 0-3z"/>
+    <path class="toggle-bars toggle-bar-2" d="M1.5 13.5h27a1.5 1.5 0 0 1 0 3h-27a1.5 1.5 0 0 1 0-3z"/>
+    <path class="toggle-bars toggle-bar-3" d="M28.5 13.5h-27a1.5 1.5 0 0 0 0 3h27a1.5 1.5 0 0 0 0-3z"/>
+    <path class="toggle-bars toggle-bar-4" d="M1.5 5.5h27a1.5 1.5 0 0 1 0 3h-27a1.5 1.5 0 0 1 0-3z"/>
+  </g>
+</svg>

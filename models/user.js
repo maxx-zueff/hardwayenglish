@@ -55,6 +55,11 @@ const userSchema = new Schema({
 		unique: true,
 		required: true
 	},
+	email: { 
+		type: String,
+		unique: true,
+		required: true
+	},
 	hash: String,
 	group: {
 		type: Schema.Types.ObjectId,
@@ -80,11 +85,12 @@ userSchema.methods.valid_password = function (password) {
 
 // Generate JSON Web Token
 userSchema.methods.generate_jwt = function () {
-	var exp = Math.floor(Date.now() / 1000) + (60*60*24*31);
+	var exp = Math.floor(Date.now() / 1000) + (60*60*24*3);
     return {
-        value : jwt.sign({
+        token : jwt.sign({
 			_id   : this._id,
 			name  : this.name,
+			group : this.group,
 			exp   : exp
 		}, 'LOVE'),
         timestamp: exp

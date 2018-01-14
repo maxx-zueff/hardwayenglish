@@ -1,8 +1,11 @@
 
 // Dependencies
 const express = require('express');
+const mongoose = require('mongoose');
 const router  = express.Router();
 const blocks  = require('./view.blocks');
+
+const Group = mongoose.model('Group');
 
 // ------------------------------------------------------------------
 // Main Layout
@@ -30,8 +33,14 @@ router.get('/*', function(req, res, next) {
 
 	// Select layout for different user groups 
 	if (!req.user) return res.render('guest');
-	if (req.user.group.name == 'member') return res.render('member');
-	if (req.user.group.name == 'admin') return res.render('admin');
+
+	Group.findById(req.user.group, function(err, group) {
+		if (err) return next({message: err});
+
+		if (group.name == 'member') return res.render('member');
+		if (group.name == 'admin') return res.render('admin');
+	
+    });
 
 });
 

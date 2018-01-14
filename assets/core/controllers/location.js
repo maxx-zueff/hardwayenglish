@@ -1,9 +1,9 @@
-const request   = require('../models/request');
-const section   = require('../views/section');
-const listeners = require('../controllers/listeners');
+const request  = require('../models/request');
+const section  = require('../views/section');
+const listener = require('../controllers/listeners');
 
 module.exports = function(url) {
-	
+
 	// Change address bar 
 	history.pushState(null, null, url);
 	let path = location.pathname;
@@ -11,11 +11,9 @@ module.exports = function(url) {
 	// Send request (block)
 	request.block(path, function(block) {
 
-		listeners.remove(); // remove old listeners
+		listener.remove_all(); // remove old listeners
 		section.up(block, function() { // update HTML
-
-			listeners.add(); // Add new listeners
-
+			listener.init(); // add new listeners
 		});
 
 	});

@@ -12,15 +12,14 @@ passport.use(new LocalStrategy(
     },
 
     function(username, password, done) {
-        User.findOne({ name: username }).populate('group')
-        .exec(function (err, user) {
+        User.findOne({ name: username }, function (err, user) {
             
             if (err) {
                 return done(err);
             }
             
             // Return if user not found in database
-            if (!user) {
+            if (user == null) {
                 return done(null, false, {
                     message: 'User not found'
                 });

@@ -23,6 +23,9 @@
     "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-sass": "^3.1.0",
     "webpack": "^3.8.1"
   }
 }

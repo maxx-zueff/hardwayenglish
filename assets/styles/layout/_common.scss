@@ -1,0 +1,39 @@
+.wrapper {
+	width: 100%;
+	height: 100%;
+	padding: 0 30px;
+	box-sizing: border-box;
+}
+
+.content {
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+
+.content-width {
+	display: flex;
+	width: 100%;
+}
+
+.content-nosize {
+	display: flex;
+}
+
+.content-inner {
+	position: relative;
+	overflow: hidden;
+}
+
+$direction: ( col: column, row: row );
+$justify: ( center: center, between: space-between );
+
+@each $name, $prop in $direction {
+	@each $sub-name, $sub-prop in $justify {
+		.#{$name}-#{$sub-name} {
+			flex-direction: $prop;
+			justify-content: $sub-prop;
+			align-items: center;
+		}
+	}
+}

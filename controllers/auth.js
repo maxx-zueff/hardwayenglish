@@ -20,9 +20,10 @@ let sendJSONresponse = function(res, status, content) {
 
 module.exports.signup = function (req, res, next) {
 
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.username || !req.body.password || !req.body.email) {
         return sendJSONresponse(res, 400, {
             "message": "All fields required",
+            email: req.body.email,
             username : req.body.username,
             password : req.body.password
         });
@@ -58,6 +59,7 @@ module.exports.signup = function (req, res, next) {
 
         let user = new User({
             name: req.body.username,
+            email: req.body.email,
             group: result.group._id,
             topic: [{
                name: [result.topic._id],
@@ -88,7 +90,7 @@ module.exports.signup = function (req, res, next) {
 
 // ------------------------------------------------------------------
 
-module.exports.signin = function(req, res) {
+module.exports.signin = function(req, res, next) {
 
     let auth = passport.authenticate('local', 
         function (err, user, info) {
@@ -110,11 +112,34 @@ module.exports.signin = function(req, res) {
                 // If user is not found
                 return next({
                     status: 401,
-                    message: err.message
+                    message: info.message
                 });
             }
         }
     );
 
     auth(req, res);
+};
+
+// ------------------------------------------------------------------
+
+module.exports.available = function(req, res) {
+
+    let query = req.body.username ? {"name":req.body.username} 
+              : req.body.email ? {"email":req.body.email} : null;
+
+    console.log(query);
+    console.log(req.body);
+
+    User.findOne(query, function(err, user) {
+
+        if (err) return next({
+            status:401,
+            message: err.message
+        });
+
+        if (user == null) return res.json({available: true});
+        if (user) return res.json({available: false});
+    });
+
 };

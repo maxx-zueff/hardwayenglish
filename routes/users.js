@@ -13,6 +13,7 @@ const test    = require('../controllers/test');
 // Authentication
 router.post('/signup', auth.signup);
 router.post('/signin', auth.signin);
+router.post('/available', auth.available);
 
 // ------------------------------------------------------------------
 
