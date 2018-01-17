@@ -4,51 +4,65 @@ const listener = require('../controllers/listeners');
 
 module.exports = function() {
 
-	let nodes = store.DOM();
+	
+	let check_field = function(value, options) {
+
+		if (value.length == 0) return "Field must be complete!";
+		if (typeof options == "undefined") return false;
+		
+		if (options.min && options.max) {
+			if (value.length < options.min) return options.name + " is too short (minimum is " + options.min + " characters)";
+			if (value.length > options.max) return options.name + " is too long (maximum is " + options.max + " characters)";
+		}
+
+		if (options.regex) {
+			let match = value.match(options.regex);
+			if (match == null) return options.name + " may only contain alphanumeric characters";
+		}
+
+		return false;
+	};
+
 	let check_symbols = function(type, value, section, cb) {
 
-		if (value.length == 0) return cb("Field must be complete!");
+		let check = check_field(value);
 
+		if (check) return cb(check);
 		if (section == "signup") {
-
+			
 			if (type == "username") {
-				let name_regex = /^[a-zA-Z0-9]{3,15}$/;
-				let match = value.match(name_regex);
-			    
-			    if (value.length < 3) return cb("Username is too short (minimum is 3 characters)");
-				else if (value.length > 15) return cb("Username is too long (maximum is 15 characters)");
-				else if (match == null) return cb("Username may only contain alphanumeric characters");
 
-				auth.available(type, value, function(status) {
-					if (!status) return cb('Taken ' + type);
-					if (status) return cb(false);
+				let check = check_field(value, {
+					name: 'Username',
+					regex: /^[a-zA-Z0-9]{3,15}$/,
+					max: 15,
+					min: 3
 				});
+
+				if (check) return cb(check);
+				if (auth.available(type, value)) {
+					return cb('Taken ' + type);
+				}
+
+				return cb(false);
 			}
 
 			if (type == "email") {
 
-				auth.available(type, value, function(status) {
-					if (!status) {
-						nodes.menu.setAttribute("type", "login");
-						let form = nodes.menu.querySelector('.menu-form[type="login"]');
-						let field = form.querySelector('.menu-form__field[type="username"]');
-						let node = field.parentNode.parentNode;
-
-						setTimeout(function(){
-							node.click();
-							field.value = value;
-						}, 250);
-						return cb(false);
-					}
-
-					if (status) return cb(false);
-				});
+				if (auth.available(type, value)) {
+					return cb(true, type);
+				}
 			}
 
 			if (type == "password") {
-			    if (value.length < 6) return cb("Password is too short (minimum is 6 characters)");
-				if (value.length > 15) return cb("Password is too long (maximum is 15 characters)");
-				return cb(false);
+				
+				let check = check_field(value, {
+					name: 'Password',
+					max: 15,
+					min: 6
+				});
+
+				if (check) return cb(check);
 			}
 
 		}
@@ -56,10 +70,8 @@ module.exports = function() {
 		return cb(false);
 
 	};
-
-
-
 	
+	let nodes = store.DOM();
 	nodes.tip.forEach(function(el) {
 
 		listener.add(el, 'keyup', function (event) {
@@ -71,14 +83,27 @@ module.exports = function() {
 			let value = el.value;
 			let type = el.getAttribute('type');
 
-			check_symbols(type, value, section, function(string) {
+			check_symbols(type, value, section, function(string, type) {
+
+
+				if (type == "email" && string) {
+					nodes.menu.setAttribute("type", "login");
+					let form = nodes.menu.querySelector('.menu-form[type="login"]');
+					let field = form.querySelector('.menu-form__field[type="username"]');
+					let item = field.parentNode.parentNode;
+
+					setTimeout(function(){
+						item.click();
+						field.value = value;
+					}, 250);
+				}
 
 				if (string) {
 					node.setAttribute('status', 'error');
 					tip.innerHTML = string;
 				}
 
-				else {
+				else if (!string) {
 					node.setAttribute('status', 'success');
 				}
 

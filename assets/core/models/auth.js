@@ -57,16 +57,14 @@ const auth = {
 
 	},
 
-	available: function(type, value, cb) {
+	available: function(type, value) {
 
 		let data = type == "username" ? {username:value}
 			     : type == "email" ? {email:value} : null;
 
-		request.data('/available', data, function(data) {
-
-			console.log(data);
-			if (data.available) return cb(true); 
-			return cb(false);
+		return request.data('/available', data, function(data) {
+			if (data.available) return true; 
+			return false;
 		});
 	},
 
@@ -77,8 +75,6 @@ const auth = {
 		// send request data
 		request.data(url, data, function(data) {
 
-			console.log(data);
-			
 			if (!data.token) {
 				alert(data.message);
 				return callback();
