@@ -57,14 +57,15 @@ const auth = {
 
 	},
 
-	available: function(type, value) {
+	available: function(type, value, cb) {
 
 		let data = type == "username" ? {username:value}
 			     : type == "email" ? {email:value} : null;
 
-		return request.data('/available', data, function(data) {
-			if (data.available) return true; 
-			return false;
+		request.data('/available', data, function(data) {
+			if (data.available) return cb(true); 
+			if (!data.available) return cb(false); 
+			// return cb(false);
 		});
 	},
 
@@ -97,7 +98,8 @@ const auth = {
 	},
 
 	out: function() {
-
+		cookie.remove('token');
+		window.location.replace("/");
 	}
 };
 

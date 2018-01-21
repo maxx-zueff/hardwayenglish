@@ -2,7 +2,8 @@ const store = require('../models/store');
 const listener = require('../controllers/listeners');
 
 const options = {
-	"auth" : require('../models/auth').init
+	"auth" : require('../models/auth').init,
+	"logout" : require('../models/auth').out
 };
 
 module.exports = function() {

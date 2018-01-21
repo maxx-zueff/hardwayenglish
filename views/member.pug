@@ -1,3 +1,27 @@
 extends layout.pug
 
-H1 LOL
+block header
+	header
+		.wrapper
+			.content.row-between
+				.pic.pic-logo
+				.pic.pic-toggle.js-toggle(target="body" set="open-menu")
+					.toggle-bars.toggle-bar-1
+					.toggle-bars.toggle-bar-2
+					.toggle-bars.toggle-bar-3
+					.toggle-bars.toggle-bar-4
+
+	.menu
+		.wrapper
+			.content.col-between.content-inner
+
+				.menu-wellcome.sub-title Hello, #{user.name}
+
+				.menu-options.content.col-center
+					.sub-title.menu-options__item
+						a.js-link.js-toggle(target="body" set="open-menu" href="/collections") Collections
+					.sub-title.menu-options__item
+						a.js-submit.js-toggle(target="body" set="open-menu" type="logout") Logout
+
+block scripts
+	script(src="./js/member.js")

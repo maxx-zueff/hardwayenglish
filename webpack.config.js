@@ -14,8 +14,8 @@ module.exports = function (env) {
 
         entry: {
             'guest':  './assets/core/guest',
-            // 'member': './assets/core/member',
-            // 'admin': './assets/core/admin'
+            'member': './assets/core/member',
+            'admin': './assets/core/admin'
         },
 
         output: {

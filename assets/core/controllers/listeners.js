@@ -4,6 +4,7 @@ const option  = require('../views/option');
 const select  = require('../views/select');
 const submit  = require('../views/submit');
 const tip     = require('../views/tip');
+const link    = require('../views/link');
 
 // ------------------------------------------------------------------
 
@@ -42,5 +43,6 @@ module.exports.init = function() {
     select();
     submit();
     tip();
+    link();
 
 };

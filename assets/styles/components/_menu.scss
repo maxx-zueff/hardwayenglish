@@ -1,4 +1,35 @@
-.guest {
+@keyframes shake {
+	10%, 90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+
+	20%, 80% {
+		transform: translate3d(2px, 0, 0);
+	}
+
+	30%, 50%, 70% {
+		transform: translate3d(-3px, 0, 0);
+	}
+
+	40%, 60% {
+		transform: translate3d(3px, 0, 0);
+	}
+}
+
+@keyframes big-normal {
+	from {
+		width: 140%;
+		height: 140%;
+		opacity: 0.2;
+	}
+	to {
+		opacity: 0.3;
+		width: 130%;
+		height: 130%;
+	}
+}
+
+.open-menu {
 
 
 	// ----------------------------------------------------
@@ -24,18 +55,36 @@
 	// MENU
 
 	.menu {
-		
 		bottom: 0;
 		padding-top: 100px;
+	}
 
+	.menu.member {
+		padding-top: 150px;
+		// padding-bottom: 100px;
+	}
+
+	.menu.admin {
+		padding-top: 150px;
+		// padding-bottom: 100px;
 	}
 
 	// ----------------------------------------------------
 	// HEADER
 
+	// header.guest {
+	// 	background: #202020;
+	// }
+
+
 	header {
 		background: #202020;
 	}
+
+	// header.member {
+	// 	background: #55C1A4;
+	// }
+
 
 	// ----------------------------------------------------
 	// TYPOGRAPHY
@@ -44,10 +93,16 @@
 		color: #fff;
 	}
 
+	// .menu-options a {
+	// 	color: #fff;
+	// }
+
 	.menu-btn {
 		bottom: 0;
 	}
 }
+
+
 
 .menu[type="signup"] {
 
@@ -93,18 +148,6 @@
 
 }
 
-.menu {
-	position: fixed;
-	background: #202020;
-    top: 0;
-    left: 0;
-    bottom: 100%;
-    width: 100%;
-    z-index: 900;
-    padding-top: 0px;
-    box-sizing: border-box;
-    transition: all .5s ease;
-}
 
 .menu[status="error"] {
 	
@@ -119,34 +162,6 @@
 	}
 }
 
-.menu-nav {
-
-	// margin-top: 100px;
-
-	.menu-nav__item {
-		color: #717171;
-		position: relative;
-		transition: all .25s ease;
-		cursor: pointer;
-
-		&:after {
-			position: absolute;
-			content: '';
-			height: 3px;
-			background: #717171;
-			margin: auto;
-			bottom: -10px;
-			left: 0;
-			right: 0;
-			width: 0%;
-			transition: all .25s ease;
-		}
-
-		&:hover {
-			color: #cacaca;
-		}
-	}
-}
 
 .menu-form__item[type="selected"] {
 	.menu-form__input:after {
@@ -199,6 +214,61 @@
 .menu-form[type="forget"] {
 	left: -150%;
 }
+
+.menu {
+	position: fixed;
+	// background: #202020;
+    top: 0;
+    left: 0;
+    bottom: 100%;
+    width: 100%;
+    z-index: 900;
+    // padding-top: 100px;
+    box-sizing: border-box;
+    transition: all .5s ease;
+}
+
+// .menu.member {
+// 	background: #55C1A4;
+// 	text-align: center;
+// }
+
+// .menu.guest {
+// 	background: #202020;
+// }
+
+
+.menu {
+	background: #202020;
+}
+
+.menu-nav {
+
+	.menu-nav__item {
+		color: #717171;
+		position: relative;
+		transition: all .25s ease;
+		cursor: pointer;
+
+		&:after {
+			position: absolute;
+			content: '';
+			height: 3px;
+			background: #717171;
+			margin: auto;
+			bottom: -10px;
+			left: 0;
+			right: 0;
+			width: 0%;
+			transition: all .25s ease;
+		}
+
+		&:hover {
+			color: #cacaca;
+		}
+	}
+}
+
 
 .menu-form {
 
@@ -315,44 +385,6 @@
 	}
 }
 
-.face:hover {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-@keyframes shake {
-	10%, 90% {
-		transform: translate3d(-1px, 0, 0);
-	}
-
-	20%, 80% {
-		transform: translate3d(2px, 0, 0);
-	}
-
-	30%, 50%, 70% {
-		transform: translate3d(-3px, 0, 0);
-	}
-
-	40%, 60% {
-		transform: translate3d(3px, 0, 0);
-	}
-}
-
-@keyframes big-normal {
-	from {
-		width: 140%;
-		height: 140%;
-		opacity: 0.2;
-	}
-	to {
-		opacity: 0.3;
-		width: 130%;
-		height: 130%;
-	}
-}
-
 .menu-btn {
 	bottom: -200%;
 	position: relative;
@@ -390,6 +422,68 @@
 		color: #202020;
 	}
 }
+
+.menu-wellcome {
+	padding-top: 50px;
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+}
+
+.menu-options {
+	// color: #fff;
+
+	&__item {
+		cursor: pointer;
+		position: relative;
+		padding-bottom: 5px;
+		margin: 20px 0;
+		color: #696969;
+
+		// &:after {
+		// 	position: absolute;
+		// 	content: '';
+		// 	height: 2px;
+		// 	background: #fff;
+		// 	margin: auto;
+		// 	bottom: 0;
+		// 	left: 0;
+		// 	right: 0;
+		// 	width: 0%;
+		// 	transition: all .25s ease;
+		// }
+
+		// &:hover:after {
+		// 	width: 100%;
+		// }
+	}
+
+	a {
+		text-decoration: none;
+		color: #696969;
+		transition: all .25s ease;
+
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	a:active {
+		color: #353535;
+	}
+}
+
+.face:hover {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+
+
+
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 

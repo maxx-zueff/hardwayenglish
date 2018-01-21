@@ -1,7 +1,7 @@
 module.exports.DOM = function () {
 
 	return {
-		links: document.querySelectorAll('[request]'),
+		link: document.querySelectorAll('.js-link'),
 		toggled: document.querySelectorAll('.js-toggle'),
 		option: document.querySelectorAll('.js-option'),
 		select: document.querySelectorAll('.js-select'),

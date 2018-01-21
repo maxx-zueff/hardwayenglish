@@ -34,11 +34,13 @@ router.get('/*', function(req, res, next) {
 	// Select layout for different user groups 
 	if (!req.user) return res.render('guest');
 
+	console.log(req.user);
+
 	Group.findById(req.user.group, function(err, group) {
 		if (err) return next({message: err});
 
-		if (group.name == 'member') return res.render('member');
-		if (group.name == 'admin') return res.render('admin');
+		if (group.name == 'member') return res.render('member', {user: req.user});
+		if (group.name == 'admin') return res.render('admin', {user: req.user});
 	
     });
 

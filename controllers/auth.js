@@ -92,7 +92,7 @@ module.exports.signup = function (req, res, next) {
 
 module.exports.signin = function(req, res, next) {
 
-    let auth = passport.authenticate('local', 
+    let auth = passport.authenticate(['user-local', 'sponsor-local'], 
         function (err, user, info) {
 
             // If Passport throws/catches an error
