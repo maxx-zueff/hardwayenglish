@@ -1,4 +1,4 @@
-const auth     = require('../models/auth');
+const auth = require('../models/auth');
 
 module.exports = function(type, value, section, cb) {
 
@@ -34,6 +34,7 @@ module.exports = function(type, value, section, cb) {
 			});
 
 			if (check) return cb(check);
+			return cb(false);
 		}
 
 		auth.available(type, value, function(status) {
@@ -62,5 +63,4 @@ module.exports = function(type, value, section, cb) {
 	}
 	
 	return cb(false);
-
 };

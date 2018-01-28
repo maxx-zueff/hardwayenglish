@@ -25,6 +25,10 @@
 	overflow: hidden;
 }
 
+#view {
+	padding-top: 60px;
+}
+
 $direction: ( col: column, row: row );
 $justify: ( center: center, between: space-between );
 

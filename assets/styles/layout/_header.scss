@@ -7,3 +7,14 @@ header {
 	z-index: 1000;
 	transition: all .25s ease;
 }
+
+footer {
+	height: 60px;
+	width: 100%;
+	background: #EBEBEB;
+	font-size: 14px;
+	padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #595959;
+}

@@ -1,10 +1,12 @@
-const store   = require('../models/store');
-const toggle  = require('../views/toggle');
-const option  = require('../views/option');
-const select  = require('../views/select');
-const submit  = require('../views/submit');
-const tip     = require('../views/tip');
-const link    = require('../views/link');
+const store      = require('../models/store');
+const toggle     = require('../views/toggle');
+const option     = require('../views/option');
+const select     = require('../views/select');
+const submit     = require('../views/submit');
+const tip        = require('../views/tip');
+const link       = require('../views/link');
+const typewriter = require('../views/typewriter');
+const slider     = require('../views/slider');
 
 // ------------------------------------------------------------------
 
@@ -44,5 +46,7 @@ module.exports.init = function() {
     submit();
     tip();
     link();
+    typewriter();
+    slider();
 
 };

@@ -8,7 +8,10 @@ module.exports.DOM = function () {
 		submit: document.querySelectorAll('.js-submit'),
 		tip: document.querySelectorAll('.js-tip'),
 
-		menu: document.querySelector('.menu')
+		menu: document.querySelector('.menu'),
+		slogan: document.querySelector('.slogan'),
+		slider: document.querySelectorAll('.slider-item'),
+		nav: document.querySelectorAll('.slider-navigation--item')
 	};
 };
 

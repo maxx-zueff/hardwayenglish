@@ -85,7 +85,7 @@ app.use(check_token);
 app.use(users);
 app.use(admin);
 app.use(layout);
-app.use('/block', blocks);
+app.use('/blocks', blocks);
 
 // Error handler for paths
 app.use(not_found);

@@ -3,6 +3,11 @@
 	src: url('/fonts/comfortaa/Comfortaa-Regular.ttf');
 }
 
+@font-face {
+	font-family: 'Bitter';
+	src: url('/fonts/bitter/Bitter-Regular.ttf');
+}
+
 body {
 	font-family: 'Comfortaa';
 }
@@ -16,3 +21,4 @@ body {
 	color: #353535;
 	font-size: 24px;
 }
+

@@ -10,7 +10,8 @@ router.post('/a', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-	res.send('intro');
+	console.log('HERE!');
+	res.render('blocks/intro');
 });
 
 // ------------------------------------------------------------------

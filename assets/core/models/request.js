@@ -8,9 +8,14 @@ const request = {
 
 		let req = new XMLHttpRequest();
 		req.open("POST", url, true);
-		req.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-		req.send(JSON.stringify(data));
-		
+
+		if (data) {
+			req.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+			req.send(JSON.stringify(data));
+		}
+
+		else req.send();
+
 		req.onload = function() {
 			if (req.status == 404) return callback(null); 
 			callback(this.response);
@@ -26,6 +31,9 @@ const request = {
 	block: function(path, callback) {
 
 		let url = `/blocks${path}`;
+		// let url = "/blocks/a";
+		// if (!path) url = '/blocks/';
+
 		request.open(url, function(data) {
 
 			// REDIRECT TO ERROR PAGE (IF GETED ERROR)
