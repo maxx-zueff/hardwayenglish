@@ -5,14 +5,27 @@
 }
 
 .shut-intro {
+
+	#view {
+		overflow: auto;
+		height: auto;
+	}	
+
 	.intro {
 		bottom: 100%;
 	}
 
 	.intro-description {
-		display: block;
-		top: 0%;
+		padding-top: 0vh;
 	}
+
+
+	footer {
+		display: block;
+	}
+
+	overflow: auto;
+
 }
 
 .intro {
@@ -22,6 +35,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0%;
+	overflow: hidden;
 
 	background: #55C1A4;
 	transition: all .5s ease;
@@ -83,10 +97,11 @@
 }
 
 .intro-description {
-	display: none;
+	// display: none;
+	// position: absolute;
 	overflow: hidden;
-	top: 100%;
-	transition: all .5s ease;
+	padding-top: 100vh;
+	transition: all .75s ease;
 }
 
 section {

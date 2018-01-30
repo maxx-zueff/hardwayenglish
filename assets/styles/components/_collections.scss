@@ -1,0 +1,54 @@
+.collections {
+
+	&-title {
+		padding: 30px;
+	    margin: 0 -30px;
+		background: #EBEBEB;
+	}
+
+	section {
+	    margin: 0 -30px;
+	}
+
+	&-item {
+		padding: 30px;
+	}
+
+	&-status {
+		width: 75px;
+		height: 75px;
+		background: red;
+	}
+
+	&-description {
+		// text-align: left;
+		flex: 1;
+		padding-left: 30px;
+		align-items: left;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+	}
+
+	&-infoooo {
+		justify-content: flex-start;
+	}
+
+	&-info {
+		font-size: 12px;
+		padding-top: 10px;
+
+		&:last-child {
+			padding-left: 30px;
+		}
+	}
+
+
+
+	.content {
+		padding-top: 0px;
+	}
+
+}

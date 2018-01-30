@@ -26,7 +26,16 @@
 }
 
 #view {
-	padding-top: 60px;
+	box-sizing: border-box;
+    height: 100vh;
+    position: relative;
+    padding-top: 60px;
+    overflow: hidden;
+}
+
+body {
+	height: 100%;
+	overflow: hidden;
 }
 
 $direction: ( col: column, row: row );
