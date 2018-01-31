@@ -1,0 +1,31 @@
+#{$is-open} .btn-toggle {
+	.toggle-bar-1 { transform: scaleX(0); }
+	.toggle-bar-2 { transform: rotate(45deg); }
+	.toggle-bar-3 { transform: rotate(-45deg); }
+	.toggle-bar-4 { transform: scaleX(0); }
+}
+
+.btn-toggle {
+	display: block;
+	cursor: pointer;
+	width: 30px;
+	height: 19px;
+	position: relative;
+
+	.toggle-bar {
+		background: #fff;
+		height: 3px;
+	    position: absolute;
+	    left: 0;
+	    right: 0;
+		width: 100%;
+		transition: all .25s ease; }
+
+	.toggle-bar-1 { top: 0; }
+	.toggle-bar-4 { bottom: 0; }
+	.toggle-bar-2,
+	.toggle-bar-3 {
+		top: 0;
+	    bottom: 0;
+	    margin: auto; }
+}

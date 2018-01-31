@@ -1,0 +1,39 @@
+@keyframes shake {
+	10%, 90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+
+	20%, 80% {
+		transform: translate3d(2px, 0, 0);
+	}
+
+	30%, 50%, 70% {
+		transform: translate3d(-3px, 0, 0);
+	}
+
+	40%, 60% {
+		transform: translate3d(3px, 0, 0);
+	}
+}
+
+@keyframes big-normal {
+	from {
+		width: 140%;
+		height: 140%;
+		opacity: 0.2;
+	}
+	to {
+		opacity: 0.3;
+		width: 130%;
+		height: 130%;
+	}
+}
+
+@keyframes move {
+	from {
+		bottom: 0%;
+	}
+	to {
+		bottom: 1.5%;
+	}
+}

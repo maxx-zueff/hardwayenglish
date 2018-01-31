@@ -1,11 +1,32 @@
-header {
-	background: #55C1A4;
-	height: 60px;
+#{$is-open} .header-main {
+	background: #202020;
+}
+
+#{$is-open} .header-menu {
+	bottom: 0;
+	padding-top: 100px;
+}
+
+.header-main {
 	position: fixed;
-	top: 0;
-	width: 100%;
 	z-index: 1000;
+	top: 0;
+	height: 60px;
+	width: 100%;
+	background: #55C1A4;
 	transition: all .25s ease;
+}
+
+.header-menu {
+	position: fixed;
+	z-index: 900;
+	top: 0;
+	left: 0;
+	bottom: 100%;
+	width: 100%;
+	background: #202020;
+	box-sizing: border-box;
+	transition: all .5s ease;
 }
 
 footer {
@@ -18,7 +39,7 @@ footer {
     text-align: center;
     color: #595959;
     // display: none;
-    // position: absolute;
+    position: relative;
     // bottom: 0;
     // z-index: 0;
 }

@@ -1,117 +1,7 @@
-@keyframes shake {
-	10%, 90% {
-		transform: translate3d(-1px, 0, 0);
-	}
-
-	20%, 80% {
-		transform: translate3d(2px, 0, 0);
-	}
-
-	30%, 50%, 70% {
-		transform: translate3d(-3px, 0, 0);
-	}
-
-	40%, 60% {
-		transform: translate3d(3px, 0, 0);
-	}
-}
-
-@keyframes big-normal {
-	from {
-		width: 140%;
-		height: 140%;
-		opacity: 0.2;
-	}
-	to {
-		opacity: 0.3;
-		width: 130%;
-		height: 130%;
-	}
-}
-
-@keyframes move {
-	from {
-		bottom: 0%;
-	}
-	to {
-		bottom: 1.5%;
-	}
-}
-
-
-.open-menu {
-
-
-	// ----------------------------------------------------
-	// TOGGLE
-
-	.toggle-bar-1 {
-		transform: scaleX(0);
-	}
-
-	.toggle-bar-2 {
-		transform: rotate(45deg);
-	}
-
-	.toggle-bar-3 {
-		transform: rotate(-45deg);
-	}
-
-	.toggle-bar-4 {
-		transform: scaleX(0);
-	}
-
-	// ----------------------------------------------------
-	// MENU
-
-	.menu {
-		bottom: 0;
-		padding-top: 100px;
-	}
-
-	.menu.member {
-		padding-top: 150px;
-		// padding-bottom: 100px;
-	}
-
-	.menu.admin {
-		padding-top: 150px;
-		// padding-bottom: 100px;
-	}
-
-	// ----------------------------------------------------
-	// HEADER
-
-	// header.guest {
-	// 	background: #202020;
-	// }
-
-
-	header {
-		background: #202020;
-	}
-
-	// header.member {
-	// 	background: #55C1A4;
-	// }
-
-
-	// ----------------------------------------------------
-	// TYPOGRAPHY
-
-	.title, .sub-title {
-		color: #fff;
-	}
-
-	// .menu-options a {
-	// 	color: #fff;
-	// }
-
-	.menu-btn {
-		bottom: 0;
-	}
-}
-
+// #{$is-open} .menu {
+// 	bottom: 0;
+// 	padding-top: 100px;
+// }
 
 
 .menu[type="signup"] {
@@ -225,32 +115,18 @@
 	left: -150%;
 }
 
-.menu {
-	position: fixed;
-	// background: #202020;
-    top: 0;
-    left: 0;
-    bottom: 100%;
-    width: 100%;
-    z-index: 900;
-    // padding-top: 100px;
-    box-sizing: border-box;
-    transition: all .5s ease;
-}
-
-// .menu.member {
-// 	background: #55C1A4;
-// 	text-align: center;
-// }
-
-// .menu.guest {
+// .menu {
+// 	position: fixed;
 // 	background: #202020;
+//     top: 0;
+//     left: 0;
+//     bottom: 100%;
+//     width: 100%;
+//     z-index: 900;
+//     // padding-top: 100px;
+//     box-sizing: border-box;
+//     transition: all .5s ease;
 // }
-
-
-.menu {
-	background: #202020;
-}
 
 .menu-nav {
 
@@ -393,6 +269,10 @@
 
 
 	}
+}
+
+#{$is-open} .menu-btn {
+	bottom: 0;
 }
 
 .menu-btn {
