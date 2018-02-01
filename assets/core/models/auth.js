@@ -15,9 +15,9 @@ const auth = {
 
 		let fields = form.querySelectorAll('.menu-form__item');
 		let add_class_error = function() {
-			menu.setAttribute("status", "error");
+			menu.classList.toggle("is-error");
 			setTimeout(function() {
-				menu.removeAttribute("status");
+				menu.classList.toggle("is-error");
 			}, 1000);
 		};
 

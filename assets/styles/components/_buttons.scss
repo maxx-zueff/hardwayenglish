@@ -29,3 +29,37 @@
 	    bottom: 0;
 	    margin: auto; }
 }
+
+
+.btn-circle {
+	position: relative;
+	border-radius: 100%;
+	transition: all .75s ease;
+	cursor: pointer;
+	
+	width: 75px;
+	height: 75px;
+	font-size: 14px;
+
+	&__border {
+		z-index: 9;
+		position: absolute;
+		background: inherit;
+		width: 130%;
+		height: 130%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0.2;
+		border-radius: 100%;
+		animation: big-normal .75s infinite alternate;
+	}
+
+	&__title {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+		position: absolute;
+	}
+}

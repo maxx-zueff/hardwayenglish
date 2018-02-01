@@ -1,66 +1,29 @@
-// #{$is-open} .menu {
-// 	bottom: 0;
-// 	padding-top: 100px;
-// }
+@mixin menu-option($type) {
 
+	.menu[type=#{$type}] {
 
-.menu[type="signup"] {
+		.menu-nav__item[type=#{$type}] {
+			color: #fff;
+			position: relative;
 
-	.menu-nav__item[type="signup"] {
-		color: #fff;
-		position: relative;
-
-		&:after {
-			width: 100%;
-			background: #fff;
+			&:after {
+				width: 100%;
+				background: #fff;
+			}
 		}
-	}
 
-	.menu-form[type="signup"] {
-		left: 0;
-	}
-
-}
-
-.menu[type="signin"] {
-
-	.menu-nav__item[type="signin"] {
-		color: #fff;
-		position: relative;
-
-		&:after {
-			width: 100%;
-			background: #fff;
-		}
-	}
-
-	.menu-form[type="signin"] {
-		left: 0;
-	}
-
-}
-
-.menu[type="forget"] {
-
-	.menu-form[type="forget"] {
-		left: 0;
-	}
-
-}
-
-
-.menu[status="error"] {
-	
-	.menu-btn {
-		animation: shake .65s cubic-bezier(.36,.07,.19,.97) both;
-		transform: translate3d(0, 0, 0);
-
-	}
-
-	.menu-btn::selection {
-		background-color: none;
+		.menu-form[type=#{$type}] { left: 0; }
 	}
 }
+
+@each $type in $menu-types {
+	@include menu-option($type);
+}
+
+.menu-form[type="signup"] { left: -150%; }
+.menu-form[type="signin"] { left: 150%; }
+.menu-form[type="forget"] { left: -150%; }
+
 
 
 .menu-form__item[type="selected"] {
@@ -102,31 +65,6 @@
 		left: 10px;
 	}
 }
-
-.menu-form[type="signup"] {
-	left: -150%;
-}
-
-.menu-form[type="signin"] {
-	left: 150%;
-}
-
-.menu-form[type="forget"] {
-	left: -150%;
-}
-
-// .menu {
-// 	position: fixed;
-// 	background: #202020;
-//     top: 0;
-//     left: 0;
-//     bottom: 100%;
-//     width: 100%;
-//     z-index: 900;
-//     // padding-top: 100px;
-//     box-sizing: border-box;
-//     transition: all .5s ease;
-// }
 
 .menu-nav {
 
@@ -275,42 +213,16 @@
 	bottom: 0;
 }
 
+#{$is-error} .menu-btn {
+	animation: shake .65s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+}
+
 .menu-btn {
 	bottom: -200%;
-	position: relative;
-	width: 75px;
-	height: 75px;
+	margin-bottom: 50px;
 	background: #fff;
 	color: #202020;
-	margin-bottom: 50px;
-	border-radius: 100%;
-
-	transition: all .75s ease;
-	cursor: pointer;
-
-	&__border {
-		z-index: 9;
-		position: absolute;
-		background: #fff;
-		width: 100px;
-		height: 100px;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		opacity: 0.2;
-		border-radius: 100%;
-		animation: big-normal .75s infinite alternate;
-	}
-
-	&__title {
-		font-size: 14px;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 10;
-		position: absolute;
-		color: #202020;
-	}
 }
 
 .menu-wellcome {
@@ -329,23 +241,6 @@
 		padding-bottom: 5px;
 		margin: 20px 0;
 		color: #696969;
-
-		// &:after {
-		// 	position: absolute;
-		// 	content: '';
-		// 	height: 2px;
-		// 	background: #fff;
-		// 	margin: auto;
-		// 	bottom: 0;
-		// 	left: 0;
-		// 	right: 0;
-		// 	width: 0%;
-		// 	transition: all .25s ease;
-		// }
-
-		// &:hover:after {
-		// 	width: 100%;
-		// }
 	}
 
 	a {
