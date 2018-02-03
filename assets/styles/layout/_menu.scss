@@ -1,12 +1,14 @@
+// GUEST MENU
+// --------------------------------------------------------
+
 @mixin menu-option($type) {
 
 	.menu[type=#{$type}] {
 
 		.menu-nav__item[type=#{$type}] {
 			color: #fff;
-			position: relative;
 
-			&:after {
+			.underline:after {
 				width: 100%;
 				background: #fff;
 			}
@@ -20,70 +22,19 @@
 	@include menu-option($type);
 }
 
-.menu-form[type="signup"] { left: -150%; }
-.menu-form[type="signin"] { left: 150%; }
-.menu-form[type="forget"] { left: -150%; }
-
-
-
-.menu-form__item[type="selected"] {
-	.menu-form__input:after {
-		width: 100% !important;
-	}
-
-	.menu-form__placeholder {
-		bottom: -1.2em;
-	}
-}
-
-.menu-form__item[type="complete"] {
-	.menu-form__placeholder {
-		bottom: -1.2em;
-	}
-
-}
-
-.menu-form__item[status="error"] {
-	.menu-form__input:after {
-		width: 100% !important;
-		background: #ff6161;
-	}
-
-	.menu-form__tip {
-		left: 10px;
-		color: #ff6161;
-	}
-}
-
-.menu-form__item[status="note"] {
-	.menu-form__input:after {
-		width: 100% !important;
-		background: #fff;
-	}
-
-	.menu-form__tip {
-		left: 10px;
-	}
-}
-
 .menu-nav {
 
 	.menu-nav__item {
 		color: #717171;
 		position: relative;
-		transition: all .25s ease;
 		cursor: pointer;
+		transition: all .25s ease;
 
-		&:after {
-			position: absolute;
-			content: '';
+		.underline:after {
+			bottom: -10px;
 			height: 3px;
 			background: #717171;
 			margin: auto;
-			bottom: -10px;
-			left: 0;
-			right: 0;
-			width: 0%;
 			transition: all .25s ease;
 		}
 
@@ -93,6 +44,9 @@
 	}
 }
 
+.menu-form[type="signup"] { left: -150%; }
+.menu-form[type="signin"] { left: 150%; }
+.menu-form[type="forget"] { left: -150%; }
 
 .menu-form {
 
@@ -101,113 +55,65 @@
 	transition: all .25s ease;
 
 	.menu-form__item {
-		position: relative;
-		width: 100%;
-		height: 40px;
 		margin-bottom: 40px; 
-	}
 
-	.menu-form__input {
-		position: relative;
-		width: 100%;
-		height: 40px;
-		overflow: hidden;
-
-		&:before {
-			// z-index: 9;
-			position: absolute;
-			content: '';
-			height: 2px;
-			background: #717171;
-			bottom: 0px;
-			left: 0;
-			right: 0;
+		.underline:before {
 			width: 100%;
-			transition: all .5s ease;
+			background: #717171;
 		}
 
-		&:after {
-			// z-index: 10;
-			position: absolute;
-			content: '';
-			height: 2px;
+		.underline:after {
 			background: #fff;
-			bottom: 0px;
-			left: 0;
-			right: 0;
-			width: 0%;
-			transition: all .5s ease;
 		}
-	}
-
-	.menu-form__field {
-		position: absolute;
-		z-index: 100;
-		top: 0;
-		display: block;
-		height: 30px;
-		width: 100%;
-		text-indent: 10px;
-		background: none;
-		border: none;
-
-		font-family: 'Comfortaa';
-		color: #fff;
-
-		&:focus {
-			outline: none;
-		}
-	}
-
-	.menu-form__placeholder {
-		color: #717171;
-		z-index: 90;
-		position: absolute;
-		left: 10px;
-		bottom: 15px;
-		transition: all .25s ease;
-	}
-
-	.menu-form__tip {
-		z-index: 90;
-		width: 100%;
-		position: absolute;
-		color: #fff;
-		font-size: 13px;
-		bottom: -35px;
-		height: 28px;
-		vertical-align: top;
-		left: -250%;
-		transition: all .5s ease;
 	}
 
 	.menu-form__btn {
-		position: relative;
 		color: #fff;
 		cursor: pointer;
 		margin: auto;
 		margin-top: 20px;
+		padding-bottom: 10px;
 
 		&:after {
-			position: absolute;
-			content: '';
+			margin: auto;
 			height: 1px;
 			background: #fff;
-			margin: auto;
-			bottom: -10px;
-			left: 0;
-			right: 0;
-			width: 0%;
-			transition: all .25s ease;
 		}
 
 		&:hover:after {
 			width: 100%;
 		}
-
-
 	}
 }
+
+.menu-form__item[type="complete"],
+.menu-form__item[type="selected"] {
+	
+	.field-placeholder {
+		bottom: -1.2em;
+	}
+}
+
+.menu-form__item[type="selected"],
+.menu-form__item[status="error"] {
+	
+	.underline:after {
+		width: 100%;
+	}
+}
+
+.menu-form__item[status="error"] {
+	
+	.underline:after {
+		background: #ff6161;
+	}
+
+	.field-tip {
+		left: 10px;
+		color: #ff6161;
+	}
+}
+
 
 #{$is-open} .menu-btn {
 	bottom: 0;
@@ -224,6 +130,9 @@
 	background: #fff;
 	color: #202020;
 }
+
+// MEMBER MENU
+// --------------------------------------------------------
 
 .menu-wellcome {
 	padding-top: 50px;

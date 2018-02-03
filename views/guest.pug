@@ -17,46 +17,48 @@ block header
 				.content.col-between.content-inner
 					
 					.menu-nav.content-width.row-between
-						.menu-nav__item.sub-title.js-option(type="signup" target=".menu") REGISTRATION
-						.menu-nav__item.sub-title.js-option(type="signin" target=".menu") LOGIN
+						.menu-nav__item.sub-title.underline.js-option(type="signup" target=".menu")
+							.underline REGISTRATION
+						.menu-nav__item.sub-title.underline.js-option(type="signin" target=".menu")
+							.underline LOGIN
 
 					.menu-form(type="signup").content-width.col-between
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="email" autocomplete="off")
-								.menu-form__placeholder Your e-mail
-							.menu-form__tip
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="username" autocomplete="off")
-								.menu-form__placeholder Username
-							.menu-form__tip
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="password" autocomplete="off")
-								.menu-form__placeholder Password
-							.menu-form__tip
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="email" autocomplete="off")
+								.field-placeholder Your e-mail
+							.field-tip
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="username" autocomplete="off")
+								.field-placeholder Username
+							.field-tip
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="password" autocomplete="off")
+								.field-placeholder Password
+							.field-tip
 
 					.menu-form(type="signin").content-width.col-between
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="username" autocomplete="off")
-								.menu-form__placeholder Username
-							.menu-form__tip
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="password" autocomplete="off")
-								.menu-form__placeholder Password
-							.menu-form__tip
-						.menu-form__btn.js-option(type="forget" target=".menu")
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="username" autocomplete="off")
+								.field-placeholder Username
+							.field-tip
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="password" autocomplete="off")
+								.field-placeholder Password
+							.field-tip
+						.menu-form__btn.underline.js-option(type="forget" target=".menu")
 							| Forget password?
 
 					.menu-form(type="forget").content-width.col-between
-						.menu-form__item.js-select
-							.menu-form__input
-								input.menu-form__field.js-tip(type="e-mail" autocomplete="off")
-								.menu-form__placeholder Your e-mail
-							.menu-form__tip
+						.menu-form__item.field-string.js-select
+							.content-inner.underline
+								input.field-typearea.js-tip(type="e-mail" autocomplete="off")
+								.field-placeholder Your e-mail
+							.field-tip
 
 					.menu-btn.btn-circle.js-submit(type="auth")
 						.btn-circle__title SUBMIT

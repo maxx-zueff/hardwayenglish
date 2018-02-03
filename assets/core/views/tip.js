@@ -14,7 +14,7 @@ module.exports = function() {
 
 			let node = document
 				.querySelector('.menu-form__item[type="selected"]');
-			let tip = node.querySelector('.menu-form__tip');
+			let tip = node.querySelector('.field-tip');
 			let section = node.parentNode.getAttribute("type");
 			
 			let value = el.value;
@@ -26,7 +26,7 @@ module.exports = function() {
 
 					nodes.menu.setAttribute("type", "signin");
 					let form = nodes.menu.querySelector('.menu-form[type="signin"]');
-					let field = form.querySelector('.menu-form__field[type="username"]');
+					let field = form.querySelector('.field-typearea[type="username"]');
 					let item = field.parentNode.parentNode;
 
 					setTimeout(function(){

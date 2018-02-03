@@ -6,7 +6,7 @@ module.exports = function() {
 	let nodes = store.DOM();
 	nodes.select.forEach(function(el) {
 
-		let node = el.querySelector('.menu-form__field');
+		let node = el.querySelector('input');
 
 		listener.add(el, 'click', function () {
 			el.setAttribute("type", "selected");
