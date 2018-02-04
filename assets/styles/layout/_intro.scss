@@ -1,0 +1,207 @@
+body {
+	height: 100%;
+	overflow: hidden;
+}
+
+.shut-intro {
+	overflow: auto;
+
+	.intro-main { margin-top: -100vh; }
+	.intro-btn { opacity: 0; }
+	.intro-slogan { opacity: 0; }
+}
+
+.intro-main {
+	display: block;
+	overflow: hidden;
+	height: 100vh;
+	color: #fff;
+	
+	margin-top: -60px;
+	background: #55C1A4;
+	transition: all .5s ease;
+
+
+	.intro-slogan {
+		font-size: 64px;
+		transition: all .5s ease;
+
+		.status {
+			border-right: .05em solid;
+			animation: caret 1s steps(1) infinite;
+		}
+	}
+
+	.intro-btn {
+		color: #55C1A4;
+		margin-bottom: 25px;
+		transition: all .5s ease;
+		animation: move .75s infinite alternate;
+	}
+}
+
+.intro-description {
+	overflow: hidden;
+
+	.intro-item { padding-top: 40px; }
+	.intro-title { padding-bottom: 30px; }
+
+	.card-concept {
+		font-family: 'Bitter';
+		font-size: 24px;
+		background: #5594C1;
+	}
+
+}
+
+.intro-slider { margin: 0 -30px; }
+
+.slider {
+
+	&-group {
+		position: relative;
+		width: 100%;
+		height: 400px;
+	}
+
+	&-item {
+		position: absolute;
+		display: flex;
+		height: 360px;
+		width: 100%;
+		box-sizing: border-box;
+		transition: left .2s ease;
+
+		.slider-description {
+			width: 100%;
+			text-align: left;
+			line-height: 1.5;
+		}
+
+		.slider-title {
+			width: 100%;
+		    text-align: left;
+			font-size: 46px;
+			opacity: 0.2;
+		}
+	}
+
+	&-navigation {
+
+		&__item {
+			height: 25px;
+			width: 25px;
+			margin: 0 10px;
+			border-radius: 100%;
+			background: $grey;
+			transition: all .2s ease;
+		}
+
+		.active {
+			background: $green;
+		}
+	}
+}
+
+.creators {
+	
+	&-item {
+		margin-bottom: 50px;
+		height: 400px;
+		width: 100%;
+	}
+
+	&-description {
+		text-align: right;
+
+		.sub-title {
+			font-size: 20px;
+			padding-top: 10px;
+			width: 100%;
+		}
+
+		.title { 
+			font-size: 32px;
+			width: 100%;
+		}
+	}
+
+	&-user {
+
+		position: relative;
+
+		.title {
+			font-size: 64px;
+		}
+
+		.sub-title {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			line-height: 1.5;
+			text-align: left;
+		}
+	}
+}
+
+.start {
+
+	position: relative;
+	height: 400px;
+
+	.title {
+		text-align: center;
+	}
+
+	.sub-title {
+		font-size: 20px;
+		text-align: center;
+		padding-top: 20px;
+	}
+
+
+	// Component
+	&-btn {
+		bottom: 50px;
+		position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+		width: 100px;
+		height: 100px;
+		background: #55C1A4;
+		color: #fff;
+		margin-bottom: 25px;
+		border-radius: 100%;
+
+		transition: all .75s ease;
+		cursor: pointer;
+		// animation: move .75s infinite alternate;
+
+		&__border {
+			z-index: 9;
+			position: absolute;
+			background: #55C1A4;
+			width: 125px;
+			height: 125px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 0.2;
+			border-radius: 100%;
+			animation: big-normal .75s infinite alternate;
+		}
+
+		&__title {
+			text-align: center;
+			width: 100%;
+			font-size: 16px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 10;
+			position: absolute;
+			color: #fff;
+		}
+	}
+}

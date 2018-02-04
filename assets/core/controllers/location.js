@@ -4,6 +4,11 @@ const listener = require('../controllers/listeners');
 
 module.exports = function(url) {
 
+	// Prevent automatic browser scroll on refresh
+	window.onbeforeunload = function() { 
+		window.scrollTo(0,0);
+	};
+
 	// Change address bar 
 	history.pushState(null, null, url);
 	let path = location.pathname;

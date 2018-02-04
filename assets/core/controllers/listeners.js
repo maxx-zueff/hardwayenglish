@@ -39,6 +39,8 @@ module.exports.remove_all = function() {
 
 module.exports.init = function() {
 
+
+
     // Add new listeners for page
     toggle();
     option();

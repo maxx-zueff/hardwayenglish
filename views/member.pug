@@ -1,27 +1,29 @@
 extends layout.pug
 
 block header
-	header
+	.header-main
 		.wrapper
 			.content.row-between
 				.pic.pic-logo
-				.pic.pic-toggle.js-toggle(target="body" set="open-menu")
-					.toggle-bars.toggle-bar-1
-					.toggle-bars.toggle-bar-2
-					.toggle-bars.toggle-bar-3
-					.toggle-bars.toggle-bar-4
+				.btn-toggle.js-toggle(target="header" set="is-open")
+					.toggle-bar.toggle-bar-1
+					.toggle-bar.toggle-bar-2
+					.toggle-bar.toggle-bar-3
+					.toggle-bar.toggle-bar-4
 
-	.menu
+	.header-menu.menu(type="signup")
 		.wrapper
 			.content.col-between.content-inner
 
-				.menu-wellcome.sub-title Hello, #{user.name}
+				.menu-wellcome
+					.sub-title Hello, #{user.name}
 
 				.menu-options.content.col-center
-					.sub-title.menu-options__item
-						a.js-link.js-toggle(target="body" set="open-menu" href="/collections") Collections
-					.sub-title.menu-options__item
-						a.js-submit.js-toggle(target="body" set="open-menu" type="logout") Logout
+					a.menu-options__item.sub-title.js-link.js-toggle(target="body" set="open-menu" href="/collections") Collections
+					a.menu-options__item.sub-title.js-submit.js-toggle(target="body" set="open-menu" type="logout") Logout
 
 block scripts
 	script(src="./js/member.js")
+
+block link
+	link(rel="stylesheet" href="/css/member.css")

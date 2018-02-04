@@ -28,28 +28,42 @@
 }
 
 #view {
-	// box-sizing: border-box;
-    // height: 100vh;
-    // position: relative;
-    // overflow: hidden;
+	position: relative;
     margin-top: 60px;
 }
 
-.inner {
-    margin-top: -60px;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-	
+.content-center-v {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+    text-align: center;
 }
 
-body {
-	height: 100%;
-	overflow: hidden;
+.content-center-h {
+	position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+footer {
+	height: 60px;
+	width: 100%;
+	background: #EBEBEB;
+	font-size: 14px;
+	padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #595959;
+    position: relative;
 }
 
 $direction: ( col: column, row: row );
-$justify: ( center: center, between: space-between );
+$justify: (
+	center: center,
+	between: space-between, 
+	end: flex-end
+);
 
 @each $name, $prop in $direction {
 	@each $sub-name, $sub-prop in $justify {
@@ -59,4 +73,9 @@ $justify: ( center: center, between: space-between );
 			align-items: center;
 		}
 	}
+}
+
+.row {
+	flex-direction: row;
+	flex-wrap: wrap;
 }

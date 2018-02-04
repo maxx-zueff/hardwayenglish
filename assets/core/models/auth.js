@@ -27,7 +27,7 @@ const auth = {
 			let status = fields[el].getAttribute('status');
 			if (status == "error") error = true;
 			else if (status !== "success" && status !== "error") {
-				let tip = fields[el].querySelector('.menu-form__tip');
+				let tip = fields[el].querySelector('.field-tip');
 
 				fields[el].setAttribute('status', 'error');
 				tip.innerHTML = "Field must be complete!";
@@ -37,7 +37,7 @@ const auth = {
 
 		let get_value = function(type) {
 
-			let field = form.querySelector('.menu-form__field[type="' +
+			let field = form.querySelector('.field-typearea[type="' +
 				type + '"]');
 
 			let value = field != null ? field.value : null;

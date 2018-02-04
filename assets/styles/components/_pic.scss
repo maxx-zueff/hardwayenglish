@@ -2,6 +2,23 @@
 	display: block;
 }
 
+.pic-background {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: 50%;
+}
+
+.pic-egor {
+	@extend .pic-background;
+	background-image: url($egor);
+}
+
+.pic-max {
+	@extend .pic-background;
+	background-image: url($max);
+}
+
 .pic-logo {
 	width: 210px;
 	height: 28.56px;

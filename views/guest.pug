@@ -1,68 +1,70 @@
 extends layout.pug
 
 block header
-	header
-		.header-main
-			.wrapper
-				.content.row-between
-					.pic.pic-logo
-					.btn-toggle.js-toggle(target="header" set="is-open")
-						.toggle-bar.toggle-bar-1
-						.toggle-bar.toggle-bar-2
-						.toggle-bar.toggle-bar-3
-						.toggle-bar.toggle-bar-4
+	.header-main
+		.wrapper
+			.content.row-between
+				.pic.pic-logo
+				.btn-toggle.js-toggle(target="header" set="is-open")
+					.toggle-bar.toggle-bar-1
+					.toggle-bar.toggle-bar-2
+					.toggle-bar.toggle-bar-3
+					.toggle-bar.toggle-bar-4
 
-		.header-menu.menu(type="signup")
-			.wrapper
-				.content.col-between.content-inner
-					
-					.menu-nav.content-width.row-between
-						.menu-nav__item.sub-title.underline.js-option(type="signup" target=".menu")
-							.underline REGISTRATION
-						.menu-nav__item.sub-title.underline.js-option(type="signin" target=".menu")
-							.underline LOGIN
+	.header-menu.menu(type="signup")
+		.wrapper
+			.content.col-between.content-inner
+				
+				.menu-nav.content-width.row-between
+					.menu-nav__item.sub-title.js-option(type="signup" target=".menu")
+						span.underline REGISTRATION
+					.menu-nav__item.sub-title.js-option(type="signin" target=".menu")
+						span.underline LOGIN
 
-					.menu-form(type="signup").content-width.col-between
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="email" autocomplete="off")
-								.field-placeholder Your e-mail
-							.field-tip
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="username" autocomplete="off")
-								.field-placeholder Username
-							.field-tip
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="password" autocomplete="off")
-								.field-placeholder Password
-							.field-tip
+				.menu-form(type="signup").content-width.col-between
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="email" autocomplete="off")
+							.field-placeholder Your e-mail
+						.field-tip
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="username" autocomplete="off")
+							.field-placeholder Username
+						.field-tip
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="password" autocomplete="off")
+							.field-placeholder Password
+						.field-tip
 
-					.menu-form(type="signin").content-width.col-between
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="username" autocomplete="off")
-								.field-placeholder Username
-							.field-tip
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="password" autocomplete="off")
-								.field-placeholder Password
-							.field-tip
-						.menu-form__btn.underline.js-option(type="forget" target=".menu")
-							| Forget password?
+				.menu-form(type="signin").content-width.col-between
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="username" autocomplete="off")
+							.field-placeholder Username
+						.field-tip
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="password" autocomplete="off")
+							.field-placeholder Password
+						.field-tip
+					.menu-form__link.js-option(type="forget" target=".menu")
+						span.underline Forget password?
 
-					.menu-form(type="forget").content-width.col-between
-						.menu-form__item.field-string.js-select
-							.content-inner.underline
-								input.field-typearea.js-tip(type="e-mail" autocomplete="off")
-								.field-placeholder Your e-mail
-							.field-tip
+				.menu-form(type="forget").content-width.col-between
+					.menu-form__item.field-string.js-select
+						.content-inner.underline
+							input.field-typearea.js-tip(type="e-mail" autocomplete="off")
+							.field-placeholder Your e-mail
+						.field-tip
 
-					.menu-btn.btn-circle.js-submit(type="auth")
-						.btn-circle__title SUBMIT
-						.btn-circle__border
+				.menu-btn.btn-circle.js-submit(type="auth")
+					.btn-circle__title SUBMIT
+					.btn-circle__border
 
 block scripts
 	script(src="./js/guest.js")
+		
+block link
+	link(rel="stylesheet" href="/css/public.css")

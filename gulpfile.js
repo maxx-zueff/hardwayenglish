@@ -5,7 +5,7 @@ const autoprefixer = require('gulp-autoprefixer');
 
 let paths = {
 	input: {
-		style: './assets/styles/common.scss',
+		style: ['./assets/styles/public.scss', './assets/styles/member.scss'],
 		styles: './assets/styles/**/*.scss',
 		imgs: './assets/images/*.{png,gif,jpeg,svg}',
 		fonts: './assets/fonts/**/*.ttf'
@@ -20,7 +20,7 @@ let paths = {
 gulp.task('sass', function() {
 	return gulp.src(paths.input.style)
 		.pipe(sass()
-		// .pipe(sass({outputStyle: 'compressed'})
+		.pipe(sass({outputStyle: 'compressed'}))
 			.on('error', sass.logError))
 		.pipe(autoprefixer())
 		.pipe(gulp.dest(paths.output.styles));

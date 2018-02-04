@@ -18,28 +18,15 @@
 }
 
 .header-menu {
+	padding-top: 60px;
 	position: fixed;
 	z-index: 900;
 	top: 0;
 	left: 0;
+	right: 0;
 	bottom: 100%;
 	width: 100%;
 	background: #202020;
 	box-sizing: border-box;
 	transition: all .5s ease;
-}
-
-footer {
-	height: 60px;
-	width: 100%;
-	background: #EBEBEB;
-	font-size: 14px;
-	padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-    color: #595959;
-    // display: none;
-    position: relative;
-    // bottom: 0;
-    // z-index: 0;
 }

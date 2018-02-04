@@ -17,3 +17,28 @@ $is-open: ".is-open";
 $is-error: ".is-error";
 
 $menu-types: "signup", "signin", "forget";
+
+
+// Colors
+// --------------------------------------------------------
+
+$orange: #F39237;
+$blue: #5594c1;
+$red: #F3373A;
+$green: #55c1a4;
+
+$grey: #D9D9D9;
+
+$bg-colors: (
+	orange: $orange,
+	blue: $blue,
+	red: $red,
+	green: $green
+);
+
+
+// Paths
+// --------------------------------------------------------
+
+$max: "../images/creator-1.jpg";
+$egor: "../images/creator-2.jpg";

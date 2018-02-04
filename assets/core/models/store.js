@@ -9,9 +9,9 @@ module.exports.DOM = function () {
 		tip: document.querySelectorAll('.js-tip'),
 
 		menu: document.querySelector('.menu'),
-		slogan: document.querySelector('.slogan'),
+		slogan: document.querySelector('.intro-slogan'),
 		slider: document.querySelectorAll('.slider-item'),
-		nav: document.querySelectorAll('.slider-navigation--item')
+		nav: document.querySelectorAll('.slider-navigation__item')
 	};
 };
 

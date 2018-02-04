@@ -6,6 +6,7 @@ const logger       = require('morgan');
 const bodyparser   = require('body-parser');
 const jwt          = require('jsonwebtoken'); 
 const cookieparser = require('cookie-parser');
+const compression  = require('compression');
 
 require('./models/db');
 require('./controllers/passport');
