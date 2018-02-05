@@ -14,6 +14,7 @@
 
 
 $is-open: ".is-open";
+$is-close: ".is-close";
 $is-error: ".is-error";
 
 $menu-types: "signup", "signin", "forget";
@@ -26,8 +27,13 @@ $orange: #F39237;
 $blue: #5594c1;
 $red: #F3373A;
 $green: #55c1a4;
+$dark: #353535;
 
-$grey: #D9D9D9;
+$light-green:#EEFFFA;
+$light-red: #FFF7F7;
+$light-orange: #ffecdb;
+
+$grey: #EBEBEB;
 
 $bg-colors: (
 	orange: $orange,

@@ -52,6 +52,10 @@ body {
 		background: #5594C1;
 	}
 
+	.card {
+		color: white;
+	}
+
 }
 
 .intro-slider { margin: 0 -30px; }
@@ -145,63 +149,21 @@ body {
 	}
 }
 
-.start {
+.intro-start {
 
 	position: relative;
 	height: 400px;
-
-	.title {
-		text-align: center;
-	}
+	text-align: center;
 
 	.sub-title {
 		font-size: 20px;
-		text-align: center;
 		padding-top: 20px;
 	}
 
-
-	// Component
-	&-btn {
+	.start-btn {
 		bottom: 50px;
 		position: absolute;
-	    left: 50%;
-	    transform: translateX(-50%);
-		width: 100px;
-		height: 100px;
-		background: #55C1A4;
-		color: #fff;
-		margin-bottom: 25px;
-		border-radius: 100%;
-
-		transition: all .75s ease;
-		cursor: pointer;
-		// animation: move .75s infinite alternate;
-
-		&__border {
-			z-index: 9;
-			position: absolute;
-			background: #55C1A4;
-			width: 125px;
-			height: 125px;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			opacity: 0.2;
-			border-radius: 100%;
-			animation: big-normal .75s infinite alternate;
-		}
-
-		&__title {
-			text-align: center;
-			width: 100%;
-			font-size: 16px;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: 10;
-			position: absolute;
-			color: #fff;
-		}
+		background: $green;
+		color: white;
 	}
 }

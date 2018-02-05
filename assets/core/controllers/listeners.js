@@ -7,6 +7,7 @@ const tip        = require('../views/tip');
 const link       = require('../views/link');
 const typewriter = require('../views/typewriter');
 const slider     = require('../views/slider');
+const get_height = require('../views/get-height');
 
 // ------------------------------------------------------------------
 
@@ -39,9 +40,8 @@ module.exports.remove_all = function() {
 
 module.exports.init = function() {
 
-
-
     // Add new listeners for page
+    get_height();
     toggle();
     option();
     select();

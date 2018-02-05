@@ -11,7 +11,9 @@ module.exports.DOM = function () {
 		menu: document.querySelector('.menu'),
 		slogan: document.querySelector('.intro-slogan'),
 		slider: document.querySelectorAll('.slider-item'),
-		nav: document.querySelectorAll('.slider-navigation__item')
+		nav: document.querySelectorAll('.slider-navigation__item'),
+		view: document.querySelector('#view'),
+		footer: document.querySelector('footer')
 	};
 };
 

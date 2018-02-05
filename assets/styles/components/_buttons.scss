@@ -39,8 +39,8 @@
 	
 	bottom: 0;
 	background: #fff;
-	width: 75px;
-	height: 75px;
+	width: 80px;
+	height: 80px;
 	font-size: 14px;
 
 	&__border {
@@ -63,5 +63,7 @@
 		transform: translate(-50%, -50%);
 		z-index: 10;
 		position: absolute;
+		width: 100%;
+		text-align: center;
 	}
 }

@@ -28,8 +28,9 @@
 }
 
 #view {
-	position: relative;
-    margin-top: 60px;
+    box-sizing: border-box;
+    position: relative;
+    padding-top: 60px;
 }
 
 .content-center-v {
@@ -62,7 +63,8 @@ $direction: ( col: column, row: row );
 $justify: (
 	center: center,
 	between: space-between, 
-	end: flex-end
+	end: flex-end,
+	start: flex-start
 );
 
 @each $name, $prop in $direction {
