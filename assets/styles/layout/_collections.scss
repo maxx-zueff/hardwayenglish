@@ -2,11 +2,14 @@
 
 	.collection-group {
 		background: $light-orange;
-		// color: white;
 	}
 
 	.collection-status {
-		background: $orange;
+		// background: $orange;
+	}
+
+	.collection-total {
+		color: $orange;
 	}
 }
 
@@ -17,8 +20,12 @@
 	}
 
 	.collection-status {
-		background: $green;
-	}	
+		// background: $green;
+	}
+
+	.collection-total {
+		color: $green;
+	}
 }
 
 
@@ -29,8 +36,12 @@
 	}
 
 	.collection-status {
-		background: $red;
-	}	
+		// background: $red;
+	}
+
+	.collection-total {
+		color: $red;	
+	}
 }
 
 .collection-section#{$is-close} {
@@ -55,8 +66,17 @@
 	}
 
 	&-subtitle {
-		text-align: left;
+		// text-align: left;
 		padding: 15px 30px;
+	}
+
+	&-total {
+		font-size: 12px;
+
+		&__count {
+			font-size: 18px;
+			padding-left: 15px;
+		}
 	}
 
 	&-section {
@@ -78,12 +98,24 @@
 	&-status {
 		width: 75px;
 		height: 75px;
-		background: $green;
+		// transform-origin: 50% 50%;
+		animation: rotate 2s linear infinite;
+
+		// background: $green;
 	}
+
+	// &-inner {
+	// 	  width: 75px;
+	// 	  height: 75px;
+	// 	  top: 50%;
+	// 	  left: 50%;
+	// 	  transform: translate(-50% -50%);
+	// }
 
 	&-description {
 		flex: 1;
 		padding-left: 30px;
+		min-width: 150px;
 		text-align: left;
 
 		.collection-name {
@@ -111,4 +143,34 @@
 		color: white;
 	}
 
+}
+
+@keyframes fillup {
+	from { stroke-dasharray: 0 100; }
+  	to { stroke-dasharray: 100 100; }
+}
+
+@keyframes rotate {
+  	to { transform: rotate(360deg); }
+}
+
+.ring {
+	fill: $grey;
+	stroke: $green;
+	stroke-width: 10;
+	stroke-dasharray: 101 100;
+	animation-play-state: paused;
+
+	animation: fillup 0s linear;
+}
+
+.ring-fill {
+	fill: white;
+}
+
+svg {
+  width: 75px; height: 75px;
+  transform: rotate(-90deg);
+  background: none;
+  border-radius: 50%;
 }
