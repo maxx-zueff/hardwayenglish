@@ -43,3 +43,12 @@
     	border-color: transparent;
 	}
 }
+
+@keyframes fillup {
+	from { stroke-dasharray: 0 100; }
+  	to { stroke-dasharray: 100 100; }
+}
+
+@keyframes rotate {
+  	to { transform: rotate(360deg); }
+}

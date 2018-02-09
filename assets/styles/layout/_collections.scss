@@ -1,46 +1,81 @@
-.collection-section[type="exam"] {
+@mixin set-color($type, $bg, $item) {
 
-	.collection-group {
-		background: $light-orange;
-	}
+	.collection-section[type=#{$type}] {
 
-	.collection-status {
-		// background: $orange;
-	}
+		// Block Styles
+		.collection-group { background: $bg; }
+		.collection-total { color: $item }
 
-	.collection-total {
-		color: $orange;
+		// SVG Styles
+		.ring { stroke: $item; fill: $bg; }
+		.ring-icon { fill: $item; }
+
+		@if ($bg == white) {
+			.ring-fill { stroke: $grey; }
+		}
+
+		@else {
+			.ring-fill { stroke: white; }
+		}
 	}
 }
 
-.collection-section[type="completed"] {
+@each $type, $color in $ring-colors {
+	@include set-color($type, nth($color, 1), nth($color, 2));
+}
+
+.collection {
 	
-	.collection-group {
-		background: $light-green;
+	.collection-title { 
+		@extend .card, .title;
+		background: $grey;
 	}
 
-	.collection-status {
-		// background: $green;
-	}
-
-	.collection-total {
-		color: $green;
+	.collection-section { 
+		// @extend .content-inner;
+		position: relative;
+		overflow: hidden;
+		padding-top: 30px;
 	}
 }
 
+.collection-section {
 
-.collection-section[type="locked"] {
-
-	.collection-group {
-		background: $light-red;
-	}
-
-	.collection-status {
-		// background: $red;
+	.collection-subtitle {
+		@extend .content-nosize, .row-between;
+		padding: 15px 30px;
 	}
 
 	.collection-total {
-		color: $red;	
+		font-size: 12px;
+
+		&__count {
+			font-size: 18px;
+			padding-left: 15px;
+		}
+	}
+
+	.collection-group {
+		@extend .content, .row;
+		padding-top: 30px;
+
+		.collection-item {
+			@extend .content-nosize, .row-between, .card;
+			padding-top: 0px;
+			height: 75px;
+			flex: 1;
+		}
+	}
+
+	.collection-btn {
+		@extend .btn-circle;
+		transition: all .5s ease;
+		display: block;
+		right: -100%;
+		bottom: 40px;
+		position: absolute;
+		background: $orange;
+		color: white;
 	}
 }
 
@@ -57,62 +92,23 @@
 	}
 }
 
-.collection {
+.collection-item {
 
-	&-title {
-		padding: 30px;
-	    margin: 0 -30px;
-		background: $grey;
-	}
-
-	&-subtitle {
-		// text-align: left;
-		padding: 15px 30px;
-	}
-
-	&-total {
-		font-size: 12px;
-
-		&__count {
-			font-size: 18px;
-			padding-left: 15px;
+	.animation {
+		.ring-icon { opacity: 0 }
+		.collection-status {
+			animation: rotate 3s linear infinite;
 		}
 	}
 
-	&-section {
-		padding-top: 30px;
-	}
-
-	&-group {
-		height: 100%;
-		overflow: auto;
-		padding-top: 30px;
-	}
-
-	&-item {
-		padding-top: 0px;
-		height: 75px;
-		flex: 1;
-	}
-
-	&-status {
+	.collection-status {
 		width: 75px;
 		height: 75px;
-		// transform-origin: 50% 50%;
-		animation: rotate 2s linear infinite;
-
-		// background: $green;
+		border-radius: 50%;
+		overflow: hidden;
 	}
 
-	// &-inner {
-	// 	  width: 75px;
-	// 	  height: 75px;
-	// 	  top: 50%;
-	// 	  left: 50%;
-	// 	  transform: translate(-50% -50%);
-	// }
-
-	&-description {
+	.collection-description {
 		flex: 1;
 		padding-left: 30px;
 		min-width: 150px;
@@ -122,55 +118,14 @@
 			font-size: 18px;
 			width: 100%;
 		}
+
+		.collection-info {
+			font-size: 12px;
+			padding-top: 10px;
+
+			&:last-child {
+				padding-left: 30px;
+			}
+		}		
 	}
-
-	&-info {
-		font-size: 12px;
-		padding-top: 10px;
-
-		&:last-child {
-			padding-left: 30px;
-		}
-	}
-
-	&-btn {
-		transition: all .5s ease;
-		display: block;
-		right: -100%;
-		top: 105*3px;
-		position: absolute;
-		background: $orange;
-		color: white;
-	}
-
-}
-
-@keyframes fillup {
-	from { stroke-dasharray: 0 100; }
-  	to { stroke-dasharray: 100 100; }
-}
-
-@keyframes rotate {
-  	to { transform: rotate(360deg); }
-}
-
-.ring {
-	fill: $grey;
-	stroke: $green;
-	stroke-width: 10;
-	stroke-dasharray: 101 100;
-	animation-play-state: paused;
-
-	animation: fillup 0s linear;
-}
-
-.ring-fill {
-	fill: white;
-}
-
-svg {
-  width: 75px; height: 75px;
-  transform: rotate(-90deg);
-  background: none;
-  border-radius: 50%;
 }

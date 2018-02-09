@@ -57,6 +57,10 @@ module.exports = function () {
 
 		set_time();
 
+		setTimeout(function() {
+			el.classList.remove("animation");
+		}, remain*1000);
+
 	});
 
 

@@ -42,6 +42,13 @@ $bg-colors: (
 	green: $green
 );
 
+$ring-colors: (
+	wait: (white, $green),
+	exam: ($light-orange, $orange),
+	completed: ($light-green, $green),
+	locked: ($light-red, $red)
+);
+
 
 // Paths
 // --------------------------------------------------------

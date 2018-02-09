@@ -1,15 +1,15 @@
 .collection
 	.wrapper
-		.collection-title.title Collections
+		.collection-title.card-mobile Collections
 
 		section.collection-section(type="wait").card-mobile
 
 			//- .collection-subtitle.sub-title Wait
 
-			.collection-group.content.col-between
-				.collection-item(start="1517935469" end="1517946269").card.content-nosize.row-between.js-wait
+			.collection-group
+				.collection-item(start="1518108642" end="1518109383").animation.js-wait
 					.collection-status
-						include ../svg/ring.svg
+						include ../svg/ring-open.svg
 					.collection-description
 						.collection-name.sub-title Future
 						.content-width.row-start
@@ -18,53 +18,52 @@
 
 		section.collection-section(type="exam").is-close.card-mobile
 
-			.collection-subtitle.content-nosize.row-between
+			.collection-subtitle
 				.sub-title Exam
 				.collection-total 
 					span.collection-total__name TOTAL
 					span.collection-total__count 4  
 
-			.content-inner
-				.collection-group.content.row
-					
-					.collection-item.card.content-nosize.row-between
-						.collection-status
-							include ../svg/ring.svg
-						.collection-description
-							.collection-name.sub-title Future
-							.content-width.row-start
-								.collection-info Stage 2/3
-								.collection-info 3:21 min
+			.collection-group
+				
+				.collection-item
+					.collection-status
+						include ../svg/ring-open.svg
+					.collection-description
+						.collection-name.sub-title Future
+						.content-width.row-start
+							.collection-info Stage 2/3
+							.collection-info 3:21 min
 
-					.collection-item.card.content-nosize.row-between
-						.collection-status
-							include ../svg/ring.svg
-						.collection-description
-							.collection-name.sub-title Future
-							.content-width.row-start
-								.collection-info Stage 2/3
-								.collection-info 3:21 min
+				.collection-item
+					.collection-status
+						include ../svg/ring-open.svg
+					.collection-description
+						.collection-name.sub-title Future
+						.content-width.row-start
+							.collection-info Stage 2/3
+							.collection-info 3:21 min
 
-					.collection-item.card.content-nosize.row-between
-						.collection-status
-							include ../svg/ring.svg
-						.collection-description
-							.collection-name.sub-title Future
-							.content-width.row-start
-								.collection-info Stage 2/3
-								.collection-info 3:21 min
+				.collection-item
+					.collection-status
+						include ../svg/ring-open.svg
+					.collection-description
+						.collection-name.sub-title Future
+						.content-width.row-start
+							.collection-info Stage 2/3
+							.collection-info 3:21 min
 
-					.collection-item.card.content-nosize.row-between
-						.collection-status
-							include ../svg/ring.svg
-						.collection-description
-							.collection-name.sub-title Future
-							.content-width.row-start
-								.collection-info Stage 2/3
-								.collection-info 3:21 min
+				.collection-item
+					.collection-status
+						include ../svg/ring-open.svg
+					.collection-description
+						.collection-name.sub-title Future
+						.content-width.row-start
+							.collection-info Stage 2/3
+							.collection-info 3:21 min
 
-					.collection-btn.btn-circle.js-toggle(target=".collection-section[type='exam']" set="is-close")
-						.btn-circle__title MORE
-						.btn-circle__border
+			.collection-btn.js-toggle(target=".collection-section[type='exam']" set="is-close")
+				.btn-circle__title MORE
+				.btn-circle__border
 
 

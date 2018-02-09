@@ -1,0 +1,20 @@
+.ring {
+	fill: white;
+	// stroke: $green;
+	stroke-dasharray: 101 100;
+
+	animation-play-state: paused;
+	animation: fillup 0s linear;
+}
+
+.ring-fill {}
+
+.ring-icon {
+	opacity: 1;
+	transition: all 1s ease;
+}
+
+svg {
+	width: 100%; height: 100%;
+	background: none;
+}

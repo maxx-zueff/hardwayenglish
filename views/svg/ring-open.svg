@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" preserveAspectRatio="xMidYMin">
+	<circle class="ring-fill" r="16" cx="18" cy="18" />
+	<circle class="ring" r="16" cx="18" cy="18" />
+	<path class="ring-icon" d=" M 16.882 13.191 L 19.803 14.878 L 22.723 16.564 C 24.096 17.356 24.096 18.644 22.723 19.436 L 19.803 21.122 L 16.882 22.809 C 15.509 23.601 14.394 22.958 14.394 21.372 L 14.394 18 L 14.394 14.628 C 14.394 13.042 15.509 12.399 16.882 13.191 Z "/>
+</svg>
