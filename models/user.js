@@ -10,16 +10,18 @@ const Schema   = mongoose.Schema;
 // ------------------------------------------------------------------
 
 // Init embedded Schemas
-const allowedSchema = new Schema({
-	name: {
+const completedSchema = new Schema({
+	topic: {
 		type: Schema.Types.ObjectId,
 		ref: 'Topic'
 	},
-	stage: {
+});
+
+const lockedSchema = new Schema({
+	topic: {
 		type: Schema.Types.ObjectId,
-		ref: 'Stage'
+		ref: 'Topic'
 	},
-	complete: Boolean
 });
 
 const trackerSchema = new Schema({
@@ -34,8 +36,13 @@ const trackerSchema = new Schema({
 const waiterSchema = new Schema({
 	topic: {
 		type: Schema.Types.ObjectId,
-		ref: 'Rule',
+		ref: 'Topic'
 	},
+	stage: {
+		type: Schema.Types.ObjectId,
+		ref: 'Stage'
+	},
+	start: Number, // timestamp,
 	end: Number // timestamp
 });
 
@@ -44,7 +51,8 @@ const examSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Topic'
 	},
-	start: Number, // timestamp
+	start: Number, // timestamp,
+	end: Number, // timestamp
 	complete: Boolean
 });
 
@@ -65,10 +73,11 @@ const userSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Group'
 	},
-	topic: [allowedSchema],
 	tracker: [trackerSchema],
 	waiter: [waiterSchema],
-	exam: [examSchema]
+	exam: [examSchema],
+	completed: [completedSchema],
+	locked: [lockedSchema]
 });
 
 // ------------------------------------------------------------------

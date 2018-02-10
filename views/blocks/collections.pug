@@ -1,69 +1,55 @@
-.collection
-	.wrapper
-		.collection-title.card-mobile Collections
+mixin iteration
+	each section in topics
+		if section.items.length > 0
+			+generate(section)
 
-		section.collection-section(type="wait").card-mobile
-
-			//- .collection-subtitle.sub-title Wait
-
-			.collection-group
-				.collection-item(start="1518108642" end="1518109383").animation.js-wait
-					.collection-status
-						include ../svg/ring-open.svg
-					.collection-description
-						.collection-name.sub-title Future
-						.content-width.row-start
-							.collection-info Stage 2/3
-							.collection-info.collection-waiter 3:21 min
-
-		section.collection-section(type="exam").is-close.card-mobile
-
+mixin generate(section)
+	section.collection-section(type=section.type).card-mobile(class=section.items.length > 3 ? "is-close" : "")
+		
+		if section.type != "wait"
 			.collection-subtitle
-				.sub-title Exam
+				.sub-title= section.name
 				.collection-total 
 					span.collection-total__name TOTAL
-					span.collection-total__count 4  
+					span.collection-total__count= section.items.length 
 
-			.collection-group
-				
-				.collection-item
-					.collection-status
-						include ../svg/ring-open.svg
-					.collection-description
-						.collection-name.sub-title Future
-						.content-width.row-start
-							.collection-info Stage 2/3
-							.collection-info 3:21 min
+		.collection-group
+			each item in section.items
+				if section.timer
+					.collection-item(start=item.start end=item.end).animation.js-wait
+						.collection-status
+							if section.type == "locked"
+								include ../svg/ring-locked.svg
+							else
+								include ../svg/ring-open.svg
 
-				.collection-item
-					.collection-status
-						include ../svg/ring-open.svg
-					.collection-description
-						.collection-name.sub-title Future
-						.content-width.row-start
-							.collection-info Stage 2/3
-							.collection-info 3:21 min
+						.collection-description
+							.collection-name.sub-title= item.topic.name
+							.content-width.row-start
+								.collection-info Stage #{item.stage.stage}/3
+								.collection-info.collection-waiter
+				else
+					.collection-item
+						.collection-status
+							if section.type == "locked"
+								include ../svg/ring-locked.svg
+							else
+								include ../svg/ring-open.svg
+						
+						.collection-description
+							.collection-name.sub-title= item.topic.name
+							.content-width.row-start
+								.collection-info= section.name
+								.collection-info.collection-waiter
 
-				.collection-item
-					.collection-status
-						include ../svg/ring-open.svg
-					.collection-description
-						.collection-name.sub-title Future
-						.content-width.row-start
-							.collection-info Stage 2/3
-							.collection-info 3:21 min
-
-				.collection-item
-					.collection-status
-						include ../svg/ring-open.svg
-					.collection-description
-						.collection-name.sub-title Future
-						.content-width.row-start
-							.collection-info Stage 2/3
-							.collection-info 3:21 min
-
-			.collection-btn.js-toggle(target=".collection-section[type='exam']" set="is-close")
+		if section.items.length > 3
+			.collection-btn.js-toggle(target=".collection-section[type=" + section.type + "]" set="is-close")
 				.btn-circle__title MORE
 				.btn-circle__border
 
+//- -------------------------------------------------------
 
+.collection
+	.wrapper
+		.collection-title.card-mobile Collections
+		+iteration

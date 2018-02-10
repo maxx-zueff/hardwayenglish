@@ -30,10 +30,10 @@ module.exports.add = function(req, res) {
 
 	// Save new topic	
 	], function (err, topic) {
-		if (err) return res.json({error: err });
+		if (err) return next({message: err});
 
 		topic.save(function(err, topic){
-			if (err) return res.json({error: err });
+			if (err) return next({message: err});
 			res.json({ 
 				name : topic.name,
 				order : topic.order
@@ -53,7 +53,7 @@ module.exports.update = function(req, res) {
 		{ new: true },
 		
 		function(err, topic) {
-			if (err) return res.json({error: err });
+			if (err) return next({message: err});
 			res.json({ 
 				name : topic.name,
 				order : topic.order
@@ -68,7 +68,7 @@ module.exports.remove = function(req, res) {
 	
 	Topic.findOneAndRemove({name: req.body.topic})
 	.exec(function (err, topic) {
-		if (err) return res.json({error: err });
+		if (err) return next({message: err});
 		if (!topic) if (err) return res.json({error: 'Not Found!' });
 		
 		res.json({ status: true });
@@ -77,7 +77,7 @@ module.exports.remove = function(req, res) {
 
 // ------------------------------------------------------------------
 
-module.exports.get = function(req, res) {
+module.exports.get = function(req, res, next) {
 
 	async.parallel({
 
@@ -94,41 +94,53 @@ module.exports.get = function(req, res) {
 		// Find allowed topics
 		user : function(callback) {
 
-			User.findById(req.user._id).populate('topic')
+			User.findById(req.user._id)
+				.populate('waiter.stage')
+				.populate('waiter.topic')
+				.populate('locked.topic')
+				.populate('completed.topic')
+				.populate('exam.topic')
+
 			.exec(function(err, user) {
 				if (err) return callback(err, null);
-				callback(null, user.topic.name);
+				callback(null, user);
 			});
 
 		}
 
 	}, function(err, result) {
 
-		if (err) return res.json({error: err });		
-		let topics = [];
+		if (err) return next({ message: err });
 
-		result.all.forEach(function(topic) {
+		let user = result.user;
+		req.topics = {
 			
-			let find = false;
-			
-			result.user.forEach(function(allowed) {
-				if (topic.name == allowed.name) {
-					find = true;
-					topics.push({
-						name: allowed.name,
-						allowed: true
-					});
-				}
-			});
+			waiter: {
+				type:"wait",
+				name: "Wait",
+				timer: true,
+				items: user.waiter },
 
-			if (!find) topics.push({
-				name:topic.name,
-				allowed:false
-			});
+			exam: {
+				type:"exam",
+				name: "Exam",
+				timer: true,
+				items: user.exam },
 
-		});
+			completed: {
+				type:"completed",
+				name: "Completed",
+				timer: false,
+				items: user.completed },
 
-		res.json(topics);
+			locked: {
+				type:"locked",
+				name: "Locked",
+				timer: false,
+				items: user.locked }
+		};
+		
+		next(); 
 
 	});
 };

@@ -18,7 +18,10 @@ router.post('/available', auth.available);
 // ------------------------------------------------------------------
 
 // Get topics/rules/tests
-router.post('/get-topic', topic.get);
+router.post('/get-topic', topic.get, function(req, res, next) {
+	res.json(req.topics);
+});
+
 router.post('/get-rule', rule.get);
 router.post('/get-test', test.get);
 

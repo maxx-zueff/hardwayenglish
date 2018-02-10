@@ -39,7 +39,7 @@ module.exports.signup = function (req, res, next) {
         },
 
         topic : function(callback) {
-            Topic.findOne({ order : 1 }, function(err, topic) {
+            Topic.find({}, function(err, topic) {
                 if (err) return callback(err, null);
                 callback(null, topic);
             });
@@ -57,14 +57,26 @@ module.exports.signup = function (req, res, next) {
             message: err.err
         });
 
+        let timestamp = Math.floor(Date.now()/1000);
+        let locked = [];
+        let allowed;
+
+        result.topic.forEach(function(topic) {
+            if (topic.order == 1) allowed = topic;
+            else locked.push({topic: topic._id});
+        });
+
         let user = new User({
             name: req.body.username,
             email: req.body.email,
             group: result.group._id,
-            topic: [{
-               name: [result.topic._id],
-               stage: result.stage._id 
-            }]
+            waiter: [{
+               topic: allowed._id,
+               stage: result.stage._id,
+               start: timestamp,
+               end: timestamp,
+            }],
+            locked: locked
         });
 
         // Add the salt and the hash to the instance

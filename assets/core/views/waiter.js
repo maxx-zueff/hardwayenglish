@@ -5,7 +5,6 @@ module.exports = function () {
 	let nodes = store.DOM();
 	nodes.wait.forEach(function(el) {
 
-		// ADD BEFORE RENDER PAGE
 		let start = el.getAttribute("start");
 		let end = el.getAttribute("end");
 		let current = Math.floor(Date.now() / 1000);

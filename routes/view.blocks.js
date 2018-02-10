@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+const topic   = require('../controllers/topic');
 const router  = express.Router();
 
 const Group = mongoose.model('Group');
@@ -33,16 +34,18 @@ router.post('/a', function(req, res) {
 
 router.post('/', get_group, function(req, res, next) {
 
-	if (req.group == 'member') {
-		return res.render('blocks/collections');
-	}
+	if (req.group == 'member' || req.group == 'admin') return next();
+	return res.render('blocks/intro');
 
+}, topic.get, function(req, res) {
 
 	if (req.group == 'admin') {
-		return res.render('blocks/admin/collections');
+		return res.render('blocks/admin/collections', {topics: req.topics});
 	}
 
-	return res.render('blocks/intro');
+	if (req.group == 'member') {
+		return res.render('blocks/collections', {topics: req.topics});
+	}
 });
 
 // ------------------------------------------------------------------

@@ -457,7 +457,8 @@ module.exports.check = function(req, res) {
 
 					let exam = {
 						topic: user_db.topic._id,
-						start: Date.now() + (60*60*24*10),
+						start: Date.now()/1000,
+						end: Date.now()/1000 + (60*60*24*5),
 						complete: false
 					};
 
