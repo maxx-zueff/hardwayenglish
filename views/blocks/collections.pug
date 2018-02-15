@@ -16,7 +16,7 @@ mixin generate(section)
 		.collection-group
 			each item in section.items
 				if section.timer
-					.collection-item(start=item.start end=item.end).animation.js-wait
+					.collection-item(start=item.start end=item.end href=item.link).animation.js-wait.js-link
 						.collection-status
 							if section.type == "locked"
 								include ../svg/ring-locked.svg
@@ -29,7 +29,7 @@ mixin generate(section)
 								.collection-info Stage #{item.stage.stage}/3
 								.collection-info.collection-waiter
 				else
-					.collection-item
+					.collection-item(href=item.link).js-link
 						.collection-status
 							if section.type == "locked"
 								include ../svg/ring-locked.svg

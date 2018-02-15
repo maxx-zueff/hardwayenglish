@@ -64,7 +64,7 @@ module.exports.signup = function (req, res, next) {
             name: req.body.username,
             email: req.body.email,
             group: result.group._id,
-            collection: []
+            topic: []
         });
 
         result.topic.forEach(function(topic) {

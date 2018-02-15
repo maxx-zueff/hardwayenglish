@@ -30,7 +30,8 @@ const collectionSchema = new Schema({
 	type: {
 		type: String,
 		enum: ['wait', 'exam', 'completed', 'locked']
-	}
+	},
+	link: String
 });
 
 // Init main Schema

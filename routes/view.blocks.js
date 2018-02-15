@@ -33,8 +33,6 @@ router.post('/', function(req, res) {
 
 router.post('/collections', get_group, topic.get, function(req, res) {
 
-	console.log(req.topics);
-
 	if (req.group == 'admin') {
 		return res.render('blocks/admin/collections', {topics: req.topics});
 	}

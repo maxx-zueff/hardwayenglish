@@ -99,13 +99,18 @@ module.exports.get = function(req, res, next) {
 		if (err) return next({ message: err });
 		let user = result.user;
 
+		String.prototype.link = function() {
+		    return '/collections/' + this.replace(' ','-').toLowerCase();
+		}
+
 		String.prototype.capitalize = function() {
-		    return this.charAt(0).toUpperCase() + this.slice(1);
+			return this.charAt(0).toUpperCase() + this.slice(1);
 		}
 
 		req.topics = {};
 		user.topic.forEach(function(el) {
 
+			el.link = el.name.name.link();
 			req.topics[el.type]= {
 				name: el.type.capitalize(),
 				type: el.type,
