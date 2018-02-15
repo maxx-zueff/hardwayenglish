@@ -4,7 +4,7 @@ mixin iteration
 			+generate(section)
 
 mixin generate(section)
-	section.collection-section(type=section.type).card-mobile(class=section.items.length > 3 ? "is-close" : "")
+	section.collection-section(type=section.type class=section.items.length > 3 ? "is-close" : "").card-mobile
 		
 		if section.type != "wait"
 			.collection-subtitle
@@ -24,7 +24,7 @@ mixin generate(section)
 								include ../svg/ring-open.svg
 
 						.collection-description
-							.collection-name.sub-title= item.topic.name
+							.collection-name.sub-title= item.name.name
 							.content-width.row-start
 								.collection-info Stage #{item.stage.stage}/3
 								.collection-info.collection-waiter
@@ -37,7 +37,7 @@ mixin generate(section)
 								include ../svg/ring-open.svg
 						
 						.collection-description
-							.collection-name.sub-title= item.topic.name
+							.collection-name.sub-title= item.name.name
 							.content-width.row-start
 								.collection-info= section.name
 								.collection-info.collection-waiter

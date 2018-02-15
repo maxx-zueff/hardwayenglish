@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const async    = require('async');
 const passport = require('passport');
 
-const User  = mongoose.model('User');
+const User = mongoose.model('User');
+const UserCollection = mongoose.model('UserCollection');
+
 const Group = mongoose.model('Group');
 const Topic = mongoose.model('Topic');
 const Stage = mongoose.model('Stage');
@@ -58,30 +60,32 @@ module.exports.signup = function (req, res, next) {
         });
 
         let timestamp = Math.floor(Date.now()/1000);
-        let locked = [];
-        let allowed;
-
-        result.topic.forEach(function(topic) {
-            if (topic.order == 1) allowed = topic;
-            else locked.push({topic: topic._id});
-        });
-
         let user = new User({
             name: req.body.username,
             email: req.body.email,
             group: result.group._id,
-            waiter: [{
-               topic: allowed._id,
-               stage: result.stage._id,
-               start: timestamp,
-               end: timestamp,
-            }],
-            locked: locked
+            collection: []
+        });
+
+        result.topic.forEach(function(topic) {
+            if (topic.order == 1) {
+                user.topic.push(new UserCollection({
+                    name: topic._id,
+                    stage: result.stage._id,
+                    start: timestamp,
+                    end: timestamp,
+                    type: "wait"
+                }));
+            }
+            else user.topic.push(new UserCollection({
+                name: topic._id,
+                type: "locked"
+            }));
         });
 
         // Add the salt and the hash to the instance
         user.set_password(req.body.password);
-        
+
         // Save the instance as a record to the database
         user.save(function(err) {
 
@@ -104,7 +108,7 @@ module.exports.signup = function (req, res, next) {
 
 module.exports.signin = function(req, res, next) {
 
-    let auth = passport.authenticate(['user-local', 'sponsor-local'], 
+    let auth = passport.authenticate(['user-local', 'sponsor-local'],
         function (err, user, info) {
 
             // If Passport throws/catches an error
@@ -137,7 +141,7 @@ module.exports.signin = function(req, res, next) {
 
 module.exports.available = function(req, res) {
 
-    let query = req.body.username ? {"name":req.body.username} 
+    let query = req.body.username ? {"name":req.body.username}
               : req.body.email ? {"email":req.body.email} : null;
 
     console.log(query);

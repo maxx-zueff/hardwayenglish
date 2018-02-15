@@ -16,7 +16,7 @@ module.exports.add = function(req, res) {
 
 		// Create new rule
 		function(callback) {
-			
+
 			let new_rule = new Rule({
 				_id: new mongoose.Types.ObjectId(),
 				name: req.body.name,
@@ -53,7 +53,7 @@ module.exports.add = function(req, res) {
 						return callback({err:'Taken name'}, null);
 					}
 				});
-				
+
 				if (!taken) {
 					rule.save(function(err, rule) {
 						if (err) return callback(err, null);
@@ -80,7 +80,7 @@ module.exports.add = function(req, res) {
 		            message: err.err
 		        });
 
-				res.json({ 
+				res.json({
 					name: rule.name,
 					content: rule.content,
 					example: rule.example,
@@ -142,7 +142,7 @@ module.exports.update = function(req, res) {
 		}
 
 		Rule.findOneAndUpdate(
-			
+
 			{ _id: rule._id },
 			{ $set: update },
 			{ new: true },
@@ -156,7 +156,7 @@ module.exports.update = function(req, res) {
 		            message: 'Not Found!'
 		        });
 
-				res.json({ 
+				res.json({
 					name: rule.name,
 					content: rule.content,
 					example: rule.example,
@@ -174,7 +174,7 @@ module.exports.update = function(req, res) {
 module.exports.remove = function(req, res) {
 
 	function remove(rule) {
-		
+
 		async.parallel([
 
 			// REMOVE ALL LINKS
@@ -211,7 +211,7 @@ module.exports.remove = function(req, res) {
 				});
 			}
 
-		// Send responce 	
+		// Send responce
 		], function(err, result) {
 			if (err) return next({
 	            message: err.err
@@ -245,7 +245,10 @@ module.exports.remove = function(req, res) {
 
 // ------------------------------------------------------------------
 
-module.exports.get = function(req, res) {
+module.exports.get = function(req, res, next) {
+
+	if (!req.body.topic) req.topic = req.params[0].replace( /-/g, " " );
+	else req.topic = req.body.topic
 
 	async.waterfall([
 
@@ -253,9 +256,12 @@ module.exports.get = function(req, res) {
 		function(callback) {
 
 			User.findById(req.user._id)
-			.populate('topic.name').populate('topic.stage')
+				.populate('waiter.stage')
+				.populate('waiter.topic')
+				.populate('completed.topic')
+				.populate('exam.topic')
 			.exec(function(err, user) {
-				
+
 				if (err) return callback(err, null);
 				let allowed = false;
 
@@ -263,9 +269,9 @@ module.exports.get = function(req, res) {
 					topic_group.name.forEach(function(topic) {
 
 						if (req.body.topic == topic.name) {
-							allowed = true;		
-							
-							return callback(null, 
+							allowed = true;
+
+							return callback(null,
 								topic_group.stage.stage,
 								topic_group.stage.mistake_type
 							);
@@ -349,16 +355,16 @@ module.exports.stat = function(req, res) {
 
 				user.topic.forEach(function(topic_group) {
 					topic_group.name.forEach(function(topic) {
-						
+
 						// Find allowed topic
 						if (req.body.topic == topic.name) {
-							allowed = true;	
-							
+							allowed = true;
+
 							// Compare get mistakes between
 							// allowed mistakes
 							if (topic_group.stage.mistake_type
 								>= req.body.mistakes) {
-								
+
 								return callback(null, {
 									mistakes: req.body.mistakes,
 									stage: topic_group.stage.stage
@@ -378,7 +384,7 @@ module.exports.stat = function(req, res) {
 		}
 
 	}, function(err, result) {
-		
+
 		if (err) return next({
             message: err.err
         });
@@ -392,11 +398,11 @@ module.exports.stat = function(req, res) {
 		async.series([
 
 			function(callback) {
-				
+
 				// Checking existent tracks
 				User.findById(req.user._id, function(err, user) {
 					user.tracker.forEach(function(track) {
-						
+
 						if (track.rule == new_track.rule
 							&& track.stage == new_track.stage) {
 
@@ -411,7 +417,7 @@ module.exports.stat = function(req, res) {
 			},
 
 			function(callback) {
-				
+
 				User.findByIdAndUpdate(
 					req.user._id,
 					{$push : {tracker: new_track} },

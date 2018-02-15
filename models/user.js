@@ -1,4 +1,3 @@
-
 // Dependencies
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
@@ -6,23 +5,7 @@ const jwt      = require('jsonwebtoken');
 
 const Schema   = mongoose.Schema;
 
-
 // ------------------------------------------------------------------
-
-// Init embedded Schemas
-const completedSchema = new Schema({
-	topic: {
-		type: Schema.Types.ObjectId,
-		ref: 'Topic'
-	},
-});
-
-const lockedSchema = new Schema({
-	topic: {
-		type: Schema.Types.ObjectId,
-		ref: 'Topic'
-	},
-});
 
 const trackerSchema = new Schema({
 	rule: {
@@ -33,8 +16,8 @@ const trackerSchema = new Schema({
 	stage: Number
 });
 
-const waiterSchema = new Schema({
-	topic: {
+const collectionSchema = new Schema({
+	name: {
 		type: Schema.Types.ObjectId,
 		ref: 'Topic'
 	},
@@ -43,27 +26,21 @@ const waiterSchema = new Schema({
 		ref: 'Stage'
 	},
 	start: Number, // timestamp,
-	end: Number // timestamp
-});
-
-const examSchema = new Schema({
-	topic: {
-		type: Schema.Types.ObjectId,
-		ref: 'Topic'
-	},
-	start: Number, // timestamp,
 	end: Number, // timestamp
-	complete: Boolean
+	type: {
+		type: String,
+		enum: ['wait', 'exam', 'completed', 'locked']
+	}
 });
 
 // Init main Schema
 const userSchema = new Schema({
-	name: { 
+	name: {
 		type: String,
 		unique: true,
 		required: true
 	},
-	email: { 
+	email: {
 		type: String,
 		unique: true,
 		required: true
@@ -74,14 +51,10 @@ const userSchema = new Schema({
 		ref: 'Group'
 	},
 	tracker: [trackerSchema],
-	waiter: [waiterSchema],
-	exam: [examSchema],
-	completed: [completedSchema],
-	locked: [lockedSchema]
+	topic: [collectionSchema],
 });
 
 // ------------------------------------------------------------------
-
 // Methods for main Schema
 
 // Set & Valid password
@@ -107,9 +80,8 @@ userSchema.methods.generate_jwt = function () {
 };
 
 // ------------------------------------------------------------------
-
 // Export models
-module.exports = mongoose.model('Tracker', trackerSchema);
-module.exports = mongoose.model('Waiter', waiterSchema);
-module.exports = mongoose.model('Exam', examSchema);
+
 module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UserCollection', collectionSchema);
+module.exports = mongoose.model('UserTracker', trackerSchema);

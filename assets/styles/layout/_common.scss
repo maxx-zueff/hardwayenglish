@@ -51,7 +51,7 @@ footer {
 	height: 60px;
 	width: 100%;
 	background: #EBEBEB;
-	font-size: 14px;
+	font-size: 12px;
 	padding: 20px;
     box-sizing: border-box;
     text-align: center;
@@ -62,7 +62,7 @@ footer {
 $direction: ( col: column, row: row );
 $justify: (
 	center: center,
-	between: space-between, 
+	between: space-between,
 	end: flex-end,
 	start: flex-start
 );

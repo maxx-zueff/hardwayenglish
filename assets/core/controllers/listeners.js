@@ -50,7 +50,7 @@ module.exports.init = function() {
     tip();
     link();
     wait();
-    // typewriter();
-    // slider();
+    typewriter();
+    slider();
 
 };

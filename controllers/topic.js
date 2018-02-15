@@ -28,13 +28,13 @@ module.exports.add = function(req, res) {
 			});
 		}
 
-	// Save new topic	
+	// Save new topic
 	], function (err, topic) {
 		if (err) return next({message: err});
 
 		topic.save(function(err, topic){
 			if (err) return next({message: err});
-			res.json({ 
+			res.json({
 				name : topic.name,
 				order : topic.order
 			});
@@ -45,16 +45,16 @@ module.exports.add = function(req, res) {
 // ------------------------------------------------------------------
 
 module.exports.update = function(req, res) {
-	
+
 	Topic.findOneAndUpdate(
-		
+
 		{ name: req.body.old_name },
 		{ $set: { name: req.body.new_name} },
 		{ new: true },
-		
+
 		function(err, topic) {
 			if (err) return next({message: err});
-			res.json({ 
+			res.json({
 				name : topic.name,
 				order : topic.order
 			});
@@ -65,12 +65,12 @@ module.exports.update = function(req, res) {
 // ------------------------------------------------------------------
 
 module.exports.remove = function(req, res) {
-	
+
 	Topic.findOneAndRemove({name: req.body.topic})
 	.exec(function (err, topic) {
 		if (err) return next({message: err});
 		if (!topic) if (err) return res.json({error: 'Not Found!' });
-		
+
 		res.json({ status: true });
 	});
 };
@@ -81,66 +81,42 @@ module.exports.get = function(req, res, next) {
 
 	async.parallel({
 
-		// Find all topics
-		all: function(callback) {
-
-			Topic.find().exec(function(err, all){
-				if (err) return callback(err, null);
-				callback(null, all);
-			});
-
-		},
-
 		// Find allowed topics
 		user : function(callback) {
 
 			User.findById(req.user._id)
-				.populate('waiter.stage')
-				.populate('waiter.topic')
-				.populate('locked.topic')
-				.populate('completed.topic')
-				.populate('exam.topic')
+				.populate('topic.name')
+				.populate('topic.stage')
 
 			.exec(function(err, user) {
 				if (err) return callback(err, null);
 				callback(null, user);
 			});
-
 		}
 
 	}, function(err, result) {
 
 		if (err) return next({ message: err });
-
 		let user = result.user;
-		req.topics = {
-			
-			waiter: {
-				type:"wait",
-				name: "Wait",
-				timer: true,
-				items: user.waiter },
 
-			exam: {
-				type:"exam",
-				name: "Exam",
-				timer: true,
-				items: user.exam },
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
 
-			completed: {
-				type:"completed",
-				name: "Completed",
-				timer: false,
-				items: user.completed },
+		req.topics = {};
+		user.topic.forEach(function(el) {
 
-			locked: {
-				type:"locked",
-				name: "Locked",
-				timer: false,
-				items: user.locked }
-		};
-		
-		next(); 
+			req.topics[el.type]= {
+				name: el.type.capitalize(),
+				type: el.type,
+				timer: (el.end ? true : false),
+				items: []
+			};
+
+			req.topics[el.type].items.push(el);
+		});
+
+		next();
 
 	});
 };

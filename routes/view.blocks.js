@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const topic   = require('../controllers/topic');
+const rule    = require('../controllers/rule');
 const router  = express.Router();
 
 const Group = mongoose.model('Group');
@@ -10,8 +11,6 @@ const Group = mongoose.model('Group');
 // Middleware
 
 let get_group = function (req, res, next) {
-
-	console.log('middleware start');
 
 	if (!req.user) next();
 
@@ -28,16 +27,13 @@ let get_group = function (req, res, next) {
 // ------------------------------------------------------------------
 // Blocks
 
-router.post('/a', function(req, res) {
-	res.send('AAAAA');
+router.post('/', function(req, res) {
+	return res.render('blocks/intro');
 });
 
-router.post('/', get_group, function(req, res, next) {
+router.post('/collections', get_group, topic.get, function(req, res) {
 
-	if (req.group == 'member' || req.group == 'admin') return next();
-	return res.render('blocks/intro');
-
-}, topic.get, function(req, res) {
+	console.log(req.topics);
 
 	if (req.group == 'admin') {
 		return res.render('blocks/admin/collections', {topics: req.topics});
@@ -48,7 +44,14 @@ router.post('/', get_group, function(req, res, next) {
 	}
 });
 
-// ------------------------------------------------------------------
+router.post('/collections/*', rule.get, function(req, res, next) {
 
+	// Search in DB
+	// Check allowed for user
+
+});
+
+// ------------------------------------------------------------------
 // Export module
+
 module.exports = router;
