@@ -42,10 +42,12 @@ router.post('/collections', get_group, topic.get, function(req, res) {
 	}
 });
 
-router.post('/collections/*', rule.get, function(req, res, next) {
+router.post('/collections/*', function(req, res, next) {
 
 	// Search in DB
 	// Check allowed for user
+
+	return res.render('blocks/rules');
 
 });
 

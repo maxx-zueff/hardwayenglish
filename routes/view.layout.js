@@ -28,6 +28,8 @@ let get_group = function (req, res, next) {
 
 router.get('/', get_group, function(req, res, next) {
 
+	console.log(req.user);
+
 	if (!req.user) return res.render('guest');
 	if (req.group) return res.redirect('/collections');
 

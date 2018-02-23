@@ -9,6 +9,7 @@ const typewriter = require('../views/typewriter');
 const slider     = require('../views/slider');
 const get_height = require('../views/get-height');
 const wait       = require('../views/waiter');
+const nav        = require('../views/line-nav');
 
 // ------------------------------------------------------------------
 
@@ -49,8 +50,9 @@ module.exports.init = function() {
     submit();
     tip();
     link();
-    wait();
-    typewriter();
-    slider();
+    nav();
+    // wait();
+    // typewriter();
+    // slider();
 
 };

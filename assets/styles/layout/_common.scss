@@ -47,6 +47,13 @@
     transform: translateX(-50%);
 }
 
+.content-center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
 footer {
 	height: 60px;
 	width: 100%;

@@ -8,6 +8,7 @@ module.exports.DOM = function () {
 		submit: document.querySelectorAll('.js-submit'),
 		tip: document.querySelectorAll('.js-tip'),
 		wait: document.querySelectorAll('.js-wait'),
+		trigger: document.querySelectorAll('.js-trigger'),
 
 		menu: document.querySelector('.menu'),
 		slogan: document.querySelector('.intro-slogan'),

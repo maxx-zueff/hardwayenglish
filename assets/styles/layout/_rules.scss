@@ -1,0 +1,51 @@
+.rule-title {
+	@extend .card, .title;
+	background: $grey;
+}
+
+.rule-navigation {
+    position: relative;
+
+    .navigation-line {
+        @extend .content-nosize, .row;
+        height: 5px;
+        border-radius: 3px;
+        background: $grey;
+        margin: 30px 0px;
+    }
+
+    .navigation-item {
+        flex: 1;
+        position: relative;
+
+        &:nth-child(n + 2):before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            bottom: 0px;
+            width: 6px;
+            height: 10px;
+            border-radius: 3px;
+            background: $grey;
+        }
+    }
+
+    .navigation-selected {
+        @extend .content-center-v;
+        cursor: pointer;
+        display: block;
+        box-sizing: border-box;
+        border-radius: 100%;
+        background: $green;
+        width: 20px;
+        height: 20px;
+        border: solid 4px $grey;
+    }
+
+    .navigation-selected.centered {
+        transition: all .5s ease;
+        @extend .content-center;
+    }
+
+
+}
