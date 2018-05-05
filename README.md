@@ -18,6 +18,13 @@ And after five days of passing a collection, you will need to pass the exam. At 
 
 I offer you to join the development of non-commercial web-application. The project is currently at the development stage. All you need is JavaScript skills and some motivation.
 
+## <a name="installation"></a>Installation instruction
+
+1. Clone repository
+2. `cd hardwayenglish`
+3. run `npm install`
+4. run `npm run build`
+
 ## DataBase Structure
 
 ![Schema](./readme_fig/db.png)
