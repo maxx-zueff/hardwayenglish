@@ -37,22 +37,32 @@ module.exports.remove_all = function() {
         var doc = handlers[i];
         doc.node.removeEventListener(doc.event, doc.handler);
     }
-
 };
 
 module.exports.init = function() {
 
+    // Nodes for listeners
+    let nodes = {
+        view   : store.nodes.view(),
+        footer : store.nodes.footer(),
+        toggle : store.nodes.toggled(),
+        option : store.nodes.option(),
+        select : store.nodes.select(),
+        submit : store.nodes.submit()
+    };
+
     // Add new listeners for page
-    get_height();
-    toggle();
-    option();
-    select();
-    submit();
+    get_height(nodes.view, nodes.footer);
+    toggle(nodes.toggle);
+    option(nodes.option);
+    select(nodes.select);
+    submit(nodes.submit);
+
     tip();
     link();
     nav();
-    // wait();
-    // typewriter();
-    // slider();
+    wait();
+    typewriter();
+    slider();
 
 };

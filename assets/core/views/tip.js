@@ -5,8 +5,8 @@ const listener = require('../controllers/listeners');
 
 module.exports = function() {
 	
-	let nodes = store.DOM();
-	nodes.tip.forEach(function(el) {
+	let tip = store.nodes.tip();
+	tip.forEach(function(el) {
 
 		listener.add(el, 'keyup', function (event) {
 

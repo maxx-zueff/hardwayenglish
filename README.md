@@ -1,16 +1,22 @@
-# Type English
+# HardwayEnglish
 
 Type. Wait. Repeat.
 
 ## Description
 
-**Type English** is the collections of english grammar rules. The basic idea is typing and again typing sentences by english grammar rules. At the beginning of learning allowed only one collection with rules (Present Simple for example). To unlock more collections you should make an effort and be patient. You should work hard in order to learn what English is!
+The project is a collection of English grammar rules. At the beginning of learning only one collection with rules is allowed (Present Simple, for example). In order to unlock more collections, you should make an effort, be patient and go through some hardcore grammar exercises.
 
-Every rule has few examples with construction of following rule. You should type this examples to pass next rule. The application counts an amount of mistakes while you are typing. If you have many mistakes the application doesn’t allow you to next rule.
+At least 3 students are required to start learning the collection. The maximum number of students is five. After the recruitment process of three students, the timer starts, and within 5 minutes more participants are expected to join the learning process.
 
-When you complete each rule in topic you should pass the test by these rules. After completing test you'll be able to get new topic, if you don't make any mistakes. If you do, you should wait **8 HOURS** and then you'll get next **STAGE 2**. It’s same rules in same topic, but you must make very small amount of mistakes to pass. When you complete it, you need wait **8 HOURS** again for the next **STAGE 3**. That is last stage. There you must not make any mistakes! Well then, if you can complete it, new topic with new rules will be unlocked.
+The basic idea is re-typing sentences in accordance with English grammar rules. It will take a hell of a time but will pay off later with the learning process. Every rule has few examples of the construction of the following rule. You should type this example to pass to the next rule. The more accurately the examples will be repeated, higher will be your score.
 
-And after ten days of passing topic, you need to pass the exam. At this point every opened topics gets locked and you must type examples from you old topic you pass ten day ago without mistakes! After complete it, opened topics by you come back.
+When you complete each rule in the collection you should pass the test based on what you have learnt. After completing test you'll be able to get a new collection (but you should go through the test without a single mistake, it is gonna be pretty hardcore). If you, unfortunately, make any mistake, you will be taken back to the beginning of the test (Oops!).
+
+And after five days of passing a collection, you will need to pass the exam. At this point, every opened collection gets locked and you must type examples from you old collections you have passed five days ago! Upon the completion, it opens the locked collections.
+
+## Contributors
+
+I offer you to join the development of non-commercial web-application. The project is currently at the development stage. All you need is JavaScript skills and some motivation.
 
 ## DataBase Structure
 
@@ -22,5 +28,4 @@ See [routes section](./ROUTES.md) to learn more about how they work.
 
 ## Conclusion
 
-Every sweet Victory requires hard patience and experience. I can't see any easy way of learning english. You should repeat rules and work pretty hard out. If you don't like my idea, you can leave my website alone.
-
+I can't see any easy way of learning English (and any language to be honest). You should repeat rules without forgetting what you have learnt previously, and that can be achieved only through annoying hard work and patience. I want to help you and others, who has hard times learning English.

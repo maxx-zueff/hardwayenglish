@@ -4,102 +4,119 @@ const listener = require('../controllers/listeners');
 
 module.exports = function() {
 
-	let nodes = store.DOM();
-	let trigger = nodes.trigger;
+	let trigger = store.nodes.trigger();
+	if (!trigger) return false;
 
-	trigger.forEach(function(el) {
+	let nav = trigger.nextSibling;
+	let section = nav.childNodes[0];
 
-		let section = el.parentNode;
-		let nav = el.parentNode.parentNode;
+	let section_width = section.offsetWidth;
+	let trigger_width = trigger.offsetWidth;
+	let trigger_title = trigger.querySelector('.navigation-title');
+	let rightEdge = nav.offsetWidth - trigger.offsetWidth;
 
-		let slider_coords;
-		let thumb_coords;
-		let shiftX;
-		let active;
-		let new_left;
+	trigger.style.left = section_width/2 - trigger_width/2 + "px";
 
-		let start = function (event) {
+	let config = {
+		coords_nav : '',
+		coords_thumb : '',
+		shift: '',
+		position: '',
+		active: false
+	};
 
-			active = true; 
-			thumb_coords = get_coords(el);
+	let set_left = function (pageX) {
+		new_left = pageX - shiftX - config.coords_nav.left;
+		if (new_left < 0) new_left = 0;
+		if (new_left > rightEdge) new_left = rightEdge;
 
-			section.removeChild(el);
-			nav.appendChild(el);
-			el.classList.toggle('centered');
-			shiftX = event.pageX - thumb_coords.left;
-			slider_coords = get_coords(nav);
+		trigger.style.left = new_left + 'px';
+	};
 
-			new_left = event.pageX - shiftX - slider_coords.left;
-			el.style.left = new_left + 'px';
+	function get_coords(elem) {
+		let box = elem.getBoundingClientRect();
+		return { left: box.left + window.pageXOffset };
+	}
 
-		};
+	let start = function (event) {
 
-		let move = function (event) {
+		trigger.classList.remove('center');
+		config.active = true; 
+		thumb_coords = get_coords(trigger);
+		config.coords_nav = get_coords(nav);
+		shiftX = event.pageX - thumb_coords.left;
 
-			if (active) {
+		set_left(event.pageX);
+	};
 
-				new_left = event.pageX - shiftX - slider_coords.left;
-				let rightEdge = nav.offsetWidth - el.offsetWidth;
+	let move = function (event) {
 
-				if (new_left < 0) new_left = 0;
-				if (new_left > rightEdge) new_left = rightEdge;
-				
-				el.style.left = new_left + 'px';
-			} else return false;
+		if (!config.active) return false;
+		set_left(event.pageX);
 
-		};
+		let jump = Math.ceil((new_left+trigger_width/2)/section_width)-1;
+		section = nav.childNodes[jump];
+		
+		let title = section.getAttribute('title');
+		let allowed = section.getAttribute('allowed');
 
-		let end = function (event) {
-
-			nav.removeChild(el);
-
-			let jump = Math.ceil(new_left/section.offsetWidth)-1;
-			for (var i = 0; i < nav.childNodes.length; i++) {
-				section = nav.childNodes[jump];
-			}
-			section.appendChild(el);
-
-			el.style.left = '';
-			active = false;
-			el.classList.toggle('centered');
-
-		};
-
-		function get_coords(elem) {
-			let box = elem.getBoundingClientRect();
-			return { left: box.left + window.pageXOffset };
-
+		if (allowed) {
+			trigger.classList.remove('locked');
+			trigger.classList.add('allowed');
 		}
 
-		listener.add(el, 'touchstart', function(event) {
+		else {
+			trigger.classList.remove('allowed');
+			trigger.classList.add('locked');
+		}
 
-		});
+		trigger_title.innerHTML = title;
+				
+	};
 
-		listener.add(el, 'touchmove', function(event) {
+	let end = function (event) {
 
-		});
+		let jump = Math.ceil((new_left+trigger_width/2)/section_width)-1;
+		let left = jump * section_width + section_width/2 - trigger_width/2;
+		trigger.classList.add('center');
+		trigger.style.left = left + 'px';
+		config.active = false;
 
-		listener.add(el, 'touchend', function(event) {
+	};
 
-		});
 
-		listener.add(el, 'mousedown', function(event) {
-			start(event);
-		});
 
-		listener.add(document, 'mousemove', function(event) {
-			move(event);
-		});
+	// ------------------------------------------------
+	// LISTENERS LIST
 
-		listener.add(document, "mouseup", function(event) {
-			end(event);
-		});
-
-		listener.add(el, "dragstart", function(event) {
-			return false;
-		});
+	listener.add(trigger, 'touchstart', function(event) {
 
 	});
+
+	listener.add(trigger, 'touchmove', function(event) {
+
+	});
+
+	listener.add(trigger, 'touchend', function(event) {
+
+	});
+
+	listener.add(trigger, 'mousedown', function(event) {
+		start(event);
+	});
+
+	listener.add(document, 'mousemove', function(event) {
+		move(event);
+	});
+
+	listener.add(document, "mouseup", function(event) {
+		end(event);
+	});
+
+	listener.add(trigger, "dragstart", function(event) {
+		return false;
+	});
+
 
 
 };

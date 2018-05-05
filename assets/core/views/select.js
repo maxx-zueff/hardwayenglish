@@ -1,10 +1,8 @@
-const store = require('../models/store');
 const listener = require('../controllers/listeners');
 
-module.exports = function() {
+module.exports = function(select) {
 
-	let nodes = store.DOM();
-	nodes.select.forEach(function(el) {
+	select.forEach(function(el) {
 
 		let node = el.querySelector('input');
 

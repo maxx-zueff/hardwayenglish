@@ -2,7 +2,11 @@ const request  = require('../models/request');
 const section  = require('../views/section');
 const listener = require('../controllers/listeners');
 
-module.exports = function(url) {
+module.exports = function(url, callback) {
+
+	if (typeof callback != 'function') {
+		callback = url; url = null;
+	}
 
 	// Prevent automatic browser scroll on refresh
 	window.onbeforeunload = function() { 
@@ -18,7 +22,7 @@ module.exports = function(url) {
 
 		listener.remove_all(); // remove old listeners
 		section.up(block, function() { // update HTML
-			listener.init(); // add new listeners
+			callback();
 		});
 
 	});

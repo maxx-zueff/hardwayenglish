@@ -3,11 +3,11 @@ const listener = require('../controllers/listeners');
 
 module.exports = function() {
     
-    let data = [ "TYPE", "WAIT", "REPEAT"];
-
-    let nodes = store.DOM();
-    let slogan = nodes.slogan.querySelector('.text');
+    let slogan = store.nodes.slogan();
     if (!slogan) return false;
+
+    slogan = slogan.querySelector('.text');
+    let data = [ "TYPE", "WAIT", "REPEAT"];
 
     let type = function (text, cb) {
         for (let i = 0; i < text.length; i++) {

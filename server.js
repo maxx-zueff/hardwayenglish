@@ -4,7 +4,7 @@ const http         = require('http');
 const express      = require('express');
 const logger       = require('morgan');
 const bodyparser   = require('body-parser');
-const jwt          = require('jsonwebtoken'); 
+const jwt          = require('jsonwebtoken');
 const cookieparser = require('cookie-parser');
 const compression  = require('compression');
 
@@ -58,13 +58,13 @@ function not_found (req, res, next) {
 
 function error_handler (err, req, res, next) {
   res.status(err.status || 500);
-  
+
   if (res.status == 404) {
     res.render('error', {
       message: err.message
     });
   }
-  
+
   else {
     res.json(err);
   }
@@ -85,10 +85,16 @@ app.use(check_token);
 
 app.use(users);
 app.use(admin);
+
+// ------------------------------------------------------------------
+// Middleware for generate templates
+
 app.use(layout);
 app.use('/blocks', blocks);
 
+// ------------------------------------------------------------------
 // Error handler for paths
+
 app.use(not_found);
 app.use(error_handler);
 
@@ -96,6 +102,6 @@ app.use(error_handler);
 // Server listener
 
 server.listen(port, function() {
-  console.log( 'http://localhost:' + port 
+  console.log( 'http://localhost:' + port
     + ' : server has been launched' );
 });

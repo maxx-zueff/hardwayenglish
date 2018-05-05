@@ -8,8 +8,8 @@ const auth = {
 	init: function(element) {
 
 		let error = false;
-		let nodes = store.DOM();
-		let menu  = nodes.menu;
+		let menu  = store.nodes.menu();
+
 		let type  = menu.getAttribute('type');
 		let form  = menu.querySelector('.menu-form[type='+type+']');
 

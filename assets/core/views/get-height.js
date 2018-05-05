@@ -1,10 +1,6 @@
-const store = require('../models/store');
+module.exports = function (view, footer) {
 
-module.exports = function () {
-
-	let nodes = store.DOM();
-	let view = nodes.view;
-	let footer = nodes.footer;
+	if (!view || !footer) return false;
 
 	let window_height = window.innerHeight;
 	let footer_height = footer.offsetHeight;

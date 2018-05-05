@@ -5,8 +5,10 @@ module.exports = function () {
 	
 const location = require('../controllers/location');
 
-	let nodes = store.DOM();
-	nodes.link.forEach(function(el) {
+	let link = store.nodes.link();
+	link.forEach(function(el) {
+
+		console.log(el);
 
 		let ref = el.getAttribute('href');
 		listener.add(el, 'click', function(event) {

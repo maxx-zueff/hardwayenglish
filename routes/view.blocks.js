@@ -15,8 +15,6 @@ let get_group = function (req, res, next) {
 	if (!req.user) next();
 
 	Group.findById(req.user.group, function(err, group) {
-		console.log('search ready!');
-
 		if (group.name == 'member') req.group = 'member';
 		if (group.name == 'admin') req.group = 'admin';
 

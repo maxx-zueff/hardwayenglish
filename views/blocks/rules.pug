@@ -3,10 +3,14 @@
         .rule-title.card-mobile Rules
 
         .rule-navigation
-            .navigation-line
-                .navigation-item
-                    .navigation-selected.js-trigger.centered
-                .navigation-item
-                .navigation-item
-                .navigation-item
-                .navigation-item
+            .navigation-inner
+                .navigation-selected.js-trigger.center
+                    .navigation-title First
+                    .navigation-triangle
+                        include ../svg/triangle.svg
+                .navigation-line
+                    .navigation-item.allowed(title="First" allowed=true)
+                    .navigation-item.allowed(title="Second" allowed=true)
+                    .navigation-item.allowed(title="Third" allowed=true)
+                    .navigation-item.locked(title="Fourth" allowed=false)
+                    .navigation-item.locked(title="Fifth" allowed=false)

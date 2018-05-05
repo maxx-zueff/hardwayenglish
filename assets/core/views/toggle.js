@@ -1,10 +1,9 @@
-const store = require('../models/store');
 const listener = require('../controllers/listeners');
 
-module.exports = function() {
+module.exports = function(toggles) {
 
-	let nodes = store.DOM();
-	nodes.toggled.forEach(function(el) {
+	if (!toggles) return false;
+	toggles.forEach(function(el) {
 
 		let set = el.getAttribute('set');
 		let target = el.getAttribute('target');

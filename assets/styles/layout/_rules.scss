@@ -4,10 +4,16 @@
 }
 
 .rule-navigation {
+    padding-top: 80px;
     position: relative;
+
+    .navigation-inner {
+        position: relative;
+    }
 
     .navigation-line {
         @extend .content-nosize, .row;
+        position: relative;
         height: 5px;
         border-radius: 3px;
         background: $grey;
@@ -28,10 +34,16 @@
             border-radius: 3px;
             background: $grey;
         }
+
+        &:before {
+            content: '';
+            
+        }
     }
 
     .navigation-selected {
         @extend .content-center-v;
+        z-index: 1;
         cursor: pointer;
         display: block;
         box-sizing: border-box;
@@ -42,9 +54,42 @@
         border: solid 4px $grey;
     }
 
-    .navigation-selected.centered {
-        transition: all .5s ease;
-        @extend .content-center;
+    .navigation-selected.locked { background: $red; }
+    .navigation-selected.allowed { background: $green; }
+    .navigation-selected.center { transition: all 0.2s ease; }
+
+    .navigation-triangle {
+        @extend .content-center-h;
+        user-select: none;
+        top: -30px;
+        width: 15px;
+        height: 14px;
+    }
+
+    .navigation-title {
+        @extend .sub-title;
+        @extend .content-center-h;
+        user-select: none;
+        top: -60px;
+        opacity: 0;
+    }
+
+    .js-trigger > .navigation-title {
+        opacity: 1;
+    }
+
+
+    .allowed {
+        .navigation-title { color: $green; }
+    }
+
+    .locked {
+        .navigation-title { color: $red; }
+        
+    }
+
+    .navigation-selected + .navigation-title { 
+        opacity: 1;
     }
 
 

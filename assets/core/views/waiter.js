@@ -2,8 +2,10 @@ const store    = require('../models/store');
 
 module.exports = function () {
 	
-	let nodes = store.DOM();
-	nodes.wait.forEach(function(el) {
+	let wait = store.nodes.wait();
+	if (!wait) return false;
+
+	wait.forEach(function(el) {
 
 		let start = el.getAttribute("start");
 		let end = el.getAttribute("end");

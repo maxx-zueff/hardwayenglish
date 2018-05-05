@@ -1,4 +1,3 @@
-const store = require('../models/store');
 const listener = require('../controllers/listeners');
 
 const options = {
@@ -6,10 +5,9 @@ const options = {
 	"logout" : require('../models/auth').out
 };
 
-module.exports = function() {
+module.exports = function(submit) {
 
-	let nodes = store.DOM();
-	nodes.submit.forEach(function(el) {
+	submit.forEach(function(el) {
 
 		let type = el.getAttribute("type");
 		let submit = options[type];

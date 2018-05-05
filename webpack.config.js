@@ -32,6 +32,8 @@ module.exports = function (env) {
         plugins: [
             new webpack.NoErrorsPlugin()
         ],
+
+        devtool: 'source-map'
     };
 
     if (env.production) {

@@ -1,10 +1,9 @@
-const store = require('../models/store');
 const listener = require('../controllers/listeners');
 
-module.exports = function() {
+module.exports = function(option) {
 
-	let nodes = store.DOM();
-	nodes.option.forEach(function(el) {
+	if (!option) return false;
+	option.forEach(function(el) {
 
 		let set = el.getAttribute('type');
 		let target = el.getAttribute('target');

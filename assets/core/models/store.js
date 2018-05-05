@@ -1,22 +1,30 @@
-module.exports.DOM = function () {
+let getAll = (el) => {
+	return document.querySelectorAll(el);
+};
 
-	return {
-		link: document.querySelectorAll('.js-link'),
-		toggled: document.querySelectorAll('.js-toggle'),
-		option: document.querySelectorAll('.js-option'),
-		select: document.querySelectorAll('.js-select'),
-		submit: document.querySelectorAll('.js-submit'),
-		tip: document.querySelectorAll('.js-tip'),
-		wait: document.querySelectorAll('.js-wait'),
-		trigger: document.querySelectorAll('.js-trigger'),
+let getSingle = (el) => {
+	return document.querySelector(el);
+};
 
-		menu: document.querySelector('.menu'),
-		slogan: document.querySelector('.intro-slogan'),
-		slider: document.querySelectorAll('.slider-item'),
-		nav: document.querySelectorAll('.slider-navigation__item'),
-		view: document.querySelector('#view'),
-		footer: document.querySelector('footer')
-	};
+module.exports.nodes = {
+
+	// JS nodes
+	link: () => getAll('.js-link'),
+	toggled: () => getAll('.js-toggle'),
+	option: () => getAll('.js-option'),
+	select: () => getAll('.js-select'),
+	submit: () => getAll('.js-submit'),
+	tip: () => getAll('.js-tip'),
+	wait: () => getAll('.js-wait'),
+	trigger: () => getSingle('.js-trigger'),
+
+	// DOM nodes
+	menu: () => getSingle('.menu'),
+	slogan: () => getSingle('.intro-slogan'),
+	slider: () => getAll('.slider-item'),
+	nav: () => getAll('.slider-navigation__item'),
+	view: () => getSingle('#view'),
+	footer: () => getSingle('footer')
 };
 
 module.exports.handlers = [];

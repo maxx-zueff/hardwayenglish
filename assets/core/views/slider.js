@@ -3,9 +3,10 @@ const listener = require('../controllers/listeners');
 
 module.exports = function() {
 
-	let nodes  = store.DOM();
-	let slider = nodes.slider;
-	let nav    = nodes.nav;
+	let slider = store.nodes.slider();
+	let nav    = store.nodes.nav();
+
+	if (!slider || !nav) return false;
 
 	let inactive = true;
 	let touchstartx;
@@ -27,14 +28,12 @@ module.exports = function() {
 			let position = list[i].position;
 			let index = list[i].index;
 
-			
-
 			if (position == 0) {
 
 				for (let f = 0; f < list_nav.length; f++) {
 					list_nav[f].el.classList.remove('active');
 				}
-
+				
 				list_nav[index].el.classList.add('active');
 			}
 
