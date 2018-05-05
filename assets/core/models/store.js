@@ -45,26 +45,3 @@ module.exports.nodes = {
 };
 
 let handlers = [];
-
-module.exports.views = {
-
-	guest: {
-		status : false,
-		list : [{
-			name: 'get-height',
-			path: '../views/get-height',
-			nodes: ['view', 'footer']
-		}]
-	},
-
-	member : {
-		status : false,
-
-	},
-
-	admin : {
-		status : false,
-
-	}
-
-};

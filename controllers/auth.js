@@ -59,6 +59,8 @@ module.exports.signup = function (req, res, next) {
             message: err.err
         });
 
+        console.log(result);
+
         let timestamp = Math.floor(Date.now()/1000);
         let user = new User({
             name: req.body.username,

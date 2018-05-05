@@ -27,29 +27,11 @@ module.exports.add = function(node, event, handler) {
 };
 
 module.exports.remove_all = function() {
-
 	// Remove all listeners
     store.removeAllHandlers();
-    // callback();
 };
 
 module.exports.init = function() {
-
-    // for (let i in store.views) {
-    //     if (store.views[i].status == true) {
-    //         console.log('found!');
-    //         let list = store.views[i].list;
-    //         list.forEach(function(view) {
-
-    //             let param = new Object();
-    //             list.nodes.forEach(function(node) {
-    //                 param[node] = store.nodes[node]();
-    //             });
-
-    //             require(view.path)(param);
-    //         });
-    //     }
-    // }
 
     // Nodes for listeners
     let nodes = {
