@@ -13,9 +13,7 @@ module.exports = function (env) {
         context: __dirname,
 
         entry: {
-            'guest':  './assets/core/guest',
-            'member': './assets/core/member',
-            'admin': './assets/core/admin'
+            'main':  './assets/core/main'
         },
 
         output: {

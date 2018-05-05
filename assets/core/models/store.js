@@ -6,6 +6,23 @@ let getSingle = (el) => {
 	return document.querySelector(el);
 };
 
+module.exports.addHandlers = function(save) {
+	handlers.push(save);
+};
+
+module.exports.removeAllHandlers = function() {
+	for (var i = handlers.length; i--;) {
+        var doc = handlers[i];
+        doc.node.removeEventListener(doc.event, doc.handler);
+    }
+
+    handlers.length = 0;
+};
+
+module.exports.showHandlers = function() {
+	console.log(handlers);
+};
+
 module.exports.nodes = {
 
 	// JS nodes
@@ -27,4 +44,27 @@ module.exports.nodes = {
 	footer: () => getSingle('footer')
 };
 
-module.exports.handlers = [];
+let handlers = [];
+
+module.exports.views = {
+
+	guest: {
+		status : false,
+		list : [{
+			name: 'get-height',
+			path: '../views/get-height',
+			nodes: ['view', 'footer']
+		}]
+	},
+
+	member : {
+		status : false,
+
+	},
+
+	admin : {
+		status : false,
+
+	}
+
+};

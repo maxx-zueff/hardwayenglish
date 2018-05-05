@@ -15,31 +15,41 @@ const nav        = require('../views/line-nav');
 
 module.exports.add = function(node, event, handler) {
 
-    let handlers = store.handlers;
     let save = {
         node: node,
         event: event,
         handler: handler
     };
 
-    handlers.push(save);
+    store.addHandlers(save);
     node.addEventListener(event, handler);
 
 };
 
 module.exports.remove_all = function() {
 
-	// Get nodes from handlers store
 	// Remove all listeners
-
-    let handlers = store.handlers;
-    for (var i = handlers.length; i--;) {
-        var doc = handlers[i];
-        doc.node.removeEventListener(doc.event, doc.handler);
-    }
+    store.removeAllHandlers();
+    // callback();
 };
 
 module.exports.init = function() {
+
+    // for (let i in store.views) {
+    //     if (store.views[i].status == true) {
+    //         console.log('found!');
+    //         let list = store.views[i].list;
+    //         list.forEach(function(view) {
+
+    //             let param = new Object();
+    //             list.nodes.forEach(function(node) {
+    //                 param[node] = store.nodes[node]();
+    //             });
+
+    //             require(view.path)(param);
+    //         });
+    //     }
+    // }
 
     // Nodes for listeners
     let nodes = {

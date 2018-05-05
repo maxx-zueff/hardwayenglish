@@ -28,6 +28,7 @@ let get_group = function (req, res, next) {
 
 router.get('/', get_group, function(req, res, next) {
 
+	console.log(req.group);
 	console.log(req.user);
 
 	if (!req.user) return res.render('guest');
@@ -35,12 +36,15 @@ router.get('/', get_group, function(req, res, next) {
 
 });
 
-
 // ------------------------------------------------------------------
 // Collections
 
 router.get('/collections', get_group, function(req, res, next) {
 
+	console.log(req.user);
+	console.log(req.group);
+
+	// if (!req.user) return res.render("guest");
 	if (!req.user) return res.redirect('/');
 	if (req.group == 'member') return res.render('member', {user: req.user});
 	if (req.group == 'admin') return res.render('admin', {user: req.user});

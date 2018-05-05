@@ -4,7 +4,7 @@ const listener = require('../controllers/listeners');
 
 module.exports = function(url, callback) {
 
-	if (typeof callback != 'function') {
+	if (typeof url == 'function') {
 		callback = url; url = null;
 	}
 
@@ -19,12 +19,10 @@ module.exports = function(url, callback) {
 	
 	// Send request (block)
 	request.block(path, function(block) {
-
-		listener.remove_all(); // remove old listeners
+		listener.remove_all() // remove old listeners
 		section.up(block, function() { // update HTML
-			callback();
+			listener.init(); // add new listeners
 		});
-
 	});
 };
 

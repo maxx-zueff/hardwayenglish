@@ -1,3 +1,5 @@
+let request = require('../models/request');
+
 let cookie = {
 
 	set: function(name, value, expires) {
@@ -14,9 +16,8 @@ let cookie = {
 	},
 
 	remove: function(name) {
-		cookie.set(name, "", {
-			expires: -1
-		});
+
+		document.cookie = name+'=; Max-Age=-99999999;'; 
 	}
 
 };
