@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var db_uri = 'mongodb://localhost/type_eng2';
+var db_uri = 'mongodb://localhost/type_eng';
 
 // CONNECT TO DATABASE
 mongoose.connect(db_uri);
